@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		DA23BF822DBAFA480041F29B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA23BF6C2DBAFA470041F29B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA23BF732DBAFA470041F29B;
+			remoteInfo = MetacognitiveJournal;
+		};
+		DA23BF8C2DBAFA480041F29B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA23BF6C2DBAFA470041F29B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA23BF732DBAFA470041F29B;
+			remoteInfo = MetacognitiveJournal;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DA23BF742DBAFA470041F29B /* MetacognitiveJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetacognitiveJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA23BF812DBAFA480041F29B /* MetacognitiveJournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetacognitiveJournalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA23BF8B2DBAFA480041F29B /* MetacognitiveJournalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetacognitiveJournalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DA23BF762DBAFA470041F29B /* MetacognitiveJournal */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MetacognitiveJournal;
+			sourceTree = "<group>";
+		};
+		DA23BF842DBAFA480041F29B /* MetacognitiveJournalTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MetacognitiveJournalTests;
+			sourceTree = "<group>";
+		};
+		DA23BF8E2DBAFA480041F29B /* MetacognitiveJournalUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MetacognitiveJournalUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA23BF712DBAFA470041F29B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA23BF7E2DBAFA480041F29B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA23BF882DBAFA480041F29B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA23BF6B2DBAFA470041F29B = {
+			isa = PBXGroup;
+			children = (
+				DA23BF762DBAFA470041F29B /* MetacognitiveJournal */,
+				DA23BF842DBAFA480041F29B /* MetacognitiveJournalTests */,
+				DA23BF8E2DBAFA480041F29B /* MetacognitiveJournalUITests */,
+				DA23BF752DBAFA470041F29B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DA23BF752DBAFA470041F29B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA23BF742DBAFA470041F29B /* MetacognitiveJournal.app */,
+				DA23BF812DBAFA480041F29B /* MetacognitiveJournalTests.xctest */,
+				DA23BF8B2DBAFA480041F29B /* MetacognitiveJournalUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA23BF732DBAFA470041F29B /* MetacognitiveJournal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA23BF952DBAFA480041F29B /* Build configuration list for PBXNativeTarget "MetacognitiveJournal" */;
+			buildPhases = (
+				DA23BF702DBAFA470041F29B /* Sources */,
+				DA23BF712DBAFA470041F29B /* Frameworks */,
+				DA23BF722DBAFA470041F29B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DA23BF762DBAFA470041F29B /* MetacognitiveJournal */,
+			);
+			name = MetacognitiveJournal;
+			packageProductDependencies = (
+			);
+			productName = MetacognitiveJournal;
+			productReference = DA23BF742DBAFA470041F29B /* MetacognitiveJournal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA23BF802DBAFA480041F29B /* MetacognitiveJournalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA23BF982DBAFA480041F29B /* Build configuration list for PBXNativeTarget "MetacognitiveJournalTests" */;
+			buildPhases = (
+				DA23BF7D2DBAFA480041F29B /* Sources */,
+				DA23BF7E2DBAFA480041F29B /* Frameworks */,
+				DA23BF7F2DBAFA480041F29B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA23BF832DBAFA480041F29B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DA23BF842DBAFA480041F29B /* MetacognitiveJournalTests */,
+			);
+			name = MetacognitiveJournalTests;
+			packageProductDependencies = (
+			);
+			productName = MetacognitiveJournalTests;
+			productReference = DA23BF812DBAFA480041F29B /* MetacognitiveJournalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DA23BF8A2DBAFA480041F29B /* MetacognitiveJournalUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA23BF9B2DBAFA480041F29B /* Build configuration list for PBXNativeTarget "MetacognitiveJournalUITests" */;
+			buildPhases = (
+				DA23BF872DBAFA480041F29B /* Sources */,
+				DA23BF882DBAFA480041F29B /* Frameworks */,
+				DA23BF892DBAFA480041F29B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA23BF8D2DBAFA480041F29B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DA23BF8E2DBAFA480041F29B /* MetacognitiveJournalUITests */,
+			);
+			name = MetacognitiveJournalUITests;
+			packageProductDependencies = (
+			);
+			productName = MetacognitiveJournalUITests;
+			productReference = DA23BF8B2DBAFA480041F29B /* MetacognitiveJournalUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA23BF6C2DBAFA470041F29B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					DA23BF732DBAFA470041F29B = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					DA23BF802DBAFA480041F29B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = DA23BF732DBAFA470041F29B;
+					};
+					DA23BF8A2DBAFA480041F29B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = DA23BF732DBAFA470041F29B;
+					};
+				};
+			};
+			buildConfigurationList = DA23BF6F2DBAFA470041F29B /* Build configuration list for PBXProject "MetacognitiveJournal" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA23BF6B2DBAFA470041F29B;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DA23BF752DBAFA470041F29B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA23BF732DBAFA470041F29B /* MetacognitiveJournal */,
+				DA23BF802DBAFA480041F29B /* MetacognitiveJournalTests */,
+				DA23BF8A2DBAFA480041F29B /* MetacognitiveJournalUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA23BF722DBAFA470041F29B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA23BF7F2DBAFA480041F29B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA23BF892DBAFA480041F29B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA23BF702DBAFA470041F29B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA23BF7D2DBAFA480041F29B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA23BF872DBAFA480041F29B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA23BF832DBAFA480041F29B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA23BF732DBAFA470041F29B /* MetacognitiveJournal */;
+			targetProxy = DA23BF822DBAFA480041F29B /* PBXContainerItemProxy */;
+		};
+		DA23BF8D2DBAFA480041F29B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA23BF732DBAFA470041F29B /* MetacognitiveJournal */;
+			targetProxy = DA23BF8C2DBAFA480041F29B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DA23BF932DBAFA480041F29B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7R37PFMCEQ;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DA23BF942DBAFA480041F29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7R37PFMCEQ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA23BF962DBAFA480041F29B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R37PFMCEQ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DA23BF972DBAFA480041F29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R37PFMCEQ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DA23BF992DBAFA480041F29B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R37PFMCEQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetacognitiveJournal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MetacognitiveJournal";
+			};
+			name = Debug;
+		};
+		DA23BF9A2DBAFA480041F29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R37PFMCEQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetacognitiveJournal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MetacognitiveJournal";
+			};
+			name = Release;
+		};
+		DA23BF9C2DBAFA480041F29B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R37PFMCEQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournalUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MetacognitiveJournal;
+			};
+			name = Debug;
+		};
+		DA23BF9D2DBAFA480041F29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R37PFMCEQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournalUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MetacognitiveJournal;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA23BF6F2DBAFA470041F29B /* Build configuration list for PBXProject "MetacognitiveJournal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA23BF932DBAFA480041F29B /* Debug */,
+				DA23BF942DBAFA480041F29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA23BF952DBAFA480041F29B /* Build configuration list for PBXNativeTarget "MetacognitiveJournal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA23BF962DBAFA480041F29B /* Debug */,
+				DA23BF972DBAFA480041F29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA23BF982DBAFA480041F29B /* Build configuration list for PBXNativeTarget "MetacognitiveJournalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA23BF992DBAFA480041F29B /* Debug */,
+				DA23BF9A2DBAFA480041F29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA23BF9B2DBAFA480041F29B /* Build configuration list for PBXNativeTarget "MetacognitiveJournalUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA23BF9C2DBAFA480041F29B /* Debug */,
+				DA23BF9D2DBAFA480041F29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA23BF6C2DBAFA470041F29B /* Project object */;
+}
