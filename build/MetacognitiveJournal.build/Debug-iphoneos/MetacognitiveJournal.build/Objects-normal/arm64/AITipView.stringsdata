@@ -1,0 +1,96 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AITipView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "AI Insight",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 35
+        }
+      },
+      {
+        "comment": "",
+        "key": "Learning style: %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Hide Details",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 98
+        }
+      },
+      {
+        "comment": "",
+        "key": "Show Details",
+        "location": {
+          "startingColumn": 57,
+          "startingLine": 98
+        }
+      },
+      {
+        "comment": "",
+        "key": "New Tip",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 108
+        }
+      },
+      {
+        "comment": "",
+        "key": "Insight History",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 216
+        }
+      },
+      {
+        "comment": "",
+        "key": "Close",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 220
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear All",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "No Insights Yet",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 241
+        }
+      },
+      {
+        "comment": "",
+        "key": "As you journal, AI insights will appear here to help you reflect and grow.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 246
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generate First Insight",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 256
+        }
+      }
+    ]
+  },
+  "version": 1
+}

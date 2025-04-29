@@ -1,0 +1,320 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsView_New.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Analytics",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "View",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "Analytics",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rewards",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 92
+        }
+      },
+      {
+        "comment": "",
+        "key": "Time Frame",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 428
+        }
+      },
+      {
+        "comment": "",
+        "key": "Streak",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 158
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld days",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 161
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entries",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 171
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 174
+        }
+      },
+      {
+        "comment": "",
+        "key": "Error loading topics.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 751
+        }
+      },
+      {
+        "comment": "",
+        "key": "Loading Topics...",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 745
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pattern Insights Placeholder",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 759
+        }
+      },
+      {
+        "comment": "",
+        "key": "Growth Insights Placeholder",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 767
+        }
+      },
+      {
+        "comment": "",
+        "key": "Personal Recommendations Placeholder",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 775
+        }
+      },
+      {
+        "comment": "",
+        "key": "Child's Entries",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 292
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 295
+        }
+      },
+      {
+        "comment": "",
+        "key": "Emotional Tone",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 306
+        }
+      },
+      {
+        "comment": "",
+        "key": "Discussion Starters",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 328
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Story Journey",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 490
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Map",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 501
+        }
+      },
+      {
+        "comment": "",
+        "key": "See your journal entries as chapters in your personal story",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 505
+        }
+      },
+      {
+        "comment": "",
+        "key": "No journal entries available for the selected time period.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 546
+        }
+      },
+      {
+        "comment": "",
+        "key": "Analyzing mood patterns...",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 542
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood Insights",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 532
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood Trend",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 554
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood Distribution",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 565
+        }
+      },
+      {
+        "comment": "",
+        "key": "Key Insights",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 576
+        }
+      },
+      {
+        "comment": "",
+        "key": "Date",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 605
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 606
+        }
+      },
+      {
+        "comment": "",
+        "key": "Date",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 611
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 612
+        }
+      },
+      {
+        "comment": "",
+        "key": "Date",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 617
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 618
+        }
+      },
+      {
+        "comment": "",
+        "key": "Negative",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 631
+        }
+      },
+      {
+        "comment": "",
+        "key": "Neutral",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 632
+        }
+      },
+      {
+        "comment": "",
+        "key": "Positive",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 633
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 634
+        }
+      },
+      {
+        "comment": "",
+        "key": "Emotion",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 647
+        }
+      },
+      {
+        "comment": "",
+        "key": "Count",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 648
+        }
+      }
+    ]
+  },
+  "version": 1
+}

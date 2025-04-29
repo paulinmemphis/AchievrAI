@@ -18,19 +18,41 @@ struct JournalEntry: Identifiable, Codable, Hashable {
     var emotionalState: EmotionalState
     /// The user's reflection on the assignment, including answers to prompts.
     var reflectionPrompts: [PromptResponse]
-    /// Optional AI-generated summary or insights for the entry.
+    /// AI-generated summary or insights for the entry.
     var aiSummary: String?
+    /// Historical insights that have been generated for this entry over time.
+    var historicalInsights: [HistoricalInsight]?
     /// Optional tone used by AI (if any) for the entry.
     var aiTone: String?
     /// Optional URL pointing to an associated audio recording for voice entries.
     var audioURL: URL?
     /// Optional text generated from speech-to-text transcription of the audio recording.
     var transcription: String?
+    /// Optional metadata extracted for narrative engine features.
+    var metadata: EntryMetadata?
+    /// Indicates if this entry has a review request from the child to parent.
+    var reviewRequested: Bool = false
+    /// Optional message from the child about what they want feedback on.
+    var reviewMessage: String?
+    /// Indicates if the parent has reviewed this entry.
+    var hasBeenReviewed: Bool = false
+    /// Optional feedback from the parent after reviewing.
+    var parentFeedback: String?
 
     // MARK: - CodingKeys
     private enum CodingKeys: String, CodingKey {
         case id, assignmentName, date, subject, emotionalState, reflectionPrompts,
-             aiSummary, aiTone, audioURL, transcription
+             aiSummary, historicalInsights, aiTone, audioURL, transcription, metadata,
+             reviewRequested, reviewMessage, hasBeenReviewed, parentFeedback
+    }
+    
+    // MARK: - Computed Properties
+    
+    /// Returns the combined text content of the journal entry for analysis purposes
+    var content: String {
+        let promptTexts = reflectionPrompts.compactMap { $0.response }.joined(separator: " ")
+        let transcriptionText = transcription ?? ""
+        return [assignmentName, promptTexts, transcriptionText].joined(separator: " ").trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     // MARK: - Initializers
@@ -46,7 +68,8 @@ struct JournalEntry: Identifiable, Codable, Hashable {
         aiSummary: String? = nil,
         aiTone: String? = nil,
         transcription: String? = nil,
-        audioURL: URL? = nil
+        audioURL: URL? = nil,
+        metadata: EntryMetadata? = nil
     ) {
         self.id = id
         self.assignmentName = assignmentName
@@ -58,6 +81,7 @@ struct JournalEntry: Identifiable, Codable, Hashable {
         self.aiTone = aiTone
         self.transcription = transcription
         self.audioURL = audioURL
+        self.metadata = metadata
     }
 
     /// Decoder Initializer (for Codable conformance)
@@ -73,6 +97,7 @@ struct JournalEntry: Identifiable, Codable, Hashable {
         aiTone = try container.decodeIfPresent(String.self, forKey: .aiTone)
         audioURL = try container.decodeIfPresent(URL.self, forKey: .audioURL)
         transcription = try container.decodeIfPresent(String.self, forKey: .transcription)
+        metadata = try container.decodeIfPresent(EntryMetadata.self, forKey: .metadata)
     }
 
     // MARK: - Codable Conformance
@@ -90,5 +115,9 @@ struct JournalEntry: Identifiable, Codable, Hashable {
         try container.encodeIfPresent(aiTone, forKey: .aiTone)
         try container.encodeIfPresent(audioURL, forKey: .audioURL)
         try container.encodeIfPresent(transcription, forKey: .transcription)
+        try container.encodeIfPresent(metadata, forKey: .metadata)
     }
 }
+
+// Note: JournalEntry now conforms to Hashable directly in its declaration
+// The default implementation uses the id for equality and hashing

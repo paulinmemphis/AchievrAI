@@ -1,0 +1,32 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ExportWarningView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Export Warning",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 17
+        }
+      },
+      {
+        "comment": "",
+        "key": "Warning: Sensitive Content",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 9
+        }
+      },
+      {
+        "comment": "",
+        "key": "You are about to export or share journal entries. Please ensure you do not share sensitive or private information unintentionally.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 12
+        }
+      }
+    ]
+  },
+  "version": 1
+}

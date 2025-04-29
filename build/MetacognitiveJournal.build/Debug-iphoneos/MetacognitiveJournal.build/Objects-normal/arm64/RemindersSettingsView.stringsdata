@@ -1,0 +1,64 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/RemindersSettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Reminders",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "Daily Reminder",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable notifications in Settings to receive reminders.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Reminder",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 15
+        }
+      },
+      {
+        "comment": "",
+        "key": "Time",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 17
+        }
+      },
+      {
+        "comment": "",
+        "key": "Message",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 18
+        }
+      }
+    ]
+  },
+  "version": 1
+}

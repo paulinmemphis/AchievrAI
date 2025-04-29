@@ -1,0 +1,24 @@
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AIJournalEntryView.swift":
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AIJournalEntryView.swiftdeps"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AIJournalEntryView.d"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AIJournalEntryView.dia"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AIJournalEntryView.o"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AIJournalEntryView.swiftconstvalues"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalAudioManager.swift":
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalAudioManager.swiftdeps"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalAudioManager.swiftconstvalues"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalAudioManager.dia"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalAudioManager.d"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalAudioManager.o"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LearningJourneyView.swift":
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningJourneyView.d"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningJourneyView.swiftdeps"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningJourneyView.swiftconstvalues"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningJourneyView.dia"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningJourneyView.o"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PageTabNavigation.swift":
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PageTabNavigation.o"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PageTabNavigation.swiftdeps"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PageTabNavigation.dia"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PageTabNavigation.d"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PageTabNavigation.swiftconstvalues"

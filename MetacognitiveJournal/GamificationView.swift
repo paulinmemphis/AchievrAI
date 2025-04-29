@@ -38,9 +38,12 @@ struct GamificationView: View {
             badgesSection
                 .padding(.horizontal)
             
-            Spacer()
+            // Add a fixed spacer to ensure consistent layout
+            Spacer(minLength: 20)
+            
+            // Mascot view with proper padding to avoid tab overlap
             MascotView(mood: currentMood)
-                .padding(.bottom)
+                .padding(.bottom, 80) // Increased bottom padding to avoid tab overlap
         }
         .onChange(of: gamification.badges) { newValue, oldValue in
             // Check if a *new* badge was added to trigger the alert

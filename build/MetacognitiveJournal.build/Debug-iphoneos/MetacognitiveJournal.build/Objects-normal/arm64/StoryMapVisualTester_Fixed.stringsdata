@@ -1,0 +1,40 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMapVisualTester_Fixed.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Story Map Testing",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Test Mode",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 23
+        }
+      },
+      {
+        "comment": "",
+        "key": "Load Sample Data",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "Load Stress Test Data",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 83
+        }
+      }
+    ]
+  },
+  "version": 1
+}

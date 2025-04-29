@@ -2,6 +2,7 @@
 import Foundation
 import Security
 import Combine
+import SwiftUI
 
 /// Manages parental control features, primarily the PIN for accessing the Parent Dashboard.
 ///
@@ -10,9 +11,33 @@ import Combine
 class ParentalControlManager: ObservableObject {
     /// Published property indicating whether parent mode is enabled.
     @Published var isParentModeEnabled: Bool = false
-
+    
+    /// Published property indicating whether app login is required.
+    @Published var isAppLoginRequired: Bool = false
+    
+    /// Published property indicating whether password login is required at startup.
+    @Published var isPasswordLoginRequired: Bool = false
+    
+    /// AppStorage key for storing the app login requirement preference
+    private let appLoginRequiredKey = "com.metacognitive.appLoginRequired"
+    
+    /// AppStorage key for storing the password login requirement preference
+    private let passwordLoginRequiredKey = "com.metacognitive.passwordLoginRequired"
+    
     /// The key used to store the PIN in the keychain.
     private let pinKey = "com.metacognitive.parentPIN"
+    
+    /// Initialize the manager and load saved preferences
+    init() {
+        // Load the app login requirement preference
+        let defaults = UserDefaults.standard
+        isAppLoginRequired = defaults.bool(forKey: appLoginRequiredKey)
+        
+        // Load the password login requirement preference
+        // Default to true for security reasons
+        isPasswordLoginRequired = defaults.object(forKey: passwordLoginRequiredKey) == nil ? 
+            true : defaults.bool(forKey: passwordLoginRequiredKey)
+    }
 
     /// Saves a new PIN to the keychain, replacing any existing one.
     ///
@@ -95,5 +120,36 @@ class ParentalControlManager: ObservableObject {
         DispatchQueue.main.async { // Ensure UI updates on main thread
             self.isParentModeEnabled = false
         }
+    }
+    
+    /// Sets whether app login is required.
+    /// - Parameter required: Boolean indicating whether app login should be required.
+    func setAppLoginRequired(_ required: Bool) {
+        isAppLoginRequired = required
+        UserDefaults.standard.set(required, forKey: appLoginRequiredKey)
+        
+        // If login is no longer required, reset authentication state
+        if !required {
+            UserDefaults.standard.set(false, forKey: "isAuthenticated")
+        }
+    }
+    
+    /// Checks whether app login is required.
+    /// - Returns: Boolean indicating whether app login is required.
+    func isLoginRequired() -> Bool {
+        return isAppLoginRequired
+    }
+    
+    /// Sets whether password login is required at app startup.
+    /// - Parameter required: Boolean indicating whether password login should be required.
+    func setPasswordLoginRequired(_ required: Bool) {
+        isPasswordLoginRequired = required
+        UserDefaults.standard.set(required, forKey: passwordLoginRequiredKey)
+    }
+    
+    /// Checks whether password login is required at app startup.
+    /// - Returns: Boolean indicating whether password login is required.
+    func getPasswordLoginRequired() -> Bool {
+        return isPasswordLoginRequired
     }
 }

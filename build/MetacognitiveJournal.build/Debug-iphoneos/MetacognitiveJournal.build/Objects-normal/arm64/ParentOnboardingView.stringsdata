@@ -1,0 +1,40 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentOnboardingView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Read our FAQ",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Contact Support",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 37
+        }
+      },
+      {
+        "comment": "",
+        "key": "Next",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 53
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set Up Account",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 64
+        }
+      }
+    ]
+  },
+  "version": 1
+}

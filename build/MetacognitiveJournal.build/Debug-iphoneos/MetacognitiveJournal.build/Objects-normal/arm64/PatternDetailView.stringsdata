@@ -1,0 +1,240 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PatternDetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Summary",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "You have created %lld journal entries.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "You journal most often on %@.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Current streak: %lld days",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 76
+        }
+      },
+      {
+        "comment": "",
+        "key": "Weekly Distribution",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 85
+        }
+      },
+      {
+        "comment": "",
+        "key": "Day",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 94
+        }
+      },
+      {
+        "comment": "",
+        "key": "Count",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 95
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tips",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 110
+        }
+      },
+      {
+        "comment": "",
+        "key": "Summary",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your average entry is %lld words long.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 139
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entry Length Over Time",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 151
+        }
+      },
+      {
+        "comment": "",
+        "key": "Average",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 171
+        }
+      },
+      {
+        "comment": "",
+        "key": "Date",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 160
+        }
+      },
+      {
+        "comment": "",
+        "key": "Words",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 161
+        }
+      },
+      {
+        "comment": "",
+        "key": "Average",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 176
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tips",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 191
+        }
+      },
+      {
+        "comment": "",
+        "key": "Summary",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 214
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your most common emotional state is %@.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 220
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your emotional balance: %@%% positive",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 224
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood Distribution",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 232
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 241
+        }
+      },
+      {
+        "comment": "",
+        "key": "Count",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood Over Time",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 257
+        }
+      },
+      {
+        "comment": "",
+        "key": "Date",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 266
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mood",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 267
+        }
+      },
+      {
+        "comment": "",
+        "key": "Date",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 276
+        }
+      },
+      {
+        "comment": "",
+        "key": "Trend",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 277
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tips",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 302
+        }
+      }
+    ]
+  },
+  "version": 1
+}

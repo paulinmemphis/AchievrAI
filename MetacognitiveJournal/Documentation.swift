@@ -1,16 +1,22 @@
 import Foundation
 
-/**
- # Metacognitive Journal App
+// MARK: - MetacognitiveJournal Documentation
+
+/*
+ # MetacognitiveJournal
  
- ## Overview
- The Metacognitive Journal App is an educational tool that combines journaling with AI-powered narrative generation
- to help students develop metacognitive skills through creative storytelling.
+ MetacognitiveJournal is an educational application designed to promote metacognitive development
+ in students through journaling, reflection, and AI-assisted feedback. The app supports users of
+ different age groups (children, teens, adults) with age-appropriate interfaces and features.
  
- ## Key Components
+ ## Core Features
  
- ### Core Features
- 1. **Journal Entry System**
+ ### Journaling
+ - Daily journal entries with rich text support
+ - Voice-to-text journaling
+ - Emotional state tracking
+ - Age-appropriate prompts
+ - Reflection questions and metacognitive analysis
     - `JournalEntryView`: Displays individual journal entries
     - `AIJournalEntryView`: Multi-step journal entry creation with AI-powered insights
  

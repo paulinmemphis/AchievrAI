@@ -1,0 +1,104 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GamificationView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Your Progress",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "New Badge Earned!",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Congratulations! You've earned a new badge. Check your Progress tab.",
+        "location": {
+          "startingColumn": 33,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Awesome!",
+        "location": {
+          "startingColumn": 48,
+          "startingLine": 56
+        }
+      },
+      {
+        "comment": "",
+        "key": "Level %lld",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld / %lld XP",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 78
+        }
+      },
+      {
+        "comment": "",
+        "key": "Streak",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 92
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld days",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 94
+        }
+      },
+      {
+        "comment": "",
+        "key": "Badges",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 104
+        }
+      },
+      {
+        "comment": "",
+        "key": "Badges Earned",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "Keep journaling to earn badges!",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 118
+        }
+      }
+    ]
+  },
+  "version": 1
+}

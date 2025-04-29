@@ -1,0 +1,30 @@
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalView.swift":
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalView.dia"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalView.swiftdeps"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalView.d"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalView.swiftconstvalues"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/VoiceJournalView.o"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AudioRecorder.swift":
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AudioRecorder.swiftconstvalues"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AudioRecorder.d"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AudioRecorder.dia"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AudioRecorder.o"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AudioRecorder.swiftdeps"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentalControlManager.swift":
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/ParentalControlManager.swiftdeps"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/ParentalControlManager.o"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/ParentalControlManager.dia"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/ParentalControlManager.d"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/ParentalControlManager.swiftconstvalues"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeJourneyView.swift":
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NarrativeJourneyView.o"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NarrativeJourneyView.swiftconstvalues"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NarrativeJourneyView.swiftdeps"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NarrativeJourneyView.d"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NarrativeJourneyView.dia"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntry.swift":
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntry.o"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntry.swiftdeps"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntry.d"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntry.swiftconstvalues"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntry.dia"

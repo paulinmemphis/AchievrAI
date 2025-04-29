@@ -31,11 +31,13 @@ class NewEntryViewModel: ObservableObject {
     // Data dependencies
     var journalStore: JournalStore?
     var analyzer: MetacognitiveAnalyzer?
+    var coordinator: PsychologicalEnhancementsCoordinator?
     
     // Init
-    init(journalStore: JournalStore? = nil, analyzer: MetacognitiveAnalyzer? = nil, initialEntryData: EntryEditingData? = nil) {
+    init(journalStore: JournalStore? = nil, analyzer: MetacognitiveAnalyzer? = nil, coordinator: PsychologicalEnhancementsCoordinator? = nil, initialEntryData: EntryEditingData? = nil) {
         self.journalStore = journalStore
         self.analyzer = analyzer
+        self.coordinator = coordinator
         if let data = initialEntryData {
             self.emotionalStateText = data.text
             self.entryId = data.id
@@ -163,6 +165,8 @@ class NewEntryViewModel: ObservableObject {
         )
         journalStore.saveEntry(entryToSave)
         gamificationManager?.recordJournalEntry()
+        coordinator?.recordJournalEntryCompletion(entryToSave)
+        
         isSaving = false
         onComplete?()
     }
@@ -197,7 +201,6 @@ class NewEntryViewModel: ObservableObject {
         case .neutral: return "😐"
         case .curious: return "🧐"
         case .overwhelmed: return "😩"
-        default: return "😐"
         }
     }
 }

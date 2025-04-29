@@ -44,27 +44,35 @@ class VoiceJournalAudioManager: NSObject, ObservableObject {
 
         recognitionTask = recognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in // Use guarded request
             guard let self = self else { return }
+            
+            // Handle errors
             if let error = error as NSError? {
+                // Try fallback to on-device recognition if server recognition fails
                 if !self.hasAttemptedFallback, error.domain == "kAFAssistantErrorDomain", error.code == 1101 {
                     self.hasAttemptedFallback = true
                     self.finishRecording()
                     self.startRecording()
                     return
                 }
+                
+                // Handle other errors
                 DispatchQueue.main.async {
                     self.errorMessage = "Recognition error: \(error.localizedDescription)"
                     self.finishRecording()
                 }
                 return
             }
+            
+            // Update transcription text as it comes in
             if let transcription = result?.bestTranscription.formattedString {
                 DispatchQueue.main.async {
                     self.transcribedText = transcription
                 }
             }
-            if result?.isFinal == true {
-                self.finishRecording()
-            }
+            
+            // Only finish recording when explicitly told to do so by the user
+            // Do NOT automatically finish when result.isFinal is true
+            // This allows continuous transcription
         }
 
         let format = audioEngine.inputNode.outputFormat(forBus: 0)

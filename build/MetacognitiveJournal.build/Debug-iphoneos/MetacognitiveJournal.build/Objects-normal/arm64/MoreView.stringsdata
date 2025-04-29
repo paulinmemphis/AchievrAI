@@ -1,0 +1,104 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MoreView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "More",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 95
+        }
+      },
+      {
+        "comment": "",
+        "key": "General",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Parents",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 51
+        }
+      },
+      {
+        "comment": "",
+        "key": "Narrative",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 66
+        }
+      },
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 39
+        }
+      },
+      {
+        "comment": "",
+        "key": "About Metacognitive Journal\nVersion 1.0",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "About",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "About",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 47
+        }
+      },
+      {
+        "comment": "",
+        "key": "Parent Dashboard",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Story",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enhanced Story Map",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 80
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Map Testing",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 88
+        }
+      }
+    ]
+  },
+  "version": 1
+}

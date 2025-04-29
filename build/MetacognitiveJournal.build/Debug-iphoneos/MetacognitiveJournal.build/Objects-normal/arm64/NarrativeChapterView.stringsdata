@@ -1,0 +1,104 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeChapterView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Chapter",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 134
+        }
+      },
+      {
+        "comment": "",
+        "key": "The story continues...",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 179
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue Writing",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 196
+        }
+      },
+      {
+        "comment": "",
+        "key": "© %lld AchievrAI - Your personal narrative journey",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 234
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld min read",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 216
+        }
+      },
+      {
+        "comment": "",
+        "key": "View Story Map",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 227
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reading Settings",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 333
+        }
+      },
+      {
+        "comment": "",
+        "key": "Text Size",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 338
+        }
+      },
+      {
+        "comment": "",
+        "key": "A",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 343
+        }
+      },
+      {
+        "comment": "",
+        "key": "A",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 350
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reading Mode",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 358
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 406
+        }
+      }
+    ]
+  },
+  "version": 1
+}

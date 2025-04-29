@@ -1,0 +1,48 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmptyInsightsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Insights Coming Soon",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 42
+        }
+      },
+      {
+        "comment": "",
+        "key": "You need at least %lld journal entries to see personalized learning insights.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 47
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld Entries",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 56
+        }
+      },
+      {
+        "comment": "",
+        "key": "Create New Entry",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Journaling Tip:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 87
+        }
+      }
+    ]
+  },
+  "version": 1
+}

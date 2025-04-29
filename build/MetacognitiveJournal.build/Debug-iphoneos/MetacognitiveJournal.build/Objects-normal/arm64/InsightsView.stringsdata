@@ -1,0 +1,48 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/InsightsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Insights",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Coach Question",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 19
+        }
+      },
+      {
+        "comment": "",
+        "key": "Feedback",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generate Coach Prompt",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 23
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generate Feedback for Latest Entry",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 33
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,96 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecurityPrivacySummaryView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Security & Privacy",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 37
+        }
+      },
+      {
+        "comment": "",
+        "key": "Security & Privacy Features",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 7
+        }
+      },
+      {
+        "comment": "",
+        "key": "Download or Share Security and Privacy PDF",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "• **Encrypted Journals:** All journal entries are encrypted on your device using industry-standard AES-GCM encryption.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 11
+        }
+      },
+      {
+        "comment": "",
+        "key": "• **App Lock:** Enable Face ID or Touch ID to protect your journal from unauthorized access.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "• **Local-First Data:** Your data is stored locally and never shared unless you choose to export or use AI features (with opt-in).",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 13
+        }
+      },
+      {
+        "comment": "",
+        "key": "• **Permission Transparency:** The app clearly explains why notifications and microphone access are requested.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "• **Export Warnings:** You are warned before sharing or exporting entries, to help prevent accidental sharing of sensitive information.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 15
+        }
+      },
+      {
+        "comment": "",
+        "key": "• **Parental Consent:** For minors, parental consent is required for sharing or exporting entries.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 16
+        }
+      },
+      {
+        "comment": "",
+        "key": "• **No Hidden Data Collection:** No personal data is sent to external servers without your explicit consent.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 17
+        }
+      },
+      {
+        "comment": "",
+        "key": "Download/Share PDF",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 27
+        }
+      }
+    ]
+  },
+  "version": 1
+}

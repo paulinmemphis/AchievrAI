@@ -33,6 +33,7 @@
 		DA761D522DBB3A1300C4A195 /* Exceptions for "MetacognitiveJournal" folder in "MetacognitiveJournal" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				AnalyticsView_Old.swift,
 				Info.plist,
 			);
 			target = DA23BF732DBAFA470041F29B /* MetacognitiveJournal */;
@@ -423,7 +424,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -452,7 +453,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -470,12 +471,14 @@
 				DEVELOPMENT_TEAM = 7R37PFMCEQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournalTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,4";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetacognitiveJournal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MetacognitiveJournal";
 			};
 			name = Debug;
@@ -489,12 +492,14 @@
 				DEVELOPMENT_TEAM = 7R37PFMCEQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournalTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,4";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetacognitiveJournal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MetacognitiveJournal";
 			};
 			name = Release;
@@ -506,7 +511,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7R37PFMCEQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournalUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -523,7 +528,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7R37PFMCEQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geekedoutinnovations.MetacognitiveJournalUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;

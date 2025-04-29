@@ -1,0 +1,24 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingPagerView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Next",
+        "location": {
+          "startingColumn": 62,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Get Started",
+        "location": {
+          "startingColumn": 71,
+          "startingLine": 54
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,24 @@
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NLPOperations.swift":
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NLPOperations.d"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NLPOperations.swiftconstvalues"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NLPOperations.dia"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NLPOperations.swiftdeps"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/NLPOperations.o"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LearningPattern.swift":
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningPattern.dia"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningPattern.d"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningPattern.o"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningPattern.swiftconstvalues"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/LearningPattern.swiftdeps"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedStoryMapView.swift":
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/EnhancedStoryMapView.o"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/EnhancedStoryMapView.dia"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/EnhancedStoryMapView.swiftconstvalues"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/EnhancedStoryMapView.swiftdeps"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/EnhancedStoryMapView.d"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntriesView.swift":
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntriesView.o"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntriesView.swiftconstvalues"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntriesView.d"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntriesView.swiftdeps"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/JournalEntriesView.dia"

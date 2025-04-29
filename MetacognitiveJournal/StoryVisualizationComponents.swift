@@ -1,6 +1,9 @@
 // StoryVisualizationComponents.swift
 import SwiftUI
 
+// Use the shared StoryNode type directly
+import Foundation
+
 /// Defines the different visualization modes for story content
 enum StoryViewMode: String, CaseIterable, Identifiable {
     case map = "Map"
@@ -109,7 +112,7 @@ struct StoryFilterBar: View {
 /// A timeline visualization for story nodes
 struct StoryTimelineView: View {
     let storyNodes: [StoryNode]
-    let onSelectNode: (UUID) -> Void
+    let onSelectNode: (String) -> Void
     @EnvironmentObject private var themeManager: ThemeManager
     
     // Order story nodes chronologically
@@ -182,11 +185,13 @@ struct StoryTimelineView: View {
                     }
                     
                     // Preview of text
-                    Text(node.chapter.cliffhanger)
-                        .font(.body)
-                        .italic()
-                        .lineLimit(2)
-                        .foregroundColor(.primary)
+                    if let chapter = StoryPersistenceManager.shared.getChapter(id: node.chapterId) {
+                        Text(chapter.cliffhanger)
+                            .font(.body)
+                            .italic()
+                            .lineLimit(2)
+                            .foregroundColor(.primary)
+                    }
                     
                     Button(action: {
                         onSelectNode(node.id)
@@ -226,7 +231,7 @@ struct StoryTimelineView: View {
 /// A list visualization for story nodes
 struct StoryListView: View {
     let storyNodes: [StoryNode]
-    let onSelectNode: (UUID) -> Void
+    let onSelectNode: (String) -> Void
     @EnvironmentObject private var themeManager: ThemeManager
     
     // Order story nodes chronologically
@@ -270,10 +275,12 @@ struct StoryListView: View {
                     .foregroundColor(.secondary)
                 
                 // Cliffhanger preview
-                Text(node.chapter.cliffhanger)
-                    .font(.subheadline)
-                    .foregroundColor(.primary)
-                    .lineLimit(2)
+                if let chapter = StoryPersistenceManager.shared.getChapter(id: node.chapterId) {
+                    Text(chapter.cliffhanger)
+                        .font(.subheadline)
+                        .foregroundColor(.primary)
+                        .lineLimit(2)
+                }
                 
                 // Themes
                 if !node.metadata.themes.isEmpty {

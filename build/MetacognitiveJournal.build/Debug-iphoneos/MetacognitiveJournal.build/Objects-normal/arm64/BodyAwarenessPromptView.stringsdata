@@ -1,0 +1,200 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BodyAwarenessPromptView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Body Awareness",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 158
+        }
+      },
+      {
+        "comment": "",
+        "key": "Emotional Awareness Check-In",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 179
+        }
+      },
+      {
+        "comment": "",
+        "key": "Take a moment to notice what's happening in your body right now. This helps build your emotional intelligence and self-regulation.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "What are you feeling right now?",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 196
+        }
+      },
+      {
+        "comment": "",
+        "key": "Where do you feel it in your body?",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 252
+        }
+      },
+      {
+        "comment": "",
+        "key": "How intense is this feeling?",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 319
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mild",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 325
+        }
+      },
+      {
+        "comment": "",
+        "key": "Intense",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 331
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 342
+        }
+      },
+      {
+        "comment": "",
+        "key": "Taking a few deep breaths can help you connect with your body and regulate your emotions. Tap 'Start' when you're ready.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 411
+        }
+      },
+      {
+        "comment": "",
+        "key": "Breathing Exercise",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 359
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 369
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stop",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 377
+        }
+      },
+      {
+        "comment": "",
+        "key": "Breath count: %lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 404
+        }
+      },
+      {
+        "comment": "",
+        "key": "Any additional observations?",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 428
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save Awareness Check-In",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 456
+        }
+      },
+      {
+        "comment": "",
+        "key": "Awareness Check-In Complete",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 477
+        }
+      },
+      {
+        "comment": "",
+        "key": "Great job taking this moment to check in with your body. This practice builds your self-awareness and emotional regulation capacity over time.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 482
+        }
+      },
+      {
+        "comment": "",
+        "key": "Emotion:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 490
+        }
+      },
+      {
+        "comment": "",
+        "key": "Intensity:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 500
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 504
+        }
+      },
+      {
+        "comment": "",
+        "key": "Breaths taken:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 510
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 514
+        }
+      },
+      {
+        "comment": "",
+        "key": "Return to Journal",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 528
+        }
+      }
+    ]
+  },
+  "version": 1
+}

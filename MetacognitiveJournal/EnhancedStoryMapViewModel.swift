@@ -1,21 +1,47 @@
 // EnhancedStoryMapViewModel.swift
 import SwiftUI
 import Combine
+import Foundation
 
 /// Enhanced view model for the StoryMapView to visualize story arcs and continuity
 class EnhancedStoryMapViewModel: ObservableObject {
     // Published properties for UI updates
     @Published var storyNodes: [StoryNode] = []
     @Published var storyArcs: [StoryArc] = []
+    @Published var chapters: [String: Chapter] = [:]
     @Published var isLoading = false
     @Published var errorMessage: String?
-    @Published var selectedNodeId: IdentifiableUUID?
+    @Published var selectedNodeId: String? = nil
     @Published var selectedArcId: IdentifiableUUID?
     @Published var showingArcLabels = true
     @Published var visualMode: VisualizationMode = .tree
     @Published var highlightedTheme: String?
     @Published var nodeConnections: [NodeConnection] = []
+    @Published var expandedNodeIds: Set<String> = []
     
+    // Computed property to provide ViewModels for the view
+    var nodeViewModels: [StoryNodeViewModel] {
+        storyNodes.map { node in
+            // Look up the chapter using node.chapterId
+            let chapter = chapters[node.chapterId]
+            let previewText = chapter?.text.prefix(150).appending("...") ?? "Chapter text not available."
+            let genre = chapter?.genre ?? "Unknown"
+
+            // Use the full initializer
+            return StoryNodeViewModel(
+                id: node.id,
+                chapterId: node.chapterId,
+                title: "Chapter \(node.chapterId.suffix(6))", // Keep existing title logic or refine
+                entryPreview: "Entry preview placeholder...", // Keep placeholder for now
+                chapterPreview: String(previewText),
+                sentiment: Double(node.metadata.sentiment) ?? 0.0,
+                themes: node.metadata.themes,
+                creationDate: node.creationDate,
+                genre: genre
+            )
+        }
+    }
+
     // Visualization modes
     enum VisualizationMode: String, CaseIterable, Identifiable {
         case tree = "Tree View"
@@ -44,6 +70,7 @@ class EnhancedStoryMapViewModel: ObservableObject {
     
     // Services
     private let apiService: NarrativeAPIService
+    private let storyPersistenceManager = StoryPersistenceManager.shared
     private var persistenceManager: StoryPersistenceManager?
     
     // Analytics manager for tracking engagement
@@ -56,11 +83,8 @@ class EnhancedStoryMapViewModel: ObservableObject {
         self.apiService = apiService
         
         // Initialize persistence manager
-        do {
-            self.persistenceManager = try StoryPersistenceManager.shared
-        } catch {
-            self.errorMessage = "Failed to initialize story persistence: \(error.localizedDescription)"
-        }
+        self.persistenceManager = StoryPersistenceManager.shared
+        // Error handling moved to loadStoryData method
     }
     
     // Call this method when the view appears to safely load data
@@ -71,10 +95,12 @@ class EnhancedStoryMapViewModel: ObservableObject {
         }
     }
     
+    
     // Load all story data (nodes and arcs)
     func loadStoryData() {
         isLoading = true
         errorMessage = nil
+        
         
         // Track analytics
         analyticsManager.logEvent(.userInteraction, properties: ["action": "viewed_story_map"])
@@ -87,24 +113,84 @@ class EnhancedStoryMapViewModel: ObservableObject {
         }
         
         // First load story nodes
-        persistenceManager.loadStoryNodes { [weak self] result in
+        loadStoryNodes { [weak self] (result: Result<Void, Error>) in
             guard let self = self else { return }
             
             switch result {
-            case .success(_):
-                // Get nodes from persistence manager
-                self.storyNodes = persistenceManager.storyNodes
-                
-                // Then load story arcs
-                self.loadStoryArcs()
-                
+            case .success:
+                // Nodes are loaded (self.storyNodes is updated inside loadStoryNodes)
+                // Ensure local copy reflects the manager's state after loading
+                if let manager = self.persistenceManager {
+                    self.storyNodes = manager.storyNodes
+                }
+
+                // Fetch chapters individually using getChapter(id:)
+                var loadedChapters: [String: Chapter] = [:]
+                if let manager = self.persistenceManager {
+                    for node in self.storyNodes {
+                        if let chapter = manager.getChapter(id: node.chapterId) {
+                            loadedChapters[node.chapterId] = chapter
+                        } else {
+                            // Handle case where chapter is missing for a node, if necessary
+                            print("Warning: Chapter data not found for node \(node.id), chapterId: \(node.chapterId)")
+                        }
+                    }
+                }
+                self.chapters = loadedChapters // Update the published dictionary
+
+                // Now load story arcs
+                self.loadStoryArcs() // Assuming this might also be async
+
+                // isLoading should likely be set to false within the completion handler of the *last* async operation
+                // If loadStoryArcs is async and we need its results, move isLoading = false there.
+                // If loadStoryArcs is sync or not essential to wait for, this is okay.
+                // For now, we'll leave it here, but be aware it might need moving if arcs load async.
+                 DispatchQueue.main.async { // Ensure UI updates on main thread
+                    self.isLoading = false
+                 }
+
             case .failure(let error):
+                 // Handle node loading failure
                 DispatchQueue.main.async {
                     self.errorMessage = "Failed to load story nodes: \(error.localizedDescription)"
                     self.isLoading = false
                 }
             }
         }
+    }
+    
+    /// Loads story nodes from the persistence manager
+    func loadStoryNodes(completion: @escaping (Result<Void, Error>) -> Void) {
+        isLoading = true
+        errorMessage = nil
+        
+        print("[EnhancedStoryMapViewModel] Loading story nodes...")
+        
+        // Get story nodes from persistence manager
+        guard let manager = persistenceManager else {
+            isLoading = false
+            return
+        }
+        
+        manager.getAllStoryNodes()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] result in
+                guard let self = self else { return }
+                self.isLoading = false
+                
+                switch result {
+                case .finished:
+                    print("[EnhancedStoryMapViewModel] Successfully loaded \(self.storyNodes.count) story nodes")
+                    completion(.success(()))
+                case .failure(let error):
+                    print("[EnhancedStoryMapViewModel] Error loading story nodes: \(error.localizedDescription)")
+                    self.errorMessage = "Failed to load stories: \(error.localizedDescription)"
+                    completion(.failure(error))
+                }
+            }, receiveValue: { [weak self] nodes in
+                self?.storyNodes = nodes
+            })
+            .store(in: &cancellables)
     }
     
     // Load story arcs
@@ -144,8 +230,8 @@ class EnhancedStoryMapViewModel: ObservableObject {
         for node in storyNodes where node.parentId != nil {
             if let parentNode = storyNodes.first(where: { $0.entryId == node.parentId }) {
                 let connection = NodeConnection(
-                    source: parentNode.id.uuidString,
-                    target: node.id.uuidString,
+                    source: parentNode.id,
+                    target: node.id,
                     type: .narrative
                 )
                 nodeConnections.append(connection)
@@ -167,8 +253,8 @@ class EnhancedStoryMapViewModel: ObservableObject {
                     if !sharedThemes.isEmpty {
                         // Create a thematic connection
                         let connection = NodeConnection(
-                            source: node1.id.uuidString,
-                            target: node2.id.uuidString,
+                            source: node1.id,
+                            target: node2.id,
                             type: .thematic,
                             theme: sharedThemes.first
                         )
@@ -291,12 +377,13 @@ class EnhancedStoryMapViewModel: ObservableObject {
     
     // MARK: - User Interactions
     
-    /// Select a story node to view
-    func selectNode(_ nodeId: UUID) {
-        selectedNodeId = IdentifiableUUID(nodeId)
-        
-        // Track node selection in analytics
-        if let node = node(forUUID: nodeId) {
+    /// Select a node
+    /// - Parameter nodeId: The ID of the node to select
+    func selectNode(nodeId: String) {
+        if let node = storyNodes.first(where: { $0.id == nodeId }) {
+            selectedNodeId = nodeId
+            
+            // Track node selection in analytics
             analyticsManager.logEvent(.userInteraction, properties: [
                 "action": "selected_story_node", 
                 "chapter_id": node.chapterId
@@ -311,23 +398,18 @@ class EnhancedStoryMapViewModel: ObservableObject {
     }
     
     /// Get a node by its ID
-    func node(for id: IdentifiableUUID) -> StoryNode? {
-        return storyNodes.first(where: { $0.id == id.id })
-    }
-    
-    /// Get a node by its raw UUID
-    func node(forUUID id: UUID) -> StoryNode? {
+    func node(for id: String) -> StoryNode? {
         return storyNodes.first(where: { $0.id == id })
     }
     
     /// Get an arc by its ID
     func arc(for id: IdentifiableUUID) -> StoryArc? {
-        return storyArcs.first(where: { $0.id == id.id })
+        return storyArcs.first(where: { $0.id.uuidString == id.id.uuidString })
     }
     
     /// Get an arc by its raw UUID
-    func arc(forUUID id: UUID) -> StoryArc? {
-        return storyArcs.first(where: { $0.id == id })
+    func arc(forUUID id: String) -> StoryArc? {
+        return storyArcs.first(where: { $0.id.uuidString == id })
     }
     
     /// Change visualization mode

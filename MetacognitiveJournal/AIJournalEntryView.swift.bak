@@ -1,0 +1,1094 @@
+// File: AIJournalEntryView.swift
+import SwiftUI
+import Combine
+
+/// A multi-step journal entry view with AI-powered tone and insights.
+struct AIJournalEntryView: View, JournalEntrySavable {
+    // Optional initial text from voice transcription
+    var initialText: String?
+    
+    // Environment objects
+    @EnvironmentObject var userProfile: UserProfile
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var journalStore: JournalStore
+    @EnvironmentObject private var analyzer: MetacognitiveAnalyzer
+    @EnvironmentObject private var themeManager: ThemeManager
+    
+    // Story preferences for default genre
+    @ObservedObject private var storyPreferences = StoryPreferencesManager.shared
+
+    // --- Narrative Engine ---
+    @StateObject private var narrativeAPIService = NarrativeAPIService() // Instantiate the service
+    @State private var isGeneratingChapter = false
+    @State private var chapterGenerationError: String? = nil
+    @State private var generatedChapter: ChapterResponse? = nil
+    @State private var showChapterSheet = false
+    @State private var showGenreSelection = false
+    @State private var selectedGenre = "" // Will be set from preferences
+    @State private var cancellables = Set<AnyCancellable>() // To store Combine subscriptions
+
+
+    // MARK: - Entry Inputs
+    @State private var assignmentName = ""
+    @State private var courseName = ""
+    @State private var selectedSubject: K12Subject = .math
+    @State private var emotionalState: EmotionalState = .neutral
+    @State private var emotionalReason = ""
+    @State private var reflectionResponses: [String] = []
+    @State private var selectedStrategies: Set<String> = []
+    @State private var otherStrategies = ""
+
+    // MARK: - AI Outputs
+    @State private var aiTone = ""
+    @State private var aiInsights = ""
+    @State private var isLoadingAI = false
+    @State private var aiError: String? = nil
+
+    // MARK: - Control
+    @State private var currentPage = 0
+    private var prompts: [String] { analyzer.prompts }
+    private let totalPages = 5
+    
+    // MARK: - Initialization
+    init(initialText: String? = nil) {
+        self.initialText = initialText
+        
+        // Initialize reflectionResponses with the correct number of empty strings
+        // This is needed because we access reflectionResponses by index in the view
+        _reflectionResponses = State(initialValue: Array(repeating: "", count: 5))
+        
+        // If initialText is provided, use it as the first reflection response
+        if let text = initialText, !text.isEmpty {
+            _reflectionResponses = State(initialValue: {
+                var responses = Array(repeating: "", count: 5)
+                responses[0] = text // Use the transcription as the first response
+                return responses
+            }())
+            
+            // Set a default assignment name for voice entries
+            _assignmentName = State(initialValue: "Voice Journal Entry")
+            _selectedSubject = State(initialValue: .english) // Default subject for voice entries
+        }
+    }
+
+    var body: some View {
+        // Use ZStack for overlay
+        ZStack {
+            // Original Content VStack
+            VStack(spacing: 0) {
+                // Enhanced Top Bar with progress indicator
+                VStack(spacing: 8) {
+                    HStack {
+                        Button(action: { dismiss() }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "chevron.left")
+                                Text("Cancel")
+                            }
+                        }
+                        .foregroundColor(.red)
+                        .disabled(isGeneratingChapter)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .background(Color.red.opacity(0.1))
+                        .cornerRadius(8)
+
+                        Spacer()
+                        
+                        Text(pageTitle(for: currentPage))
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
+
+                        Button(action: { onNext() }) {
+                            HStack(spacing: 4) {
+                                Text(currentPage < totalPages - 1 ? "Next" : "Save & Create Story")
+                                if currentPage < totalPages - 1 {
+                                    Image(systemName: "chevron.right")
+                                } else {
+                                    Image(systemName: "sparkles")
+                                }
+                            }
+                        }
+                        .disabled(!canProceed(page: currentPage) || isGeneratingChapter)
+                        .opacity(canProceed(page: currentPage) && !isGeneratingChapter ? 1.0 : 0.5)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .background(themeManager.selectedTheme.accentColor.opacity(0.2))
+                        .cornerRadius(8)
+                    }
+                    
+                    // Progress indicator
+                    HStack(spacing: 0) {
+                        ForEach(0..<totalPages, id: \.self) { index in
+                            Rectangle()
+                                .fill(index <= currentPage ? themeManager.selectedTheme.accentColor : Color.gray.opacity(0.3))
+                                .frame(height: 4)
+                                .animation(.spring(), value: currentPage)
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+                Divider()
+
+                // Pages
+                TabView(selection: $currentPage) {
+                    basicInfoPage.tag(0)
+                    emotionPage.tag(1)
+                    reflectionsPage.tag(2)
+                    strategiesPage.tag(3)
+                    insightsPage.tag(4)
+                }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                // Disable interaction with TabView during chapter generation
+                .allowsHitTesting(!isGeneratingChapter)
+
+            } // End Original VStack
+
+            // --- Loading / Error Overlay ---
+            if isGeneratingChapter || chapterGenerationError != nil {
+                 Color.black.opacity(0.4) // Semi-transparent background
+                     .ignoresSafeArea()
+                     .zIndex(1) // Ensure overlay is on top
+
+                 VStack(spacing: 20) {
+                     if isGeneratingChapter {
+                         ProgressView("Generating your next chapter...")
+                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                             .foregroundColor(.white)
+                     }
+                     if let error = chapterGenerationError {
+                         Text("Error generating chapter:")
+                             .font(.headline)
+                             .foregroundColor(.white)
+                         Text(error)
+                             .foregroundColor(.white)
+                             .multilineTextAlignment(.center)
+                             .padding(.horizontal)
+                         Button("Dismiss") {
+                             // Clear error and allow view dismissal or retry?
+                             // For now, just clear the error overlay. User can use Cancel.
+                             chapterGenerationError = nil
+                         }
+                         .buttonStyle(.borderedProminent)
+                         .tint(.yellow)
+                     }
+                 }
+                 .padding()
+                 .background(Color.black.opacity(0.7))
+                 .cornerRadius(12)
+                 .padding()
+                 .zIndex(2) // Ensure controls are on top of the overlay
+            }
+        } // End ZStack
+        .animation(.easeInOut, value: isGeneratingChapter) // Animate overlay appearance
+        .animation(.easeInOut, value: chapterGenerationError)
+        .onAppear {
+            // Initialize responses for prompts
+            if reflectionResponses.isEmpty {
+                reflectionResponses = Array(repeating: "", count: prompts.count)
+            }
+            
+            // Set the default genre from preferences
+            selectedGenre = storyPreferences.defaultGenre
+        }
+        // --- Sheet for Chapter View ---
+        .sheet(isPresented: $showChapterSheet, onDismiss: {}) {
+            if let chapter = generatedChapter {
+                // Create a temporary StoryNodeViewModel for previewing the chapter
+                let tempViewModel = StoryNodeViewModel(
+                    id: UUID().uuidString, // Temporary ID for the view model instance
+                    chapterId: chapter.chapterId,
+                    title: "Chapter Preview",
+                    entryPreview: assignmentName,
+                    chapterPreview: chapter.text,
+                    sentiment: 0.0, // Default neutral sentiment
+                    themes: ["Story"], // Default theme
+                    creationDate: Date(),
+                    genre: selectedGenre
+                )
+                
+                ChapterView(nodeViewModel: tempViewModel)
+                    .environmentObject(journalStore)
+                    .environmentObject(themeManager)
+            } else {
+                 Text("No chapter data available")
+                     .font(.headline)
+                     .foregroundColor(.red)
+                     .padding()
+            }
+        }
+        .sheet(isPresented: $showGenreSelection, onDismiss: {}) {
+            NavigationView {
+                GenreSelectionView(selectedGenre: $selectedGenre, isPresented: $showGenreSelection)
+                    .environmentObject(themeManager)
+                    .environmentObject(storyPreferences)
+                    .navigationBarItems(trailing: Button("Continue") {
+                        // Save this genre as the default preference
+                        storyPreferences.defaultGenre = selectedGenre
+                        beginChapterGeneration()
+                    })
+            }
+        }
+    }
+
+
+    // MARK: - Page Builders
+
+    var basicInfoPage: some View {
+        VStack(spacing: 16) {
+            // Enhanced header with icon
+            HStack {
+                Image(systemName: "doc.text")
+                    .font(.title2)
+                    .foregroundColor(themeManager.selectedTheme.accentColor)
+                Text("Assignment Details")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                Spacer()
+            }
+            .padding(.horizontal)
+            
+            VStack(spacing: 16) {
+                // Enhanced text field with icon and validation
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Assignment Name")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    
+                    HStack {
+                        Image(systemName: "pencil.line")
+                            .foregroundColor(themeManager.selectedTheme.accentColor)
+                        TextField("What's this assignment about?", text: $assignmentName.max(100))
+                            .padding(10)
+                            .background(Color.secondary.opacity(0.1))
+                            .cornerRadius(8)
+                    }
+                    
+                    // Show character count
+                    if !assignmentName.isEmpty {
+                        Text("\(assignmentName.count)/100")
+                            .font(.caption)
+                            .foregroundColor(assignmentName.count > 90 ? .orange : .secondary)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                }
+                .padding(.horizontal)
+                
+                // Course name field
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Course Name (Optional)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    
+                    HStack {
+                        Image(systemName: "book")
+                            .foregroundColor(themeManager.selectedTheme.accentColor)
+                        TextField("Which class is this for?", text: $courseName.max(100))
+                            .padding(10)
+                            .background(Color.secondary.opacity(0.1))
+                            .cornerRadius(8)
+                    }
+                }
+                .padding(.horizontal)
+                
+                // Subject picker with visual enhancement
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Subject")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    
+                    HStack {
+                        Image(systemName: subjectIcon(for: selectedSubject))
+                            .foregroundColor(themeManager.selectedTheme.accentColor)
+                        
+                        Picker("Subject", selection: $selectedSubject) {
+                            ForEach(K12Subject.allCases, id: \.self) { subject in
+                                Text(subject.rawValue.capitalized).tag(subject)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .padding(10)
+                        .background(Color.secondary.opacity(0.1))
+                        .cornerRadius(8)
+                    }
+                }
+                .padding(.horizontal)
+            }
+            
+            Spacer()
+        }
+    }
+
+    var emotionPage: some View {
+        VStack(spacing: 16) {
+            // Enhanced header with icon
+            HStack {
+                Image(systemName: "heart.fill")
+                    .font(.title2)
+                    .foregroundColor(themeManager.selectedTheme.accentColor)
+                Text("How did you feel about this assignment?")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                Spacer()
+            }
+            .padding(.horizontal)
+            
+            // Emotion selector
+            VStack(spacing: 20) {
+                // Emotion icons grid
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: 4), spacing: 15) {
+                    EmotionButton(emotion: "😎", label: "Confident", isSelected: emotionalState == .confident, action: { emotionalState = .confident })
+                    EmotionButton(emotion: "😐", label: "Neutral", isSelected: emotionalState == .neutral, action: { emotionalState = .neutral })
+                    EmotionButton(emotion: "😤", label: "Frustrated", isSelected: emotionalState == .frustrated, action: { emotionalState = .frustrated })
+                    EmotionButton(emotion: "😩", label: "Overwhelmed", isSelected: emotionalState == .overwhelmed, action: { emotionalState = .overwhelmed })
+                    EmotionButton(emotion: "🤔", label: "Confused", isSelected: emotionalState == .confused, action: { emotionalState = .confused })
+                    EmotionButton(emotion: "🧐", label: "Curious", isSelected: emotionalState == .curious, action: { emotionalState = .curious })
+                    EmotionButton(emotion: "😌", label: "Satisfied", isSelected: emotionalState == .satisfied, action: { emotionalState = .satisfied })
+                }
+                .padding(.horizontal)
+                
+                // Explanation text field
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Why did you feel this way?")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    
+                    ZStack(alignment: .topLeading) {
+                        if emotionalReason.isEmpty {
+                            Text("Describe your feelings about this assignment...")
+                                .foregroundColor(Color.secondary.opacity(0.5))
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 12)
+                        }
+                        
+                        TextEditor(text: $emotionalReason.max(1000))
+                            .padding(4)
+                            .frame(minHeight: 150)
+                            .background(Color.secondary.opacity(0.1))
+                            .cornerRadius(8)
+                    }
+                    
+                    // Character count
+                    if !emotionalReason.isEmpty {
+                        Text("\(emotionalReason.count)/1000")
+                            .font(.caption)
+                            .foregroundColor(emotionalReason.count > 900 ? .orange : .secondary)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                }
+                .padding(.horizontal)
+            }
+            
+            Spacer()
+        }
+    }
+
+    var reflectionsPage: some View {
+        Form {
+            ForEach(0..<prompts.count, id: \.self) { idx in
+                Section(header: Text(prompts[idx])) {
+                    TextEditor(text: Binding(
+                        get: { reflectionResponses.indices.contains(idx) ? reflectionResponses[idx] : "" },
+                        set: { reflectionResponses.indices.contains(idx) ? reflectionResponses[idx] = $0 : () }
+                    ).max(5000))
+                    .frame(height: 100)
+                }
+            }
+        }
+    }
+
+    var strategiesPage: some View {
+        Form {
+            Section(header: Text("What learning strategies did you use?")) {
+                ForEach(["Breaking down problems", "Creating visual aids", "Practice and repetition"], id: \.self) { strategy in
+                    Button(action: {
+                        if selectedStrategies.contains(strategy) {
+                            selectedStrategies.remove(strategy)
+                        } else {
+                            selectedStrategies.insert(strategy)
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: selectedStrategies.contains(strategy) ? "checkmark.square" : "square")
+                            Text(strategy)
+                        }
+                    }
+                }
+                TextEditor(text: $otherStrategies.max(5000))
+                    .frame(height: 100)
+            }
+        }
+    }
+
+    var insightsPage: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            if isLoadingAI {
+                ProgressView("Generating insights...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else if let error = aiError {
+                Text("Error generating insights: \(error)")
+                    .foregroundColor(.red)
+                    .padding()
+                
+                Button("Retry") {
+                    Task {
+                        await generateAIOutputs()
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        Text("AI Analysis")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        
+                        HStack {
+                            Text("Tone:")
+                                .fontWeight(.semibold)
+                            Text(aiTone)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        Text("Insights:")
+                            .fontWeight(.semibold)
+                        Text(aiInsights)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            Spacer()
+        }
+        .padding()
+        .task {
+            await generateAIOutputs()
+        }
+    }
+
+    // MARK: - Helper Views
+
+    /// A custom button for selecting emotional states
+    struct EmotionButton: View {
+        let emotion: String // Emoji
+        let label: String
+        let isSelected: Bool
+        let action: () -> Void
+        
+        var body: some View {
+            Button(action: action) {
+                VStack(spacing: 4) {
+                    Text(emotion)
+                        .font(.system(size: 30))
+                    Text(label)
+                        .font(.caption)
+                        .foregroundColor(isSelected ? .white : .primary)
+                }
+                .frame(minWidth: 70, minHeight: 70)
+                .background(isSelected ? Color.accentColor : Color.secondary.opacity(0.1))
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(isSelected ? Color.accentColor : Color.secondary.opacity(0.3), lineWidth: 1)
+                )
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+    }
+
+    // MARK: - Helper Methods
+    
+    func pageTitle(for page: Int) -> String {
+        switch page {
+        case 0:
+            return "Basic Information"
+        case 1:
+            return "How Did You Feel?"
+        case 2:
+            return "Reflections"
+        case 3:
+            return "Learning Strategies"
+        case 4:
+            return "AI Insights"
+        default:
+            return "Journal Entry"
+        }
+    }
+    
+    func subjectIcon(for subject: K12Subject) -> String {
+        switch subject {
+        case .math:
+            return "function"
+        case .science:
+            return "atom"
+        case .english:
+            return "book"
+        case .history:
+            return "clock"
+        case .art:
+            return "paintpalette"
+        case .music:
+            return "music.note"
+        case .computerScience:
+            return "desktopcomputer"
+        case .physicalEducation:
+            return "figure.walk"
+        case .foreignLanguage:
+            return "globe"
+        case .other:
+            return "questionmark.circle"
+        @unknown default:
+            return "book.closed"
+        }
+    }
+    
+    // MARK: - Actions
+
+    func saveEntryAndGenerateChapter() {
+        // Show genre selection before proceeding to generation
+        showGenreSelection = true
+    }
+
+    func beginChapterGeneration() {
+        showGenreSelection = false
+        isGeneratingChapter = true
+        chapterGenerationError = nil
+        generatedChapter = nil
+        
+        // Combine all responses into a single content string
+        let content = reflectionResponses.joined(separator: "\n\n")
+        
+        // First, get metadata from the content
+        let combinedText = [assignmentName, courseName, emotionalReason, content].joined(separator: "\n\n")
+        
+        // Create a publisher chain to first get metadata, then generate chapter
+        narrativeAPIService.getMetadata(text: combinedText)
+            .catch { error -> AnyPublisher<MetadataResponse, APIServiceError> in
+                // If metadata fetch fails, create a fallback metadata response
+                print("Metadata fetch failed: \(error.localizedDescription), using fallback")
+                return Just(self.createFallbackMetadata(from: combinedText))
+                    .setFailureType(to: APIServiceError.self)
+                    .eraseToAnyPublisher()
+            }
+            .flatMap { metadataResponse -> AnyPublisher<ChapterResponse, APIServiceError> in
+                // Save the entry *after* metadata is successfully fetched
+                self.saveMinimalEntry() // Save the basic journal entry data now
+                
+                // Store metadata for later use when creating story arcs
+                let userId = "user-\(UUID().uuidString.prefix(8))" // Create a more unique user ID
+                // Use the selected genre (toLowerCase to match server expectations)
+                let genre = self.selectedGenre.lowercased()
+                
+                // Get recent story arcs for narrative continuity
+                var previousArcs: [PreviousArc] = []
+                let persistenceManager = StoryPersistenceManager.shared
+                // Use the most recent arcs to maintain narrative continuity
+                // Convert string arcs to PreviousArc objects
+                let recentArcIds = persistenceManager.getRecentStoryArcs(count: 3)
+                previousArcs = recentArcIds.compactMap { arcId in
+                    // Try to find the actual StoryArc by ID
+                    if let arc = persistenceManager.arc(forUUID: arcId) {
+                        return PreviousArc(summary: arc.summary, themes: arc.themes, chapterId: arc.chapterId)
+                    }
+                    return nil
+                }
+                
+                // Convert MetadataResponse to EntryMetadata
+                let entryMetadata = EntryMetadata(
+                    sentiment: metadataResponse.sentiment,
+                    themes: metadataResponse.themes,
+                    entities: metadataResponse.entities,
+                    keyPhrases: metadataResponse.keyPhrases
+                )
+                
+                // Initialize ChapterGenerationRequest with EntryMetadata
+                let chapterRequest = ChapterGenerationRequest(
+                    metadata: entryMetadata,
+                    userId: userId,
+                    genre: genre,
+                    previousArcs: previousArcs
+                )
+                let publisher = self.narrativeAPIService.generateChapter(requestData: chapterRequest)
+                    .timeout(60, scheduler: DispatchQueue.main) // Add timeout to prevent indefinite waiting
+                    .catch { error -> AnyPublisher<ChapterResponse, APIServiceError> in
+                        // If chapter generation fails, create a fallback chapter
+                        print("Chapter generation failed: \(error.localizedDescription), using fallback")
+                        return Just(self.createFallbackChapter(from: metadataResponse, genre: genre))
+                            .setFailureType(to: APIServiceError.self)
+                            .eraseToAnyPublisher()
+                    }
+                    .eraseToAnyPublisher() // Add this to fix the type conversion error
+                
+                return publisher
+            }
+        .receive(on: DispatchQueue.main)
+        .sink(receiveCompletion: { completion in
+            self.isGeneratingChapter = false // Stop loading indicator
+            switch completion {
+            case .finished:
+                // Success state is handled mainly by receiveValue setting the chapter
+                // If chapter isn't set here, something unexpected happened.
+                if self.generatedChapter == nil {
+                    self.chapterGenerationError = "Chapter generation completed but no chapter was received."
+                }
+            case .failure(let error):
+                // Handle API error
+                self.chapterGenerationError = error.localizedDescription
+                
+                // Log the error for debugging
+                print("Final error in chapter generation: \(error.localizedDescription)")
+                
+                // Create a fallback chapter as a last resort
+                let fallbackMetadata = self.createFallbackMetadata(from: combinedText)
+                let fallbackChapter = self.createFallbackChapter(from: fallbackMetadata, genre: self.selectedGenre.lowercased())
+                self.generatedChapter = fallbackChapter
+                
+                // Save the fallback chapter
+                let persistenceManager = StoryPersistenceManager.shared
+                let chapter = Chapter(
+                    id: fallbackChapter.chapterId,
+                    text: fallbackChapter.text,
+                    cliffhanger: fallbackChapter.cliffhanger,
+                    genre: self.selectedGenre,
+                    creationDate: Date()
+                )
+                _ = persistenceManager.saveChapter(chapter)
+                
+                // Show the chapter sheet even with the fallback
+                self.showChapterSheet = true
+            }
+        }, receiveValue: { chapterResponse in
+            // Set the chapter and show the chapter sheet
+            self.generatedChapter = chapterResponse
+            
+            // Save the chapter and arc to persistence
+            let persistenceManager = StoryPersistenceManager.shared
+            // Convert ChapterResponse to Chapter if needed
+            let chapter = Chapter(
+                id: chapterResponse.chapterId,
+                text: chapterResponse.text,
+                cliffhanger: chapterResponse.cliffhanger,
+                genre: self.selectedGenre,
+                creationDate: Date()
+            )
+            _ = persistenceManager.saveChapter(chapter)
+            
+            // Show the chapter sheet
+            self.showChapterSheet = true
+        })
+        .store(in: &cancellables)
+    }
+    
+    /// Creates a fallback metadata response when the API call fails
+    private func createFallbackMetadata(from text: String) -> MetadataResponse {
+        // Extract some basic themes and entities from the text
+        var themes: [String] = []
+        var entities: [String] = []
+        var keyPhrases: [String] = []
+        
+        // Simple theme extraction based on subject
+        switch selectedSubject {
+        case .math:
+            themes = ["Mathematics", "Problem Solving", "Logic"]
+        case .science:
+            themes = ["Science", "Discovery", "Exploration"]
+        case .english:
+            themes = ["Literature", "Expression", "Creativity"]
+        case .history:
+            themes = ["History", "Time", "Culture"]
+        case .art:
+            themes = ["Art", "Creativity", "Expression"]
+        case .music:
+            themes = ["Music", "Rhythm", "Harmony"]
+        case .computerScience:
+            themes = ["Technology", "Coding", "Innovation"]
+        case .physicalEducation:
+            themes = ["Fitness", "Health", "Teamwork"]
+        case .foreignLanguage:
+            themes = ["Language", "Communication", "Culture"]
+        case .other:
+            themes = ["Learning", "Growth", "Knowledge"]
+        @unknown default:
+            themes = ["Education", "Development", "Skills"]
+        }
+        
+        // Extract potential entities from assignment name
+        if !assignmentName.isEmpty {
+            entities = [assignmentName]
+            keyPhrases = [assignmentName]
+        }
+        
+        // Determine sentiment from emotional state
+        let sentiment = fallbackSentimentForEmotionalState(emotionalState)
+        
+        return MetadataResponse(
+            sentiment: String(sentiment),
+            themes: themes,
+            entities: entities,
+            keyPhrases: keyPhrases
+        )
+    }
+    
+    /// Creates a fallback chapter when the API call fails
+    private func createFallbackChapter(from metadata: MetadataResponse, genre: String) -> ChapterResponse {
+        let chapterId = "chapter-\(UUID().uuidString)"
+        
+        // Create a title based on the assignment name
+        let title = assignmentName.isEmpty ? "The Journey of Learning" : "The Adventure of \(assignmentName)"
+        
+        // Create chapter content based on genre and metadata
+        var chapterText = ""
+        var cliffhanger = ""
+        
+        switch genre {
+        case "fantasy":
+            chapterText = createFantasyChapter(title: title, metadata: metadata)
+            cliffhanger = "What magical challenges await in the next chapter of this fantastical journey?"
+        case "mystery":
+            chapterText = createMysteryChapter(title: title, metadata: metadata)
+            cliffhanger = "What secrets will be uncovered as the investigation continues?"
+        case "adventure":
+            chapterText = createAdventureChapter(title: title, metadata: metadata)
+            cliffhanger = "What exciting discoveries await on the next leg of this incredible journey?"
+        case "scifi":
+            chapterText = createSciFiChapter(title: title, metadata: metadata)
+            cliffhanger = "What technological wonders and cosmic mysteries will be revealed in the next chapter?"
+        default:
+            chapterText = createGeneralChapter(title: title, metadata: metadata)
+            cliffhanger = "What new insights and growth will the next chapter bring?"
+        }
+        
+        return ChapterResponse(
+            chapterId: chapterId,
+            text: chapterText,
+            cliffhanger: cliffhanger,
+            studentName: nil,
+            feedback: nil
+        )
+    }
+    
+    /// Creates a fantasy-themed chapter
+    private func createFantasyChapter(title: String, metadata: MetadataResponse) -> String {
+        let themes = metadata.themes.joined(separator: ", ")
+        let sentiment = Double(metadata.sentiment) ?? 0.0
+        let mood = sentiment > 0 ? "hopeful" : (sentiment < 0 ? "challenging" : "mysterious")
+        
+        return """
+        # \(title)
+        
+        In a realm where knowledge took physical form, a young scholar named Alex found themselves standing before an ancient tower of wisdom. The tower was said to contain the secrets of \(themes).
+        
+        "I've been preparing for this challenge," Alex whispered, clutching their notes on \(assignmentName). The air around the tower shimmered with \(mood) energy.
+        
+        As Alex approached the entrance, symbols representing \(selectedSubject.rawValue) glowed on the massive wooden doors. The doors swung open, revealing a spiral staircase that seemed to stretch infinitely upward.
+        
+        Each step Alex took revealed new chambers filled with magical artifacts and ancient texts. In one room, floating crystals displayed complex \(selectedSubject.rawValue) problems that Alex had to solve to proceed.
+        
+        "This reminds me of the challenges I faced in class," Alex thought, recalling the \(emotionalState.rawValue) feelings that had accompanied their studies.
+        
+        After solving several increasingly difficult puzzles, Alex reached a chamber at the heart of the tower. There, a shimmering portal displayed scenes from Alex's learning journey, transforming their struggles and triumphs into a tapestry of magical experiences.
+        
+        "Your path is just beginning," whispered a voice from the portal. "The knowledge you seek is not just in these walls, but in how you apply what you've learned to the world beyond."
+        
+        Alex nodded, understanding that this was just one chapter in a much longer adventure of learning and growth.
+        """
+    }
+    
+    /// Creates a mystery-themed chapter
+    private func createMysteryChapter(title: String, metadata: MetadataResponse) -> String {
+        let themes = metadata.themes.joined(separator: ", ")
+        
+        return """
+        # \(title)
+        
+        The classroom was empty when Detective Jordan arrived, save for a complex \(selectedSubject.rawValue) problem still written on the board. "This is where it all started," Jordan muttered, examining the notes left behind by Professor Quinn.
+        
+        The case was unusual: a series of academic challenges that seemed to form a pattern, all centered around \(assignmentName). Jordan had been called in after students reported strange occurrences following their work on this particular assignment.
+        
+        "Each student who excelled found a mysterious note leading them to the next clue," explained the department head. "We think it's some kind of academic treasure hunt, but we can't figure out who's behind it."
+        
+        Jordan felt \(emotionalState.rawValue) as they studied the materials. The same feeling the students had reported. This was no coincidence.
+        
+        Carefully analyzing the content related to \(themes), Jordan began to see connections that others had missed. Each problem contained a hidden message, a piece of a larger puzzle.
+        
+        "It's not about the answers," Jordan realized, "it's about the process of discovery itself."
+        
+        As night fell across the campus, Jordan arranged the clues in a new pattern, revealing a map that led to the old library archive. What secrets about learning and knowledge would be uncovered there?
+        """
+    }
+    
+    /// Creates an adventure-themed chapter
+    private func createAdventureChapter(title: String, metadata: MetadataResponse) -> String {
+        let entities = metadata.entities.isEmpty ? ["knowledge", "understanding"] : metadata.entities
+        
+        return """
+        # \(title)
+        
+        The expedition to master \(assignmentName) had begun like any other academic journey, but Morgan quickly realized this would be no ordinary learning experience. Armed with textbooks, notes, and determination, they set off into the wilderness of new concepts.
+        
+        "The path to understanding \(selectedSubject.rawValue) is never straight," their mentor had warned. Now, standing at the base of a mountain of information, Morgan felt \(emotionalState.rawValue).
+        
+        The first challenge appeared in the form of a rushing river of complex ideas. Morgan had to build a bridge of connections between concepts to cross safely. Each plank represented a key idea from their studies.
+        
+        "I can do this," Morgan said, carefully placing concepts into a pattern that would support their weight.
+        
+        After crossing, the terrain changed to a dense forest of details and examples. Morgan navigated through, marking their path with flags of understanding, ensuring they could find their way back if needed.
+        
+        By nightfall, Morgan had reached a clearing where other explorers of knowledge had camped. They shared stories of their encounters with \(entities.joined(separator: " and ")).
+        
+        "Tomorrow we climb higher," said a fellow traveler. "They say the view from the peak offers insights few have witnessed."
+        
+        Morgan nodded, preparing for the next day's ascent. This journey through learning was challenging their limits, but the discoveries made along the way were already changing how they saw the world.
+        """
+    }
+    
+    /// Creates a sci-fi themed chapter
+    private func createSciFiChapter(title: String, metadata: MetadataResponse) -> String {
+        let keyPhrases = metadata.keyPhrases.isEmpty ? ["knowledge algorithms", "neural enhancement"] : metadata.keyPhrases
+        
+        return """
+        # \(title)
+        
+        The neural education pod hummed as Cadet Taylor initiated the \(selectedSubject.rawValue) learning sequence. In the year 2157, education had evolved beyond traditional methods, directly interfacing with students' cognitive processes.
+        
+        "Initiating knowledge transfer for module: \(assignmentName)," announced the AI instructor. "Prepare for conceptual integration."
+        
+        Taylor felt \(emotionalState.rawValue) as the information began flowing into their consciousness. The sensation was always strange—like remembering things you never actually experienced.
+        
+        The virtual environment shifted, transforming into a three-dimensional representation of the subject matter. Concepts appeared as glowing structures that Taylor could manipulate, examine from all angles, and connect in new ways.
+        
+        "Unusual pattern detected in your cognitive response," the AI noted. "Your approach to \(keyPhrases.joined(separator: " and ")) shows unique neural pathways."
+        
+        This wasn't the first time Taylor had heard this. Their learning style had always differed from the standard algorithms.
+        
+        As the session progressed, Taylor began to see connections the AI hadn't programmed—links between seemingly unrelated concepts that formed a new understanding.
+        
+        "I think I've discovered something," Taylor told the AI, manipulating the knowledge structures into a new configuration.
+        
+        The AI paused, analyzing. "This pattern is not in my database. Requesting permission to record your cognitive process for further study."
+        
+        Taylor smiled. Even in an age of advanced technology, human creativity and insight still had the power to surprise. What other discoveries awaited in the vast universe of knowledge?
+        """
+    }
+    
+    /// Creates a general themed chapter when no specific genre is selected
+    private func createGeneralChapter(title: String, metadata: MetadataResponse) -> String {
+        return """
+        # \(title)
+        
+        The journey of learning is rarely a straight path. For one student, the assignment on \(assignmentName) began as a simple task but quickly transformed into something more meaningful.
+        
+        At first, they felt \(emotionalState.rawValue) about the challenge. The \(selectedSubject.rawValue) concepts seemed to form a maze of ideas, some connecting clearly while others remained elusive.
+        
+        "I need to approach this differently," they thought, reorganizing their notes and seeking new perspectives. Each small breakthrough brought satisfaction, each obstacle an opportunity to develop resilience.
+        
+        As days passed, what had started as merely an assignment became a personal quest for understanding. The student began to see connections beyond the classroom—how these concepts appeared in everyday life, in conversations with friends, in problems that needed solving.
+        
+        One evening, while reviewing their work, they realized something important: the value wasn't just in completing the assignment, but in how it had changed their thinking. They had developed new mental tools, new ways of seeing the world.
+        
+        "Learning isn't about reaching a destination," they wrote in their journal. "It's about how we're transformed by the journey."
+        
+        As they prepared to submit their work, they knew this was just one chapter in their ongoing story of growth and discovery. What new insights would tomorrow bring?
+        """
+    }
+
+    // Helper to save the basic journal entry without waiting for chapter generation
+    func saveMinimalEntry() {
+        // Create prompt responses from the prompts and responses
+        let responses = createPromptResponses()
+        
+        let content = reflectionResponses.joined(separator: "\n\n")
+        
+        // Create the journal entry
+        let entry = JournalEntry(
+            id: UUID(),
+            assignmentName: assignmentName,
+            date: Date(),
+            subject: selectedSubject,
+            emotionalState: emotionalState, // Use the selected emotional state
+            reflectionPrompts: responses,
+            aiSummary: aiInsights,
+            aiTone: aiTone
+        )
+        
+        // Save to the journal store
+        journalStore.saveEntry(entry)
+        
+        // Show confirmation
+        showSaveConfirmation(for: entry.assignmentName)
+    }
+
+    func onNext() {
+        if currentPage < totalPages - 1 {
+            currentPage += 1
+        } else {
+            saveEntryAndGenerateChapter()
+        }
+    }
+    
+    // Implementation of the required protocol method
+    func showSaveConfirmation(for entryTitle: String) {
+        // Show a temporary toast or notification
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+    }
+
+    func canProceed(page: Int) -> Bool {
+        switch page {
+        case 0: return !assignmentName.isEmpty // Only require assignment name
+        case 1: return !emotionalReason.isEmpty
+        case 2: return reflectionResponses.contains { !$0.isEmpty }
+        case 3: return !selectedStrategies.isEmpty || !otherStrategies.isEmpty
+        case 4: return true // Can always proceed from insights page
+        default: return false
+        }
+    }
+
+    func createPromptResponses() -> [PromptResponse] {
+        // Create prompt responses from the prompts and responses
+        return prompts.enumerated().map { idx, prompt in
+            PromptResponse(id: UUID(), prompt: prompt, response: reflectionResponses.indices.contains(idx) ? reflectionResponses[idx] : "")
+        }
+    }
+    
+    func generateAIOutputs() async {
+        isLoadingAI = true
+        aiError = nil
+        
+        // Create a minimal journal entry for tone analysis
+        let tempEntry = JournalEntry(
+            id: UUID(),
+            assignmentName: assignmentName,
+            date: Date(),
+            subject: selectedSubject,
+            emotionalState: emotionalState, // Use the selected emotional state
+            reflectionPrompts: createPromptResponses()
+        )
+        
+        // Try to get sentiment analysis, but provide fallback if it fails
+        var sentimentScore: Double = 0.0
+        do {
+            sentimentScore = try await analyzer.analyzeTone(entry: tempEntry)
+        } catch {
+            // Use emotional state to determine fallback sentiment
+            sentimentScore = fallbackSentimentForEmotionalState(emotionalState)
+            print("Using fallback sentiment due to error: \(error.localizedDescription)")
+        }
+        
+        // Convert the sentiment score to a descriptive tone
+        aiTone = convertSentimentToTone(sentimentScore)
+        
+        // Generate insights based on the responses
+        let responses = createPromptResponses()
+        aiInsights = generateSimpleInsights(from: responses)
+        
+        isLoadingAI = false
+    }
+    
+    /// Provides a fallback sentiment score based on the selected emotional state
+    private func fallbackSentimentForEmotionalState(_ state: EmotionalState) -> Double {
+        switch state {
+        case .confident, .satisfied:
+            return 0.7 // Positive
+        case .curious:
+            return 0.4 // Slightly positive
+        case .neutral:
+            return 0.0 // Neutral
+        case .confused:
+            return -0.2 // Slightly negative
+        case .frustrated, .overwhelmed:
+            return -0.6 // Negative
+        }
+    }
+    
+    /// Generates fallback insights when API calls fail
+    private func generateFallbackInsights() -> String {
+        let insights = "Based on your journal entry:\n\n"
+        + "• Reflecting on your experiences helps develop metacognitive skills\n"
+        + "• Continue to identify what worked well and what could be improved\n"
+        + "• Consider how you might apply what you've learned to future situations\n"
+        
+        return insights
+    }
+    
+    /// Converts a sentiment score to a descriptive tone string
+    /// - Parameter score: Sentiment score between -1.0 and 1.0
+    /// - Returns: A descriptive tone string
+    func convertSentimentToTone(_ score: Double) -> String {
+        switch score {
+        case 0.7...1.0: return "Very Positive"
+        case 0.3..<0.7: return "Positive"
+        case -0.3..<0.3: return "Neutral"
+        case -0.7..<(-0.3): return "Negative"
+        case -1.0..<(-0.7): return "Very Negative"
+        default: return "Neutral"
+        }
+    }
+    
+    /// Generates simple insights from prompt responses
+    /// - Parameter responses: Array of prompt responses
+    /// - Returns: A string containing insights
+    func generateSimpleInsights(from responses: [PromptResponse]) -> String {
+        // Extract non-empty responses
+        let validResponses = responses.filter { !($0.response?.isEmpty ?? true) }
+        
+        if validResponses.isEmpty {
+        }
+        insightPool.append("• Historical knowledge provides context for understanding current events.")
+        insightPool.append("• Examining different historical perspectives develops critical thinking.")
+    default:
+        break
+    }
+    
+    // Emotional insights based on the selected emotional state
+    switch emotionalState {
+    case .confident:
+        insightPool.append("• Your confidence suggests you've mastered key concepts in this assignment.")
+        insightPool.append("• Confidence in your abilities allows you to take on greater challenges.")
+    case .confused:
+        insightPool.append("• Your confusion is a natural part of learning - it means you're engaging with complex ideas.")
+        insightPool.append("• Moments of confusion often precede breakthroughs in understanding.")
+    case .frustrated:
+        insightPool.append("• Your frustration shows you care about understanding this material deeply.")
+        insightPool.append("• Working through frustration builds resilience and problem-solving skills.")
+    case .overwhelmed:
+        insightPool.append("• When feeling overwhelmed, breaking tasks into smaller steps can help regain control.")
+        insightPool.append("• Recognizing when you're overwhelmed is an important metacognitive skill.")
+    case .neutral:
+        insightPool.append("• Your neutral approach allows for objective analysis of the material.")
+        insightPool.append("• Maintaining emotional balance helps with rational decision-making.")
+    case .curious:
+        insightPool.append("• Your curiosity is a powerful driver for deeper learning and exploration.")
+        insightPool.append("• Asking questions leads to more meaningful and lasting knowledge.")
+    case .satisfied:
+        insightPool.append("• Your satisfaction indicates you've achieved meaningful progress in your learning.")
+        insightPool.append("• Recognizing your accomplishments motivates continued effort.")
+        title: String,
+        subject: K12Subject,
+        emotionalState: EmotionalState,
+        summary: String,
+        metadata: EntryMetadata?
+    ) -> JournalEntry {
+        // Create a prompt response with the content
+        let promptResponse = PromptResponse(
+            id: UUID(),
+            prompt: "Journal Content",
+            response: content
+        )
+        
+        // Create and return the journal entry
+        return JournalEntry(
+            id: UUID(),
+            assignmentName: title,
+            date: Date(),
+            subject: subject,
+            emotionalState: emotionalState,
+            reflectionPrompts: [promptResponse],
+            aiSummary: summary,
+            metadata: metadata
+        )
+    }
+}

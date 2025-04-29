@@ -13,7 +13,13 @@ struct VoiceJournalEntryView: View {
     init(prompts: [String]) {
         _vm = StateObject(wrappedValue: VoiceJournalViewModel(prompts: prompts))
     }
+    
 
+
+    // State for showing save confirmation
+    @State private var showSaveConfirmation = false
+    @State private var savedEntryTitle = ""
+    
     var body: some View {
         VStack(spacing: 16) {
             Text(vm.currentPrompt)
@@ -50,6 +56,7 @@ struct VoiceJournalEntryView: View {
                 Spacer()
 
                 Button("Finish") {
+                    // Use the existing save method
                     vm.saveCurrentEntry(in: journalStore)
                     dismiss()
                 }
@@ -65,6 +72,19 @@ struct VoiceJournalEntryView: View {
         .navigationTitle("Voice Journal")
         .onAppear {
             vm.speakPrompt()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("JournalEntrySaved"))) { notification in
+            if let title = notification.object as? String {
+                savedEntryTitle = title
+                showSaveConfirmation = true
+            }
+        }
+        .alert(isPresented: $showSaveConfirmation) {
+            Alert(
+                title: Text("Entry Saved"),
+                message: Text("Your voice journal entry has been saved."),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }

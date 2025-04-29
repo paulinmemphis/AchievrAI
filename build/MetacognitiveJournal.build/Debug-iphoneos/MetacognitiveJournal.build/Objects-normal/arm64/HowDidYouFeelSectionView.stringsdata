@@ -1,0 +1,48 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/HowDidYouFeelSectionView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Express your feelings using text, emoji, or voice.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 17
+        }
+      },
+      {
+        "comment": "",
+        "key": "How did you feel?",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Feeling %@",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Describe your feelings",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 36
+        }
+      },
+      {
+        "comment": "",
+        "key": "Describe your feelings",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 40
+        }
+      }
+    ]
+  },
+  "version": 1
+}

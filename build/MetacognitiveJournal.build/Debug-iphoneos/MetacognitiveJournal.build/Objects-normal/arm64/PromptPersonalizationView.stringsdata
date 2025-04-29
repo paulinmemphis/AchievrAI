@@ -1,0 +1,40 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptPersonalizationView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "You marked this prompt as a favorite.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "You skipped this prompt.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "Favorite",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 28
+        }
+      },
+      {
+        "comment": "",
+        "key": "Skip",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 37
+        }
+      }
+    ]
+  },
+  "version": 1
+}

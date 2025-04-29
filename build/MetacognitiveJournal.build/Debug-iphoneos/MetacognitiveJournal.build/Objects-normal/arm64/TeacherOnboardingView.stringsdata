@@ -1,0 +1,40 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TeacherOnboardingView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Read our FAQ",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Contact Support",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 37
+        }
+      },
+      {
+        "comment": "",
+        "key": "Next",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set Up Account",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 63
+        }
+      }
+    ]
+  },
+  "version": 1
+}

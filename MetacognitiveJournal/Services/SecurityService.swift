@@ -93,11 +93,11 @@ class SecurityService {
                 return newKey
             } catch {
                 // Handle save error
-                throw AppError.internalError(message: "Failed to save new encryption key: \(error.localizedDescription)")
+                throw JournalAppError.internalError(message: "Failed to save new encryption key: \(error.localizedDescription)")
             }
         } catch {
             // Handle other keychain errors
-            throw AppError.internalError(message: "Failed to retrieve encryption key: \(error.localizedDescription)")
+            throw JournalAppError.internalError(message: "Failed to retrieve encryption key: \(error.localizedDescription)")
         }
     }
 }

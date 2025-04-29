@@ -33,7 +33,7 @@ class SecretManager {
     
     private func saveSecret(_ secret: String, for key: SecretKeys) -> Bool {
         // Delete any existing key first
-        deleteSecret(for: key)
+        _ = deleteSecret(for: key)
         
         let secretData = secret.data(using: .utf8)!
         

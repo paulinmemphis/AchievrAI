@@ -1,0 +1,40 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ThemeSettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Theme Settings",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 18
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 19
+        }
+      },
+      {
+        "comment": "",
+        "key": "Theme",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 9
+        }
+      },
+      {
+        "comment": "",
+        "key": "App Theme",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 10
+        }
+      }
+    ]
+  },
+  "version": 1
+}

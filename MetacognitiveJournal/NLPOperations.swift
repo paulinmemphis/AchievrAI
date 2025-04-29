@@ -9,6 +9,8 @@
 import Foundation
 import NaturalLanguage
 
+// Using consolidated model definitions from MCJModels.swift
+
 class NLPOperations {
     static let shared = NLPOperations()
     
@@ -83,10 +85,10 @@ class NLPOperations {
         }
     }
 
-    func identifyLearningPatterns(from responses: [String], completion: @escaping ([LearningPattern: Int]) -> Void) {
+    func identifyLearningPatterns(from responses: [String], completion: @escaping ([LearningStylePattern: Int]) -> Void) {
         nlpQueue.async {
-            var patternCounts: [LearningPattern: Int] = [:]
-            for pattern in LearningPattern.allCases {
+            var patternCounts: [LearningStylePattern: Int] = [:]
+            for pattern in LearningStylePattern.allCases {
                 let count = responses.reduce(0) { total, response in
                     total + pattern.keywords.reduce(0) { $0 + (response.lowercased().contains($1) ? 1 : 0) }
                 }

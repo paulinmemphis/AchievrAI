@@ -1,0 +1,136 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GrowthJourneyView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Timeframe",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Growth Journey",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "Track your progress and celebrate your growth over time",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "↑",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "↓",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "→",
+        "location": {
+          "startingColumn": 77,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "Detailed Analysis",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%% %@",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 184
+        }
+      },
+      {
+        "comment": "",
+        "key": "from previous %@",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 186
+        }
+      },
+      {
+        "comment": "",
+        "key": "Trend Over Time",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 203
+        }
+      },
+      {
+        "comment": "",
+        "key": "Insights",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 268
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Journey Path",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 301
+        }
+      },
+      {
+        "comment": "",
+        "key": "Upcoming",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 344
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 324
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Growth Milestones",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 364
+        }
+      },
+      {
+        "comment": "",
+        "key": "Achieved on %@",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 393
+        }
+      }
+    ]
+  },
+  "version": 1
+}

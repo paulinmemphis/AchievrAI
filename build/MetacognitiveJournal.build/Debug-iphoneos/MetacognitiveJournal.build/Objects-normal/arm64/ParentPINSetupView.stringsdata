@@ -1,0 +1,56 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentPINSetupView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Parent PIN Setup",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 51
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set a 4-digit PIN",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 23
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter new PIN",
+        "location": {
+          "startingColumn": 33,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Confirm PIN",
+        "location": {
+          "startingColumn": 33,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save PIN",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 54
+        }
+      }
+    ]
+  },
+  "version": 1
+}

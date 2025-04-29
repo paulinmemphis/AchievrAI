@@ -1,0 +1,97 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1800 >>
+stream
+BT
+/F1 24 Tf
+50 740 Td
+(Security & Privacy Policy) Tj
+/F1 12 Tf
+0 -40 Td
+(Last updated: 2025-04-24) Tj
+0 -30 Td
+(App Name: Metacognitive Journal) Tj
+0 -30 Td
+(\n) Tj
+/F1 18 Tf
+0 -30 Td
+(1. Data Encryption & Storage) Tj
+/F1 12 Tf
+0 -20 Td
+(All journal entries are encrypted on your device using AES-GCM encryption. Data is stored locally, never sent to a server unless you explicitly export or use AI features (with opt-in).) Tj
+0 -20 Td
+(\n) Tj
+/F1 18 Tf
+0 -30 Td
+(2. App Lock & Authentication) Tj
+/F1 12 Tf
+0 -20 Td
+(You can enable Face ID or Touch ID to protect your journal from unauthorized access. App Lock can be toggled in settings.) Tj
+0 -20 Td
+(\n) Tj
+/F1 18 Tf
+0 -30 Td
+(3. Permission Transparency) Tj
+/F1 12 Tf
+0 -20 Td
+(Notifications are used for reminders. Microphone access is used for voice journaling. We only request permissions with clear in-app explanations.) Tj
+0 -20 Td
+(\n) Tj
+/F1 18 Tf
+0 -30 Td
+(4. Export & Sharing Warnings) Tj
+/F1 12 Tf
+0 -20 Td
+(Before exporting or sharing entries, you are warned about sharing sensitive information. Parental consent is required for minors.) Tj
+0 -20 Td
+(\n) Tj
+/F1 18 Tf
+0 -30 Td
+(5. Parental Controls & Consent) Tj
+/F1 12 Tf
+0 -20 Td
+(Parents can review entries and receive alerts for concerning content. No data is shared without explicit consent.) Tj
+0 -20 Td
+(\n) Tj
+/F1 18 Tf
+0 -30 Td
+(6. No Hidden Data Collection) Tj
+/F1 12 Tf
+0 -20 Td
+(No personal data is sent to external servers unless you opt in to AI features. We do not sell or share your data.) Tj
+0 -20 Td
+(\n) Tj
+/F1 18 Tf
+0 -30 Td
+(7. User Rights & Support) Tj
+/F1 12 Tf
+0 -20 Td
+(You can export or delete your data at any time. Contact support for privacy questions or data removal requests.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000010 00000 n 
+0000000079 00000 n 
+0000000178 00000 n 
+0000000335 00000 n 
+0000002198 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2278
+%%EOF

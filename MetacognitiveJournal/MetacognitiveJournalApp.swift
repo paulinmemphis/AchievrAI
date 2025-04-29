@@ -10,6 +10,45 @@ struct MetacognitiveJournalApp: App {
     @StateObject private var themeManager = ThemeManager()
     @StateObject private var appLockManager = AppLockManager()
     @StateObject private var gamificationManager = GamificationManager()
+    @StateObject private var narrativeEngineManager = NarrativeEngineManager()
+    @StateObject private var psychologicalEnhancementsCoordinator = PsychologicalEnhancementsCoordinator()
+    @StateObject private var aiNudgeManager = AINudgeManager() // Initialize AINudgeManager
+    @StateObject private var growthMetricsManager: GrowthMetricsManager
+    
+    // Initialize the app and its dependencies
+    init() {
+        // Initialize the PsychologicalEnhancementsCoordinator first
+        let coordinator = PsychologicalEnhancementsCoordinator()
+        _psychologicalEnhancementsCoordinator = StateObject(wrappedValue: coordinator)
+        
+        // Initialize the GamificationManager
+        let gamification = GamificationManager()
+        _gamificationManager = StateObject(wrappedValue: gamification)
+        
+        // Initialize the JournalStore
+        let journal = JournalStore()
+        _journalStore = StateObject(wrappedValue: journal)
+        
+        // Initialize the MetacognitiveAnalyzer
+        let analyzer = MetacognitiveAnalyzer()
+        _analyzer = StateObject(wrappedValue: analyzer)
+        
+        // Initialize the UserProfile
+        let profile = UserProfile()
+        _userProfile = StateObject(wrappedValue: profile)
+        
+        // Initialize AINudgeManager
+        let nudgeManager = AINudgeManager()
+        _aiNudgeManager = StateObject(wrappedValue: nudgeManager)
+        
+        // Initialize GrowthMetricsManager with its dependencies
+        let metricsManager = GrowthMetricsManager(
+            journalStore: journal,
+            insightStreakManager: coordinator.insightStreakManager,
+            gamificationManager: gamification
+        )
+        _growthMetricsManager = StateObject(wrappedValue: metricsManager)
+    }
 
     // Keep State variables for view routing logic here
     @State private var secureJournalStore: JournalStore? = nil
@@ -18,28 +57,65 @@ struct MetacognitiveJournalApp: App {
     @State private var requiresPasswordSetup = false
     @State private var requiresPasswordEntry = false
     @State private var passwordEntryError: String? = nil // Added for password sheet error
+    @State private var showSplashScreen = true // Control splash screen visibility
 
     var body: some Scene {
         WindowGroup {
-            // Instantiate RootView, passing state and functions
-            RootView(
-                isLoadingStore: isLoadingStore,
-                requiresPasswordSetup: requiresPasswordSetup,
-                bindingRequiresPasswordEntry: $requiresPasswordEntry,
-                bindingPasswordEntryError: $passwordEntryError,
-                storeUnlockError: storeUnlockError,
-                secureJournalStore: secureJournalStore,
-                onPasswordEntered: handlePasswordEntered
-            )
+            ZStack {
+                // Main app content
+                RootView(
+                    isLoadingStore: isLoadingStore,
+                    requiresPasswordSetup: requiresPasswordSetup,
+                    bindingRequiresPasswordEntry: $requiresPasswordEntry,
+                    bindingPasswordEntryError: $passwordEntryError,
+                    storeUnlockError: storeUnlockError,
+                    secureJournalStore: secureJournalStore,
+                    onPasswordEntered: handlePasswordEntered
+                )
+                .opacity(showSplashScreen ? 0 : 1) // Hide main content during splash screen
+                
+                // Splash screen overlay
+                if showSplashScreen {
+                    SplashScreenView(onAnimationComplete: {
+                        // Hide splash screen when animation completes
+                        withAnimation {
+                            showSplashScreen = false
+                        }
+                    })
+                    .transition(.opacity)
+                    .zIndex(100) // Ensure splash screen is on top
+                }
+            }
             // Restore environment objects
             .environmentObject(analyzer)
             .environmentObject(parentalControlManager)
             .environmentObject(userProfile)
             .environmentObject(themeManager)
             .environmentObject(appLockManager)
+            // Inject journalStore
+            .environmentObject(journalStore) 
             .environmentObject(gamificationManager)
+            .environmentObject(narrativeEngineManager)
+            .environmentObject(psychologicalEnhancementsCoordinator)
+            .environmentObject(aiNudgeManager) // Inject AINudgeManager
+            .environmentObject(growthMetricsManager) // Inject GrowthMetricsManager
+            .withPsychologicalEnhancements(psychologicalEnhancementsCoordinator)
+            .overlay(
+                FloatingAITipView()
+                    .environmentObject(journalStore)
+                    .environmentObject(aiNudgeManager)
+                    .environmentObject(themeManager)
+            )
             .task { // Keep task applied to RootView instance
                 print("[App] .task started. Current state: isLoadingStore=\(isLoadingStore), requiresPasswordSetup=\(requiresPasswordSetup), requiresPasswordEntry=\(requiresPasswordEntry), secureJournalStore is nil: \(secureJournalStore == nil)")
+                
+                // Configure the AINudgeManager with its dependencies
+                aiNudgeManager.configure(
+                    journalStore: journalStore,
+                    gamificationManager: gamificationManager,
+                    userProfile: userProfile,
+                    analyzer: analyzer
+                )
                 await loadAndUnlockStore()
                 print("[App] .task finished. Final state: isLoadingStore=\(isLoadingStore), requiresPasswordSetup=\(requiresPasswordSetup), requiresPasswordEntry=\(requiresPasswordEntry), secureJournalStore is nil: \(secureJournalStore == nil)")
             }
@@ -59,6 +135,18 @@ struct MetacognitiveJournalApp: App {
         await MainActor.run { isLoadingStore = true; storeUnlockError = nil }
         print("[Unlock] Starting loadAndUnlockStore...")
         do {
+            // Check if password login is required by parent settings
+            if !parentalControlManager.getPasswordLoginRequired() {
+                print("[Unlock] Password login not required by parent settings. Skipping password check.")
+                // Skip password check and proceed to main app with the regular journalStore
+                await MainActor.run {
+                    // Use the regular journalStore instead of secureJournalStore
+                    secureJournalStore = journalStore
+                    isLoadingStore = false
+                }
+                return
+            }
+            
             print("[Unlock] Checking if password exists...")
             var passwordExists = false
             do {
@@ -210,6 +298,8 @@ struct RootView: View {
     @EnvironmentObject var analyzer: MetacognitiveAnalyzer
     @EnvironmentObject var parentalControlManager: ParentalControlManager
     @EnvironmentObject var gamificationManager: GamificationManager
+    @EnvironmentObject var journalStore: JournalStore // Injected journalStore
+    @EnvironmentObject var aiNudgeManager: AINudgeManager // Inject AINudgeManager
 
     // State properties passed from App (kept)
     let isLoadingStore: Bool

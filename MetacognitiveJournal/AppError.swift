@@ -1,6 +1,6 @@
 import Foundation
 
-enum AppError: LocalizedError {
+enum JournalAppError: LocalizedError, Equatable {
     case authenticationFailed(message: String)
     case keychainError(message: String)
     case internalError(message: String)

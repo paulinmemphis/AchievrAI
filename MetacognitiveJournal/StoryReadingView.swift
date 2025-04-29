@@ -99,7 +99,10 @@ struct StoryReadingView: View {
             .padding(.vertical, 8)
             
             // Chapter text
-            Text(node.chapter.text)
+            // StoryNode doesn't directly have a chapter property
+            // We should retrieve the actual chapter using the chapterId
+            // For now, using a placeholder
+            Text("Chapter content for ID: \(node.chapterId)")
                 .font(.system(size: selectedFontSize))
                 .lineSpacing(selectedFontSize * 0.3)
                 .fixedSize(horizontal: false, vertical: true)
@@ -241,18 +244,30 @@ struct StoryReadingView_Previews: PreviewProvider {
         
         return [
             StoryNode(
-                entryId: UUID(),
+                id: UUID().uuidString,
+                entryId: UUID().uuidString,
                 chapterId: chapter1.chapterId,
                 parentId: nil,
-                metadata: metadata1,
-                chapter: chapter1
+                metadata: EntryMetadata(
+                    sentiment: metadata1.sentiment,
+                    themes: metadata1.themes,
+                    entities: metadata1.entities,
+                    keyPhrases: metadata1.keyPhrases
+                ),
+                creationDate: Date()
             ),
             StoryNode(
-                entryId: UUID(),
+                id: UUID().uuidString,
+                entryId: UUID().uuidString,
                 chapterId: chapter2.chapterId,
-                parentId: UUID(),
-                metadata: metadata2,
-                chapter: chapter2
+                parentId: UUID().uuidString,
+                metadata: EntryMetadata(
+                    sentiment: metadata2.sentiment,
+                    themes: metadata2.themes,
+                    entities: metadata2.entities,
+                    keyPhrases: metadata2.keyPhrases
+                ),
+                creationDate: Date()
             )
         ]
     }

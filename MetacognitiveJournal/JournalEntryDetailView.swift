@@ -11,6 +11,7 @@ struct JournalEntryDetailView: View {
     @State private var editedSubject: K12Subject
     @State private var editedEmotionalState: EmotionalState
     @State private var editedPromptResponses: [PromptResponse]
+    @State private var showingDeleteConfirmation = false
 
     init(entry: JournalEntry) {
         self.entry = entry
@@ -130,6 +131,12 @@ struct JournalEntryDetailView: View {
                     }
                 }
             }
+            
+            // Date information
+            Section(header: Text("Date")) {
+                Text(formattedDate)
+                    .foregroundColor(.secondary)
+            }
 
             Section(header: Text("Reflections")) {
                 ForEach(0..<editedPromptResponses.count, id: \.self) { index in
@@ -151,10 +158,24 @@ struct JournalEntryDetailView: View {
                             get: { editedPromptResponses[index].response ?? "" },
                             set: { editedPromptResponses[index].response = $0 }
                         ))
-                        .frame(minHeight: 100)
+                        .frame(minHeight: 150) // Increased height for better visibility
                         .padding(4)
                         .background(Color(.systemGray6))
                         .cornerRadius(8)
+                    }
+                }
+            }
+            
+            // Delete button section
+            Section {
+                Button(action: {
+                    showingDeleteConfirmation = true
+                }) {
+                    HStack {
+                        Spacer()
+                        Text("Delete Entry")
+                            .foregroundColor(.red)
+                        Spacer()
                     }
                 }
             }
@@ -170,6 +191,18 @@ struct JournalEntryDetailView: View {
                     saveChanges()
                     isEditing = false
                 }
+            }
+        }
+        .confirmationDialog(
+            "Are you sure you want to delete this entry?",
+            isPresented: $showingDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Delete", role: .destructive) {
+                deleteEntry()
+            }
+            Button("Cancel", role: .cancel) {
+                showingDeleteConfirmation = false
             }
         }
     }
@@ -188,6 +221,11 @@ struct JournalEntryDetailView: View {
             audioURL: entry.audioURL
         )
         journalStore.updateEntry(updatedEntry)
+    }
+    
+    private func deleteEntry() {
+        journalStore.deleteEntry(entry.id)
+        dismiss() // Return to the journal list after deletion
     }
 
     // MARK: - Helpers

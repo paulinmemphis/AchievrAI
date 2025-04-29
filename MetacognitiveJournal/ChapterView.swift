@@ -1,9 +1,11 @@
 // ChapterView.swift
 import SwiftUI
 import Combine
+import Foundation
+import SwiftUI
 
 /// Displays a generated chapter with appropriate styling and sharing capabilities
-struct ChapterView: View {
+struct ChapterView: View, JournalEntrySavable {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var themeManager: ThemeManager // Access theme
     
@@ -11,11 +13,16 @@ struct ChapterView: View {
     @State private var showStoryMap = false
     @State private var showShareSheet = false
     @State private var viewStartTime = Date()
+    @State private var showSaveConfirmation = false
     
     // Analytics manager for tracking engagement
     private let analyticsManager = AnalyticsManager.shared
+    
+    // Journal store for saving entries
+    @EnvironmentObject var journalStore: JournalStore
 
-    let chapter: ChapterResponse
+    // Change to accept StoryNodeViewModel
+    let nodeViewModel: StoryNodeViewModel 
 
     var body: some View {
         NavigationView { // Wrap in NavigationView for title and potentially toolbar items
@@ -24,8 +31,8 @@ struct ChapterView: View {
                     // Display the main chapter text
                     // We assume the cliffhanger is the last sentence(s) and is included in chapter.text
                     // For highlighting, we can try to separate it or just style the last part if needed.
-                    // Simple approach: Display full text, then repeat cliffhanger highlighted.
-                    Text(chapter.text)
+                    // Simple approach: Display preview text, then repeat cliffhanger preview highlighted.
+                    Text(nodeViewModel.chapterPreview) // Use chapterPreview from VM
                         .font(.body)
                         .lineSpacing(5)
 
@@ -33,10 +40,10 @@ struct ChapterView: View {
 
                     // Highlight the cliffhanger
                     VStack(alignment: .leading) {
-                         Text("Cliffhanger:")
+                         Text("Cliffhanger Preview:") // Label change
                              .font(.headline)
                              .foregroundColor(themeManager.selectedTheme.accentColor) // Use theme color
-                         Text(chapter.cliffhanger)
+                         Text(nodeViewModel.chapterPreview) // Use chapterPreview (as cliffhanger isn't directly available)
                             .font(.body.italic().weight(.medium)) // Style the cliffhanger
                             .padding(.top, 2)
                     }
@@ -46,17 +53,41 @@ struct ChapterView: View {
                     
                     // Personalized feedback for the student
                     VStack(alignment: .leading) {
-                        Text("Feedback:")
+                        Text("Detected Themes:") // Changed Label
                             .font(.headline)
-                            .foregroundColor(themeManager.selectedTheme.accentColor)
-                        Text(chapter.feedback)
-                            .font(.body.weight(.medium))
-                            .padding(.top, 2)
+                        if nodeViewModel.themes.isEmpty { // Use themes from VM
+                            Text("No specific themes detected.")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        } else {
+                            FlowLayout(data: nodeViewModel.themes) { theme in // Use themes from VM
+                                Text(theme)
+                                    .font(.caption)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(Color(.secondarySystemBackground))
+                                    .cornerRadius(8)
+                            }
+                        }
                     }
                     .padding()
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(8)
 
+                    VStack(alignment: .leading) {
+                        Text("Sentiment:")
+                            .font(.headline)
+                        HStack {
+                            nodeViewModel.sentimentColor // Use sentimentColor from VM
+                                .frame(width: 15, height: 15)
+                                .cornerRadius(7.5)
+                            Text(sentimentDescription(nodeViewModel.sentiment)) // Use sentiment from VM
+                                .font(.subheadline)
+                        }
+                    }
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(8)
 
                     Spacer(minLength: 20) // Push content up
                     
@@ -95,6 +126,23 @@ struct ChapterView: View {
                             .foregroundColor(themeManager.selectedTheme.accentColor)
                             .cornerRadius(8)
                         }
+                        
+                        // Button to save as journal entry
+                        Button(action: {
+                            saveAsJournalEntry()
+                        }) {
+                            HStack {
+                                Image(systemName: "square.and.arrow.down")
+                                    .font(.body)
+                                Text("Save Entry")
+                                    .fontWeight(.medium)
+                            }
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 16)
+                            .background(themeManager.selectedTheme.accentColor.opacity(0.1))
+                            .foregroundColor(themeManager.selectedTheme.accentColor)
+                            .cornerRadius(8)
+                        }
                     }
                     .padding(.top)
                     .padding(.bottom, 30)
@@ -102,24 +150,29 @@ struct ChapterView: View {
                 .padding()
             }
             .background(themeManager.selectedTheme.backgroundColor) // Use theme background
-            .navigationTitle("\(chapter.studentName)'s Story Continues...")
+            .navigationTitle("\(nodeViewModel.title)'s Story Continues...")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) { // Use primaryAction for the main dismiss button
                     Button("Done") { // Changed from "Continue Writing" to "Done" as it feels more final for a modal
                         // Track view duration before dismissing
                         let viewDuration = Date().timeIntervalSince(viewStartTime)
-                        analyticsManager.trackChapterViewed(chapterId: chapter.chapterId, viewDuration: viewDuration)
+                        analyticsManager.trackChapterViewed(chapterId: nodeViewModel.chapterId, viewDuration: viewDuration)
                         dismiss()
                     }
                 }
             }
             .sheet(isPresented: $showShareSheet) {
-                let shareText = "Check out my story from Metacognitive Journal!\n\n\(chapter.text)\n\nCliffhanger: \(chapter.cliffhanger)"
+                let shareText = "Check out my story from Metacognitive Journal!\n\n\(nodeViewModel.chapterPreview)\n\nCliffhanger Preview: \(nodeViewModel.chapterPreview)"
                 CustomShareSheet(activityItems: [shareText])
                     .onDisappear {
                         analyticsManager.trackStoryShared(method: "system_share", chapterCount: 1)
                     }
+            }
+            .alert("Journal Entry Saved", isPresented: $showSaveConfirmation) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("The story has been saved to your journal entries.")
             }
         }
         .fullScreenCover(isPresented: $showStoryMap) {
@@ -136,26 +189,78 @@ struct ChapterView: View {
             // Track that chapter was viewed
             viewStartTime = Date() // Reset timer when view appears
             analyticsManager.logEvent(.chapterViewed, properties: [
-                "chapter_id": chapter.chapterId,
+                "chapter_id": nodeViewModel.chapterId,
                 // ChapterResponse doesn't have metadata, so we just track the chapter ID
-                "student_name": chapter.studentName
+                "student_name": nodeViewModel.title
             ])
         }
+    }
+    
+    /// Provides a textual description of the sentiment score
+    private func sentimentDescription(_ score: Double) -> String {
+        if score > 0.5 {
+            return "Very Positive"
+        } else if score > 0.1 {
+            return "Positive"
+        } else if score < -0.5 {
+            return "Very Negative"
+        } else if score < -0.1 {
+            return "Negative"
+        } else {
+            return "Neutral"
+        }
+    }
+    
+    /// Saves the current chapter as a journal entry
+    private func saveAsJournalEntry() {
+        // Create metadata from the chapter content
+        let metadata = EntryMetadata(
+            sentiment: sentimentDescription(nodeViewModel.sentiment),
+            themes: nodeViewModel.themes,
+            entities: [],
+            keyPhrases: []
+        )
+        
+        // Create and save the journal entry using the protocol
+        let entry = createJournalEntry(
+            content: nodeViewModel.chapterPreview,
+            title: "\(nodeViewModel.title)'s Story",
+            subject: .english,
+            emotionalState: .satisfied,
+            summary: "Generated story chapter",
+            metadata: metadata
+        )
+        
+        // Save the entry to the journal store
+        journalStore.saveEntry(entry)
+        analyticsManager.logEvent(.userInteraction, properties: ["action": "save_chapter_as_entry"])
+        
+        // Show confirmation
+        showSaveConfirmation(for: entry.assignmentName)
+    }
+    
+    // Show save confirmation alert
+    func showSaveConfirmation(for entryTitle: String) {
+        self.showSaveConfirmation = true
     }
 }
 
 // MARK: - Preview
 struct ChapterView_Previews: PreviewProvider {
-    static var sampleChapter = ChapterResponse(
-        chapterId: "preview-ch-1",
-        text: "The forest floor crunched underfoot as Elara ventured deeper, the ancient map clutched in her hand. Strange symbols glowed faintly on the parchment, reacting to the proximity of the hidden grove. Suddenly, a twig snapped behind her, sharp and distinct in the unnerving silence. She whirled around, hand instinctively reaching for the dagger she didn't have, heart pounding against her ribs.",
-        cliffhanger: "She whirled around, hand instinctively reaching for the dagger she didn't have, heart pounding against her ribs.",
-        studentName: "Student",
-        feedback: "Student, your journal entry has been transformed into the next chapter of your personal story adventure!"
+    static var sampleNodeVM = StoryNodeViewModel(
+        id: "node-1", 
+        chapterId: "ch-1",
+        title: "Sample Node 1", 
+        entryPreview: "Started the day feeling hopeful...", 
+        chapterPreview: "Elara felt a surge of excitement as she stepped into the Whispering Woods. The ancient trees seemed to hum with untold secrets.", 
+        sentiment: 0.6, 
+        themes: ["Exploration", "Mystery"], 
+        creationDate: Date(), 
+        genre: "Fantasy",
     )
 
     static var previews: some View {
-        ChapterView(chapter: sampleChapter)
-            .environmentObject(ThemeManager()) // Provide theme for preview
+        ChapterView(nodeViewModel: sampleNodeVM) // Use sample Node VM
+            .environmentObject(ThemeManager())
     }
 }

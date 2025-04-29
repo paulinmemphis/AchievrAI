@@ -1,0 +1,64 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NewEntryView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "New Entry",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 92
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save Error",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 115
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "Transcription Error",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 122
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 124
+        }
+      }
+    ]
+  },
+  "version": 1
+}

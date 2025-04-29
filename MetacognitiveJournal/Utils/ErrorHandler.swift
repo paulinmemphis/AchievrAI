@@ -3,12 +3,14 @@ import Combine
 
 
 // MARK: - Error Types
-// AppError is now defined in MetacognitiveJournalApp.swift. Remove this duplicate definition and use the canonical AppError everywhere.
+// We now use two error types in the app:
+// 1. AppError (defined in EnvironmentConfig.swift) - For API and networking errors
+// 2. JournalAppError (defined in AppError.swift) - For authentication and persistence errors
 // MARK: - Error Handler
 class ErrorHandler: ObservableObject {
     static let shared = ErrorHandler()
     
-    @Published var currentError: AppError?
+    @Published var currentError: JournalAppError?
     @Published var showingError = false
     
     private var errorCancellable: AnyCancellable?
@@ -19,11 +21,11 @@ class ErrorHandler: ObservableObject {
             .assign(to: \.showingError, on: self)
     }
     
-    func handle(_ error: Error, type: ((String) -> AppError)? = nil) {
+    func handle(_ error: Error, type: ((String) -> JournalAppError)? = nil) {
         // Determine the AppError to handle
-        let effectiveType = type ?? { errorMessage -> AppError in AppError.internalError(message: errorMessage) }
+        let effectiveType = type ?? { errorMessage -> JournalAppError in JournalAppError.internalError(message: errorMessage) }
         
-        if let appError = error as? AppError {
+        if let appError = error as? JournalAppError {
             currentError = appError
         } else {
             let errorMessage = error.localizedDescription // Initialize only when needed

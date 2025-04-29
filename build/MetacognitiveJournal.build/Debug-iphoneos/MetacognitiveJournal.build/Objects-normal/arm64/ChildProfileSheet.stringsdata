@@ -1,0 +1,120 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ChildProfileSheet.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Child Profile",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Selection Method",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Age Group",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Birthday",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Select your child's age group",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "This setting helps personalize the app experience for your child's developmental stage.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 105
+        }
+      },
+      {
+        "comment": "",
+        "key": "Select your child's birthday",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 115
+        }
+      },
+      {
+        "comment": "",
+        "key": "The app will automatically adjust content based on your child's age.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 152
+        }
+      },
+      {
+        "comment": "",
+        "key": "Birthday",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "Age:",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 132
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld years old",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 136
+        }
+      },
+      {
+        "comment": "",
+        "key": "Age Group: %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 141
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,19 +1,49 @@
 {
   "images" : [
     {
-      "filename" : "AchievrAi icon.png",
+      "filename" : "AchievrAi icon 5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "AchievrAi icon 1.png",
+      "filename" : "AchievrAi icon 3.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "AchievrAi icon 2.png",
+      "filename" : "AchievrAi icon 4.png",
       "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "filename" : "AchievrAi icon.png",
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "AchievrAi icon 1.png",
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "AchievrAi icon 2.png",
+      "idiom" : "iphone",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "AchievrAi icon 6.png",
+      "idiom" : "ipad",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "AchievrAi icon 7.png",
+      "idiom" : "ipad",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "AchievrAi icon 8.png",
+      "idiom" : "watch",
+      "scale" : "2x"
     }
   ],
   "info" : {

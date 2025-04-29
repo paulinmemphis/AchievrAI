@@ -1,0 +1,152 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalPromptSelectionView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "My Journal",
+        "location": {
+          "startingColumn": 52,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Journal Entry",
+        "location": {
+          "startingColumn": 67,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 86
+        }
+      },
+      {
+        "comment": "",
+        "key": "My Journal Prompts",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "Journal Prompts",
+        "location": {
+          "startingColumn": 55,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 128
+        }
+      },
+      {
+        "comment": "",
+        "key": "Find a prompt...",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "Search prompts...",
+        "location": {
+          "startingColumn": 58,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap on a card to start writing!",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 206
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pick a category:",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "Categories",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 300
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today's Prompts:",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 295
+        }
+      },
+      {
+        "comment": "",
+        "key": "Featured Prompts",
+        "location": {
+          "startingColumn": 53,
+          "startingLine": 295
+        }
+      },
+      {
+        "comment": "",
+        "key": "No prompts found",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 330
+        }
+      },
+      {
+        "comment": "",
+        "key": "No matching prompts found",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 330
+        }
+      },
+      {
+        "comment": "",
+        "key": "Show all prompts",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 338
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear filters",
+        "location": {
+          "startingColumn": 53,
+          "startingLine": 338
+        }
+      }
+    ]
+  },
+  "version": 1
+}

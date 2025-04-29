@@ -1,0 +1,120 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalInsightsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Journal Insights",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "Insight Type",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 21
+        }
+      },
+      {
+        "comment": "",
+        "key": "Recent",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "Learning",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 23
+        }
+      },
+      {
+        "comment": "",
+        "key": "Patterns",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Close",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generating...",
+        "location": {
+          "startingColumn": 44,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generate New Insight",
+        "location": {
+          "startingColumn": 62,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "Recent Insights",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 119
+        }
+      },
+      {
+        "comment": "",
+        "key": "View All %lld Insights",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 138
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Learning Style",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 151
+        }
+      },
+      {
+        "comment": "",
+        "key": "Journal Patterns",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 170
+        }
+      },
+      {
+        "comment": "",
+        "key": "Recommendations:",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 255
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your primary learning preference",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 247
+        }
+      }
+    ]
+  },
+  "version": 1
+}

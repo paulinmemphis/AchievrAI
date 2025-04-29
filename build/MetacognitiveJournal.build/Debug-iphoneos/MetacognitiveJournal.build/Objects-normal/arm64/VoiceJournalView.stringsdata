@@ -1,0 +1,72 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Voice Note",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "Error: %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 53
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap to Stop",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap Mic to Record",
+        "location": {
+          "startingColumn": 52,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stop Recording",
+        "location": {
+          "startingColumn": 51,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start Recording",
+        "location": {
+          "startingColumn": 70,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "Recording...",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 153
+        }
+      }
+    ]
+  },
+  "version": 1
+}

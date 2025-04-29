@@ -1,0 +1,80 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SearchView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Search entries...",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 17
+        }
+      },
+      {
+        "comment": "",
+        "key": "Search & Filter",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Emotion",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Subject",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Date",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 38
+        }
+      },
+      {
+        "comment": "",
+        "key": "All Emotions",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "All Subjects",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 32
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear Date Filter",
+        "location": {
+          "startingColumn": 53,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Export or Share Entry",
+        "location": {
+          "startingColumn": 61,
+          "startingLine": 64
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,32 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NetworkErrorManager.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "You're offline",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "Retry",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 131
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld requests pending",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 147
+        }
+      }
+    ]
+  },
+  "version": 1
+}

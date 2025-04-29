@@ -1,0 +1,56 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 47
+        }
+      },
+      {
+        "comment": "",
+        "key": "Profile & Account",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Appearance",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reminders",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "App Lock",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 37
+        }
+      },
+      {
+        "comment": "",
+        "key": "Security & Privacy",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 41
+        }
+      }
+    ]
+  },
+  "version": 1
+}

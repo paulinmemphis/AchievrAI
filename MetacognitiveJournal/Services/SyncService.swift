@@ -231,7 +231,7 @@ class SyncService: ObservableObject {
     private func handleSyncError(_ error: Error) {
         status = .error
         syncError = error
-        ErrorHandler.shared.handle(error, type: { msg in AppError.internalError(message: "Sync error: \(msg)") })
+        ErrorHandler.shared.handle(error, type: { msg in JournalAppError.internalError(message: "Sync error: \(msg)") })
     }
 }
 

@@ -1,0 +1,24 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GenreSelectionView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Choose a Genre",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "Select a genre for your personalized story",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 127
+        }
+      }
+    ]
+  },
+  "version": 1
+}

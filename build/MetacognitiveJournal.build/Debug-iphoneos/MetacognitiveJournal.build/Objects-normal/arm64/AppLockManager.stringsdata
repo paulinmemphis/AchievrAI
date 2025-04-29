@@ -1,0 +1,24 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppLockManager.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Unlock Journal",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 75
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unlock with Face ID / Touch ID",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 77
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,93 +1,26 @@
 // StoryMapView.swift
+//
+// Depends on:
+//   - StoryNode: see StoryPersistenceManager.swift
+//   - IdentifiableUUID: see IdentifiableUUID.swift
+//   - ThemeManager: see ThemeManager.swift
+//   - NarrativeAPIService: see NarrativeAPIService.swift
+//
+// Navigation: This view currently mixes NavigationLink and .sheet for navigation. For best UX, consider adopting a consistent navigation pattern throughout the app.
 import SwiftUI
 import Combine
 
-/// A view model for the StoryMapView to handle data fetching and state management.
-class StoryMapViewModel: ObservableObject {
-    @Published var storyNodes: [StoryNode] = []
-    @Published var isLoading = false
-    @Published var errorMessage: String?
-    @Published var selectedNodeId: UUID?
-    
-    private var cancellables = Set<AnyCancellable>()
-    private let apiService: NarrativeAPIService
-    
-    // Defer loading to prevent startup issues
-    private var hasInitiallyLoaded = false
-    
-    init(apiService: NarrativeAPIService = NarrativeAPIService()) {
-        self.apiService = apiService
-        // Don't immediately load nodes - wait until view appears
-    }
-    
-    // Call this method when the view appears to safely load data
-    func loadIfNeeded() {
-        if !hasInitiallyLoaded {
-            hasInitiallyLoaded = true
-            loadStoryNodes()
-        }
-    }
-    
-    func loadStoryNodes() {
-        isLoading = true
-        errorMessage = nil
-        
-        // Using a placeholder user ID for now; in a real app, you'd get this from user authentication
-        let userId = "user-placeholder"
-        
-        apiService.fetchStoryNodes(for: userId)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                self?.isLoading = false
-                if case .failure(let error) = completion {
-                    self?.errorMessage = error.localizedDescription
-                }
-            }, receiveValue: { [weak self] nodes in
-                self?.storyNodes = nodes
-            })
-            .store(in: &cancellables)
-    }
-    
-    /// Returns story nodes arranged in a tree structure
-    /// Each level contains nodes at the same depth
-    func arrangedNodes() -> [[StoryNode]] {
-        var result: [[StoryNode]] = []
-        var currentLevel: [StoryNode] = storyNodes.filter { $0.parentId == nil } // Root nodes
-        
-        while !currentLevel.isEmpty {
-            result.append(currentLevel)
-            
-            // Find all nodes that have parents in the current level
-            let currentIds = Set(currentLevel.map { $0.entryId })
-            currentLevel = storyNodes.filter { node in
-                guard let parentId = node.parentId else { return false }
-                return currentIds.contains(parentId)
-            }
-        }
-        
-        return result
-    }
-    
-    /// Select a story node to view
-    func selectNode(_ nodeId: UUID) {
-        selectedNodeId = nodeId
-    }
-    
-    /// Clear the selected node
-    func clearSelection() {
-        selectedNodeId = nil
-    }
-    
-    /// Get a node by its ID
-    func node(for id: UUID) -> StoryNode? {
-        return storyNodes.first(where: { $0.id == id })
-    }
-}
+// Using IdentifiableUUID from IdentifiableUUID.swift
+
+// Duplicate EnhancedStoryMapViewModel removed, using the one from EnhancedStoryMapViewModel.swift
 
 /// A zoomable and pannable view for displaying story nodes in a tree structure
 struct StoryMapView: View {
-    @StateObject private var viewModel = StoryMapViewModel()
+    @StateObject private var viewModel = EnhancedStoryMapViewModel()
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject var journalStore: JournalStore
+    @EnvironmentObject var coordinator: PsychologicalEnhancementsCoordinator // Added coordinator
+    @StateObject private var analyzer = MetacognitiveAnalyzer() // Add analyzer for AIJournalEntryView
     
     // Zoom and pan state
     @State private var scale: CGFloat = 1.0
@@ -117,25 +50,13 @@ struct StoryMapView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                     Button("Try Again") {
-                        viewModel.loadStoryNodes()
+                        viewModel.loadStoryNodes { _ in }
                     }
                     .padding(.top)
                 }
                 .padding()
             } else if viewModel.storyNodes.isEmpty {
-                VStack(spacing: 20) {
-                    Image(systemName: "book.closed")
-                        .font(.system(size: 50))
-                        .foregroundColor(.gray)
-                    Text("Your story hasn't begun yet")
-                        .font(.headline)
-                    Text("Create journal entries to start your personal narrative")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                }
-                .padding()
+                emptyStoryStateView
             } else {
                 // Zoomable, pannable content
                 storyTreeView
@@ -192,103 +113,125 @@ struct StoryMapView: View {
         .navigationTitle("Your Story Map")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: Binding(get: { 
-            viewModel.selectedNodeId.map { IdentifiableUUID($0) }
+            viewModel.selectedNodeId.map { IdentifiableString(id: $0) }
         }, set: { 
             viewModel.selectedNodeId = $0?.id 
-        })) { wrappedId in
-            if let node = viewModel.node(for: wrappedId.id) {
-                ChapterView(chapter: node.chapter)
-                    .environmentObject(themeManager)
+        })) { wrapper in
+            // Find the selected ViewModel
+            if let selectedNodeViewModel = viewModel.nodeViewModels.first(where: { $0.id == wrapper.id }) {
+                // Initialize ChapterView directly with the StoryNodeViewModel
+                ChapterView(
+                    nodeViewModel: selectedNodeViewModel // Pass the correct view model
+                )
+                .environmentObject(themeManager)
+            } else {
+                Text("Error: Node details not found.") // Fallback
             }
         }
         .onAppear {
-            // Load nodes when view appears
+            // Load nodes using the ViewModel
             viewModel.loadIfNeeded()
         }
     }
-    
-    // View for displaying nodes in a tree structure
+
+    // MARK: - Empty State View
+    private var emptyStoryStateView: some View {
+        VStack(spacing: 20) {
+            Image(systemName: "wand.and.stars") // Or a custom illustration
+                .font(.system(size: 60))
+                .foregroundColor(.secondary)
+            Text("Your Story Awaits!")
+                .font(.title2)
+                .fontWeight(.semibold)
+            Text("Create your first journal entry to begin generating your personalized story.")
+                .font(.body)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            // Navigate to the view for creating a new entry
+            NavigationLink(destination: AIJournalEntryView()
+                            .environmentObject(journalStore)
+                            .environmentObject(analyzer)
+                            .environmentObject(themeManager)
+                            .environmentObject(coordinator)) {
+                Text("Start your first entry")
+                    .fontWeight(.semibold)
+                    .padding()
+            }
+        }
+        .padding()
+    }
+                
+    // MARK: - Story Tree View
     private var storyTreeView: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 30) {
-                ForEach(viewModel.arrangedNodes().indices, id: \.self) { levelIndex in
-                    let level = viewModel.arrangedNodes()[levelIndex]
-                    
-                    HStack(spacing: 20) {
-                        ForEach(level) { node in
-                            StoryNodeView(
-                                node: node,
-                                onTap: { viewModel.selectNode(node.id) }
-                            )
-                        }
+        ScrollView([.horizontal, .vertical]) {
+            VStack(alignment: .center, spacing: 60) {
+                // Iterate over nodeViewModels instead of storyNodes
+                ForEach(viewModel.nodeViewModels) { nodeViewModel in 
+                    // Pass the nodeViewModel to StoryNodeView
+                    StoryNodeView(nodeViewModel: nodeViewModel) { 
+                        viewModel.selectedNodeId = nodeViewModel.id // Update selection
                     }
-                    .padding(.horizontal)
+                    // Explicitly add background based on selection state
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(nodeViewModel.id == viewModel.selectedNodeId ? themeManager.selectedTheme.accentColor.opacity(0.15) : Color(.secondarySystemBackground))
+                    )
+                    .overlay(
+                         RoundedRectangle(cornerRadius: 12)
+                            .stroke(nodeViewModel.id == viewModel.selectedNodeId ? themeManager.selectedTheme.accentColor : Color.clear, lineWidth: 2)
+                    )
                 }
             }
-            .padding()
-            .frame(maxWidth: .infinity)
+            .padding(80) // Extra padding for zooming and panning
         }
     }
 }
 
-/// A visual representation of a single story node
+// Identifiable wrapper for sheet
+struct IdentifiableString: Identifiable {
+    var id: String
+}
+
+// MARK: - StoryNodeView
 struct StoryNodeView: View {
-    let node: StoryNode
+    // Expect StoryNodeViewModel instead of StoryNode
+    let nodeViewModel: StoryNodeViewModel 
     let onTap: () -> Void
-    
-    // Determine node color based on sentiment
-    private var nodeColor: Color {
-        switch node.metadata.sentiment.lowercased() {
-        case "positive", "happy", "hopeful":
-            return .green
-        case "negative", "sad", "depressed":
-            return .blue
-        case "angry", "furious":
-            return .red
-        case "tense", "anxious", "nervous":
-            return .orange
-        default:
-            return .purple // Default for neutral or unknown sentiment
-        }
-    }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            // Node header with chapter ID and date
+            // Node header with title and date from ViewModel
             HStack {
                 Circle()
-                    .fill(nodeColor)
+                    .fill(nodeViewModel.sentimentColor) // Use sentimentColor from ViewModel
                     .frame(width: 12, height: 12)
-                
-                Text("Chapter \(node.chapterId.suffix(1))")
+                Text(nodeViewModel.title) // Use title from ViewModel
                     .font(.caption)
                     .fontWeight(.bold)
-                
                 Spacer()
-                
-                Text(node.timestamp, style: .date)
+                Text(nodeViewModel.creationDate, style: .date) // Use creationDate from ViewModel
                     .font(.caption2)
                     .foregroundColor(.gray)
             }
-            
             // Node content
             VStack(alignment: .leading, spacing: 8) {
-                // Key themes
-                if !node.metadata.themes.isEmpty {
+                // Key themes from ViewModel
+                if !nodeViewModel.themes.isEmpty { // Use themes from ViewModel
                     HStack {
-                        ForEach(node.metadata.themes.prefix(2), id: \.self) { theme in
+                        ForEach(nodeViewModel.themes.prefix(2), id: \.self) { theme in // Use themes from ViewModel
                             Text(theme)
                                 .font(.system(size: 10))
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
-                                .background(nodeColor.opacity(0.2))
+                                .background(nodeViewModel.sentimentColor.opacity(0.2)) // Use sentimentColor from ViewModel
                                 .cornerRadius(4)
                         }
                     }
                 }
-                
-                // Cliffhanger preview
-                Text(node.chapter.cliffhanger)
+                // Chapter preview from ViewModel
+                Text(nodeViewModel.chapterPreview) // Use chapterPreview from ViewModel
                     .font(.caption)
                     .italic()
                     .lineLimit(2)
@@ -306,16 +249,14 @@ struct StoryNodeView: View {
     }
 }
 
-// MARK: - Helper Extensions
-
-// The IdentifiableUUID struct is now defined in IdentifiableUUID.swift
-
 // MARK: - Preview
 struct StoryMapView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             StoryMapView()
                 .environmentObject(ThemeManager())
+                .environmentObject(JournalStore())
+                .environmentObject(PsychologicalEnhancementsCoordinator()) // Added coordinator
         }
     }
 }

@@ -30,6 +30,9 @@ class GamificationManager: ObservableObject {
 
     /// The date of the last journal entry recorded, used for streak calculation.
     @Published private(set) var lastEntryDate: Date? = nil
+    
+    /// Reference to the journal store for badge logic
+    private weak var journalStore: JournalStore?
 
     // MARK: - Constants
 
@@ -57,6 +60,38 @@ class GamificationManager: ObservableObject {
     init() {
         loadState()
         checkStreak() // Check streak on initialization
+        
+        // Delay connecting to the journal store until after the app is fully initialized
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            self?.connectToJournalStore()
+        }
+    }
+    
+    /// Connects to the JournalStore through the environment
+    private func connectToJournalStore() {
+        // Find the JournalStore from the shared environment
+        if let appDelegate = UIApplication.shared.delegate as? UIApplicationDelegate,
+           let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? UIWindowSceneDelegate,
+           let rootController = sceneDelegate.window??.rootViewController {
+            
+            // Try to find JournalStore in the environment
+            let mirror = Mirror(reflecting: rootController)
+            for child in mirror.children {
+                if let environmentObjects = child.value as? [String: Any] {
+                    for (_, value) in environmentObjects {
+                        if let journalStore = value as? JournalStore {
+                            self.journalStore = journalStore
+                            print("[GamificationManager] Successfully connected to JournalStore")
+                            // Check for badges that depend on journal entries
+                            checkForJournalDependentBadges()
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        
+        print("[GamificationManager] Warning: Could not connect to JournalStore")
     }
 
     // MARK: - Public Methods
@@ -105,10 +140,7 @@ class GamificationManager: ObservableObject {
 
     /// Checks if any new badges should be awarded based on the current state.
     private func checkForNewBadges() {
-        // Example: Badge for first entry
-        // TODO: Implement badge check for 'firstEntry'. Requires access to JournalStore.
-        // Cannot access JournalStore directly here. Dependency needs proper injection or refactoring.
-
+        // Check for streak and level-based badges
         // Example: Badge for 7-day streak
         if !badges.contains("streak7") && streak >= 7 {
              awardBadge("streak7")
@@ -117,7 +149,35 @@ class GamificationManager: ObservableObject {
         if !badges.contains("level5") && level >= 5 {
             awardBadge("level5")
         }
-        // Add more badge logic here...
+        
+        // Check for journal-dependent badges if JournalStore is available
+        if journalStore != nil {
+            checkForJournalDependentBadges()
+        }
+    }
+    
+    /// Checks for badges that depend on journal entries
+    private func checkForJournalDependentBadges() {
+        guard let journalStore = journalStore else { return }
+        
+        // Badge for first entry
+        if !badges.contains("firstEntry") && !journalStore.entries.isEmpty {
+            awardBadge("firstEntry")
+        }
+        
+        // Badge for 10 entries
+        if !badges.contains("entries10") && journalStore.entries.count >= 10 {
+            awardBadge("entries10")
+        }
+        
+        // Badge for entries on 5 different days
+        if !badges.contains("days5") {
+            let calendar = Calendar.current
+            let uniqueDays = Set(journalStore.entries.map { (entry: MetacognitiveJournal.JournalEntry) -> Date in calendar.startOfDay(for: entry.date) })
+            if uniqueDays.count >= 5 {
+                awardBadge("days5")
+            }
+        }
     }
 
     /// Awards a new badge if the user hasn't already earned it.
@@ -191,12 +251,12 @@ class GamificationManager: ObservableObject {
             case "firstEntry": return ("First Step", "You completed your first journal entry!", "figure.walk")
             case "streak7": return ("Consistent", "Achieved a 7-day journaling streak!", "calendar.badge.clock")
             case "level5": return ("Level 5 Reached", "You reached level 5!", "star.fill")
+            case "entries10": return ("Dedicated Writer", "You've created 10 journal entries!", "doc.text.fill")
+            case "days5": return ("Regular Reflector", "You've journaled on 5 different days!", "calendar.badge.plus")
             default: return ("Unknown Badge", "", "questionmark.diamond.fill")
         }
     }
 
-    // TODO: Need access to JournalStore for some badge logic.
-    // This implies GamificationManager should either be passed JournalStore
-    // or live alongside it where both can be accessed (e.g., injected together).
-    // For now, badge logic needing JournalStore is commented out or needs adjustment.
+    // The JournalStore connection is now implemented, allowing for journal-dependent badge logic
+    // This is done through runtime connection to avoid circular dependencies
 }

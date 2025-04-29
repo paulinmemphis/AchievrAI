@@ -1,0 +1,32 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricLoginView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Welcome to MetacognitiveJournal!",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 18
+        }
+      },
+      {
+        "comment": "",
+        "key": "Authenticate to continue",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 20
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unlock with Biometrics",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 21
+        }
+      }
+    ]
+  },
+  "version": 1
+}

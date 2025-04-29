@@ -1,0 +1,120 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StorySettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Story Settings",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 76
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Generation",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 17
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Genre",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 30
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Features",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "About Narrative Engine",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Story Generation",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 18
+        }
+      },
+      {
+        "comment": "",
+        "key": "Show Writing Prompts",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "Current Genre",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 32
+        }
+      },
+      {
+        "comment": "",
+        "key": "Change Genre",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pending Requests",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "Process Pending Requests",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 60
+        }
+      },
+      {
+        "comment": "",
+        "key": "The narrative engine transforms your journal entries into personalized story chapters in your preferred genre.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 80
+        }
+      }
+    ]
+  },
+  "version": 1
+}

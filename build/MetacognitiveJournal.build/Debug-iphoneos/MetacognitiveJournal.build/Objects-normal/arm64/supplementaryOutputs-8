@@ -1,0 +1,24 @@
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AddPromptView.swift":
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AddPromptView.swiftdeps"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AddPromptView.d"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AddPromptView.o"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AddPromptView.dia"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/AddPromptView.swiftconstvalues"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MCJModels.swift":
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/MCJModels.swiftconstvalues"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/MCJModels.d"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/MCJModels.o"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/MCJModels.swiftdeps"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/MCJModels.dia"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/InsightStreakManager.swift":
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/InsightStreakManager.swiftdeps"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/InsightStreakManager.dia"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/InsightStreakManager.swiftconstvalues"
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/InsightStreakManager.d"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/InsightStreakManager.o"
+"/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptResponseView.swift":
+  dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PromptResponseView.d"
+  swift-dependencies: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PromptResponseView.swiftdeps"
+  const-values: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PromptResponseView.swiftconstvalues"
+  diagnostics: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PromptResponseView.dia"
+  object: "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/build/MetacognitiveJournal.build/Debug-iphoneos/MetacognitiveJournal.build/Objects-normal/arm64/PromptResponseView.o"

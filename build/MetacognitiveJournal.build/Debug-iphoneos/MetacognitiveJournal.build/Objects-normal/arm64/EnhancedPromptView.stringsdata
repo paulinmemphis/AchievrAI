@@ -1,0 +1,144 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedPromptView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Pick one:",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "Select an option:",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 162
+        }
+      },
+      {
+        "comment": "",
+        "key": "My Thoughts:",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 231
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Response:",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 231
+        }
+      },
+      {
+        "comment": "",
+        "key": "Hint",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 249
+        }
+      },
+      {
+        "comment": "",
+        "key": "Writing Tips:",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 299
+        }
+      },
+      {
+        "comment": "",
+        "key": "• Try starting with 'I feel...' or 'Today I...'",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 305
+        }
+      },
+      {
+        "comment": "",
+        "key": "• You can write about what happened",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 306
+        }
+      },
+      {
+        "comment": "",
+        "key": "• You can share how it made you feel",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 307
+        }
+      },
+      {
+        "comment": "",
+        "key": "• Consider what led to this feeling or situation",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 309
+        }
+      },
+      {
+        "comment": "",
+        "key": "• How might this connect to other experiences?",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 310
+        }
+      },
+      {
+        "comment": "",
+        "key": "• What might you do differently next time?",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 311
+        }
+      },
+      {
+        "comment": "",
+        "key": "• Consider both emotional and analytical perspectives",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 313
+        }
+      },
+      {
+        "comment": "",
+        "key": "• Reflect on patterns or recurring themes",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 314
+        }
+      },
+      {
+        "comment": "",
+        "key": "• How might this insight inform future actions?",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 315
+        }
+      },
+      {
+        "comment": "",
+        "key": "How did writing this make you feel?",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 331
+        }
+      }
+    ]
+  },
+  "version": 1
+}

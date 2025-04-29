@@ -1,0 +1,48 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Your Progress",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "📚 Subject: %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 19
+        }
+      },
+      {
+        "comment": "",
+        "key": "🙂 Emotion: %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 20
+        }
+      },
+      {
+        "comment": "",
+        "key": "🗓️ Date: %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 21
+        }
+      },
+      {
+        "comment": "",
+        "key": "🧠 AI Insight: %@",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 23
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,112 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntryDetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Edit Entry",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 162
+        }
+      },
+      {
+        "comment": "",
+        "key": "Journal Entry",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "Selected: %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 85
+        }
+      },
+      {
+        "comment": "",
+        "key": "AI Insights",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 105
+        }
+      },
+      {
+        "comment": "",
+        "key": "Assignment Details",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reflections",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 134
+        }
+      },
+      {
+        "comment": "",
+        "key": "Assignment Name",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 121
+        }
+      },
+      {
+        "comment": "",
+        "key": "Subject",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 122
+        }
+      },
+      {
+        "comment": "",
+        "key": "Emotional State",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "Response",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 141
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 166
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 169
+        }
+      }
+    ]
+  },
+  "version": 1
+}

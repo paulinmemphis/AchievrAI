@@ -1,0 +1,296 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentDashboardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Parent Dashboard",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 110
+        }
+      },
+      {
+        "comment": "",
+        "key": "Here's how your child is doing",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 156
+        }
+      },
+      {
+        "comment": "",
+        "key": "Welcome back,",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 139
+        }
+      },
+      {
+        "comment": "",
+        "key": "Parent",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 143
+        }
+      },
+      {
+        "comment": "",
+        "key": "Important Alert",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 178
+        }
+      },
+      {
+        "comment": "",
+        "key": "View Mental Health Resources",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "Emotional State Analysis",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 219
+        }
+      },
+      {
+        "comment": "",
+        "key": "Last %lld days",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "No mood data available",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 239
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 254
+        }
+      },
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 280
+        }
+      },
+      {
+        "comment": "",
+        "key": "Concerning Content Alerts",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 287
+        }
+      },
+      {
+        "comment": "",
+        "key": "Get notified about potentially concerning journal entries",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 291
+        }
+      },
+      {
+        "comment": "",
+        "key": "Weekly Progress Summary",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 302
+        }
+      },
+      {
+        "comment": "",
+        "key": "Receive a weekly summary of your child's journaling activity",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 306
+        }
+      },
+      {
+        "comment": "",
+        "key": "Require App Login",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 317
+        }
+      },
+      {
+        "comment": "",
+        "key": "Require biometric authentication (Face ID/Touch ID) to access the app",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 321
+        }
+      },
+      {
+        "comment": "",
+        "key": "Child Profile Settings",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 338
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set or change your child's age or birthday",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 342
+        }
+      },
+      {
+        "comment": "",
+        "key": "Resources",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 420
+        }
+      },
+      {
+        "comment": "",
+        "key": "Crisis Resources",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 373
+        }
+      },
+      {
+        "comment": "",
+        "key": "Youth Mental Health",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 387
+        }
+      },
+      {
+        "comment": "",
+        "key": "Important Information",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 401
+        }
+      },
+      {
+        "comment": "",
+        "key": "When to Seek Help",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 403
+        }
+      },
+      {
+        "comment": "",
+        "key": "If your child's journal entries show persistent negative thoughts, hopelessness, or mentions of self-harm, it's important to seek professional help.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 407
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remember that this app is not a diagnostic tool and cannot replace professional mental health services.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 411
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 424
+        }
+      },
+      {
+        "comment": "",
+        "key": "Child Profile",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 500
+        }
+      },
+      {
+        "comment": "",
+        "key": "Child's Birthday",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 473
+        }
+      },
+      {
+        "comment": "",
+        "key": "Age Group",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 482
+        }
+      },
+      {
+        "comment": "",
+        "key": "Birthday",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 475
+        }
+      },
+      {
+        "comment": "",
+        "key": "Age Group",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 483
+        }
+      },
+      {
+        "comment": "",
+        "key": "Child (6-12)",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 484
+        }
+      },
+      {
+        "comment": "",
+        "key": "Teen (13-17)",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 485
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save Changes",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 491
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 504
+        }
+      }
+    ]
+  },
+  "version": 1
+}

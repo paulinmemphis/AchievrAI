@@ -1,0 +1,200 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JourneyProgressView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Insight Streak",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": " days",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "Best",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 67
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld days",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 71
+        }
+      },
+      {
+        "comment": "",
+        "key": "Progress to %lld days",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 85
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start your insight journey to see the completion window",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 167
+        }
+      },
+      {
+        "comment": "",
+        "key": "12-Hour Window",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 124
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld hours",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 142
+        }
+      },
+      {
+        "comment": "",
+        "key": "remaining to continue your streak",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "Consistency",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 181
+        }
+      },
+      {
+        "comment": "",
+        "key": "93%",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entries this week",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 193
+        }
+      },
+      {
+        "comment": "",
+        "key": "5/7 days",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entries completed in optimal window",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 204
+        }
+      },
+      {
+        "comment": "",
+        "key": "86%",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 210
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Optimal Time",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 231
+        }
+      },
+      {
+        "comment": "",
+        "key": "Hide",
+        "location": {
+          "startingColumn": 45,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "View",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "Based on your activity patterns, your optimal time for reflection is:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 250
+        }
+      },
+      {
+        "comment": "",
+        "key": "8:30 PM",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 255
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set Reminder",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 278
+        }
+      },
+      {
+        "comment": "",
+        "key": "View your personalized optimal reflection time",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 289
+        }
+      }
+    ]
+  },
+  "version": 1
+}

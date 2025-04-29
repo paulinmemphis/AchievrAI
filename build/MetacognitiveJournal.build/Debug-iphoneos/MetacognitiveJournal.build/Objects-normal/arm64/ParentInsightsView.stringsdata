@@ -1,0 +1,48 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentInsightsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Parent Insights",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 32
+        }
+      },
+      {
+        "comment": "",
+        "key": "Overview",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 13
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entries",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 18
+        }
+      },
+      {
+        "comment": "",
+        "key": "Total Entries: %lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Parent Mode Enabled: %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 15
+        }
+      }
+    ]
+  },
+  "version": 1
+}

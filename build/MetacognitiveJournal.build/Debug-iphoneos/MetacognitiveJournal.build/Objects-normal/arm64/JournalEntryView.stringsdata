@@ -1,0 +1,248 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntryView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Journal Entry",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 331
+        }
+      },
+      {
+        "comment": "",
+        "key": "Subject: %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "Request Review",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "Provide Feedback",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit",
+        "location": {
+          "startingColumn": 51,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Subject:",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "Subject",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 105
+        }
+      },
+      {
+        "comment": "",
+        "key": "No response provided.",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your response",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "AI-Generated Summary",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 165
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tone-Based Nudge",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 176
+        }
+      },
+      {
+        "comment": "",
+        "key": "Voice Journal Transcription",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 188
+        }
+      },
+      {
+        "comment": "",
+        "key": "Request: %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 208
+        }
+      },
+      {
+        "comment": "",
+        "key": "Review Completed",
+        "location": {
+          "startingColumn": 64,
+          "startingLine": 202
+        }
+      },
+      {
+        "comment": "",
+        "key": "Review Requested",
+        "location": {
+          "startingColumn": 85,
+          "startingLine": 202
+        }
+      },
+      {
+        "comment": "",
+        "key": "Parent Feedback:",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 215
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save Changes",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 235
+        }
+      },
+      {
+        "comment": "",
+        "key": "Are you sure you want to save these changes to your journal entry?",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 236
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 237
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "Request Review",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 264
+        }
+      },
+      {
+        "comment": "",
+        "key": "What would you like your parent to review or give feedback on?",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 251
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 268
+        }
+      },
+      {
+        "comment": "",
+        "key": "Submit",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 274
+        }
+      },
+      {
+        "comment": "",
+        "key": "Provide Feedback",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 311
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Feedback:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 299
+        }
+      },
+      {
+        "comment": "",
+        "key": "Child's Request:",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 289
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 315
+        }
+      },
+      {
+        "comment": "",
+        "key": "Submit",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 321
+        }
+      }
+    ]
+  },
+  "version": 1
+}

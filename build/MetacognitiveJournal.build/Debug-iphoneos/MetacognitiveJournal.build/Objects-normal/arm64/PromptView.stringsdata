@@ -1,0 +1,32 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Your Response",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Select an option",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save Response",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 49
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,64 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentPINEntryView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Parent PIN",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 38
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter Parent PIN",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset PIN",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "PIN",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 15
+        }
+      },
+      {
+        "comment": "",
+        "key": "Submit",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear Current PIN",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 30
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 42
+        }
+      }
+    ]
+  },
+  "version": 1
+}
