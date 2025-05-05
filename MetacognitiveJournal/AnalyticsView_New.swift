@@ -91,15 +91,20 @@ struct AnalyticsView: View {
     // Required body property to conform to View
     var body: some View {
         VStack(spacing: 0) {
-            // Tab selector
+            // Tab selector with symbols only (no text)
             Picker("View", selection: $selectedTab) {
-                Text("Insights").tag(0)
-                Text("Rewards").tag(1)
+                Image(systemName: "lightbulb.fill")
+                    .font(.system(size: 18))
+                    .tag(0)
+                Image(systemName: "star.fill")
+                    .font(.system(size: 18))
+                    .tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)
-            .padding(.top, 16) // Add top padding
-            .padding(.bottom, 8)
+            .padding(.top, 100) // Added significant padding to avoid overlap with Dynamic Island
+            .padding(.bottom, 16) // Added bottom padding
+            .background(Color(.systemBackground)) // Add background to ensure visibility
             .zIndex(10) // Ensure picker is above other content
             
             // Content based on selected tab
@@ -440,22 +445,22 @@ struct AnalyticsView: View {
     
     private var insightTypePicker: some View {
         // Ensure InsightType has 'icon' and 'title' properties/computed vars
-        HStack(spacing: 8) { // Reduced spacing between buttons
+        HStack(spacing: 12) { // Increased spacing between buttons
             ForEach(InsightType.allCases) { insightType in
                 Button(action: {
                     withAnimation {
                         selectedInsightType = insightType
                     }
                 }) {
-                    VStack(spacing: 4) { // Reduced spacing between icon and text
+                    VStack(spacing: 6) { // Increased spacing between icon and text
                         Image(systemName: insightType.icon) 
-                            .font(.system(size: 18)) // Slightly smaller icon
+                            .font(.system(size: 22)) // Larger icon for better tappability
                             .foregroundColor(selectedInsightType == insightType ?
                                             themeManager.selectedTheme.accentColor :
                                             Color.primary.opacity(0.6))
                         
                         Text(insightType.title)
-                            .font(.caption2) // Smaller font
+                            .font(.caption) // Larger font
                             .foregroundColor(selectedInsightType == insightType ?
                                             themeManager.selectedTheme.accentColor :
                                             Color.primary.opacity(0.6))
@@ -463,9 +468,9 @@ struct AnalyticsView: View {
                             .fixedSize(horizontal: false, vertical: true) // Ensure text doesn't cause layout issues
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8) // Slightly reduced vertical padding
+                    .padding(.vertical, 12) // Increased vertical padding for larger touch target
                     .background(
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 10)
                             .fill(selectedInsightType == insightType ?
                                  themeManager.selectedTheme.accentColor.opacity(0.1) :
                                  Color.clear)
@@ -475,11 +480,12 @@ struct AnalyticsView: View {
                 .contentShape(Rectangle()) // Ensure the entire area is tappable
             }
         }
-        .padding(8)
+        .padding(12) // Increased padding
         .background(Color.secondary.opacity(0.1))
-        .cornerRadius(10)
-        .padding(.top, 8) // Add top padding to separate from other elements
-        .padding(.bottom, 12) // Add bottom padding to separate from content below
+        .cornerRadius(12) // Increased corner radius
+        .padding(.top, 16) // Increased top padding
+        .padding(.bottom, 16) // Increased bottom padding
+        .padding(.horizontal, 8) // Added horizontal padding
     }
     
     private func conversationPrompt(_ text: String) -> some View {

@@ -3,6 +3,7 @@ import AVFoundation
 import Combine
 
 /// Main view for child journaling interface that adapts to developmental stage
+@available(*, deprecated, message: "Use GuidedMultiModalJournalView instead")
 struct ChildJournalEntryView: View {
     // MARK: - Environment
     @EnvironmentObject private var themeManager: ThemeManager

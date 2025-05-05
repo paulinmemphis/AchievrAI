@@ -6,6 +6,7 @@ import AVFoundation
 /// Namespace for multi-modal expression components to avoid naming conflicts
 extension MultiModal {
     /// A view that allows children to create journal entries using multiple forms of expression
+    @available(*, deprecated, message: "Use GuidedMultiModalJournalView instead")
     struct JournalEntryView: View {
     // MARK: - Environment
     @EnvironmentObject private var themeManager: ThemeManager

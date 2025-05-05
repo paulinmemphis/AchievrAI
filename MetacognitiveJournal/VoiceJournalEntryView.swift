@@ -3,6 +3,7 @@
 import SwiftUI
 
 /// A view for voice-based journal entries: plays prompts, records responses, and transcribes them.
+@available(*, deprecated, message: "Use GuidedMultiModalJournalView instead")
 struct VoiceJournalEntryView: View {
     @StateObject private var vm: VoiceJournalViewModel
     @EnvironmentObject private var journalStore: JournalStore

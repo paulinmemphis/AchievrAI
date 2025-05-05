@@ -8,10 +8,14 @@ extension GuidedMultiModalJournalView {
     /// The AI insights view
     var insightsView: some View {
         VStack(spacing: 20) {
+            // Add top padding to avoid overlap with progress view
+            Spacer().frame(height: 10)
+            
             // Insights header
             Text("Journal Insights")
                 .font(viewModel.fontForMode(size: 22, weight: .bold))
                 .foregroundColor(themeManager.themeForChildMode(viewModel.journalMode).primaryTextColor)
+                .padding(.top, 8) // Added top padding
             
             // Loading state
             if viewModel.isGeneratingInsights {
@@ -39,18 +43,24 @@ extension GuidedMultiModalJournalView {
                     }
                     .padding(.bottom)
                     
-                    // Insights text
-                    Text(viewModel.adaptTextForReadingLevel(viewModel.aiInsights))
-                        .font(viewModel.fontForMode(size: 16))
-                        .foregroundColor(themeManager.themeForChildMode(viewModel.journalMode).primaryTextColor)
-                        .fixedSize(horizontal: false, vertical: true)
+                    // Insights text - ensure it's fully visible
+                    ScrollView {
+                        Text(viewModel.adaptTextForReadingLevel(viewModel.aiInsights))
+                            .font(viewModel.fontForMode(size: 16))
+                            .foregroundColor(themeManager.themeForChildMode(viewModel.journalMode).primaryTextColor)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.horizontal, 4)
+                    }
+                    .frame(minHeight: 200)
                     
                     // Error message if applicable
                     if let error = viewModel.aiError {
                         Text("Note: There was an issue generating detailed insights. These are simplified insights based on your entry.")
                             .font(viewModel.fontForMode(size: 14))
-                            .foregroundColor(.red)
-                            .padding(.top, 8)
+                            .foregroundColor(.orange)
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
                     }
                 }
                 .padding()

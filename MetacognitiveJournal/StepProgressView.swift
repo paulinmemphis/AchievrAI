@@ -8,13 +8,23 @@ struct StepProgressView: View {
     
     // MARK: - Body
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 0) {
-                ForEach(GuidedMultiModalJournalViewModel.JournalStep.allCases, id: \.self) { step in
-                    stepView(for: step)
+        VStack(spacing: 8) {
+            // Title with clear spacing above the steps
+            Text("Your Progress")
+                .font(.headline)
+                .foregroundColor(themeManager.selectedTheme.primaryTextColor)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+                .padding(.bottom, 4)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 0) {
+                    ForEach(GuidedMultiModalJournalViewModel.JournalStep.allCases, id: \.self) { step in
+                        stepView(for: step)
+                    }
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
         }
     }
     
@@ -44,7 +54,8 @@ struct StepProgressView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(width: 80)
         }
-        .padding(.horizontal, 4)
+        .padding(.horizontal, 6) // Increased horizontal padding
+        .padding(.vertical, 4)    // Added vertical padding
         .opacity(isFuture ? 0.6 : 1.0)
     }
     

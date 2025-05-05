@@ -43,7 +43,8 @@ struct GamificationView: View {
             
             // Mascot view with proper padding to avoid tab overlap
             MascotView(mood: currentMood)
-                .padding(.bottom, 80) // Increased bottom padding to avoid tab overlap
+                .padding(.bottom, 120) // Significantly increased bottom padding to avoid tab overlap
+                .frame(maxHeight: 180) // Limit the height to prevent overflow
         }
         .onChange(of: gamification.badges) { newValue, oldValue in
             // Check if a *new* badge was added to trigger the alert
@@ -89,25 +90,36 @@ struct GamificationView: View {
     private var statsSection: some View {
         HStack(spacing: 24) { // Reduced spacing
             VStack {
+                // Streak icon with animation
                 Image(systemName: "flame.fill")
                     .font(.system(size: 40))
                     .foregroundColor(.orange)
+                    .scaleEffect(appearsAnimated ? 1.0 : 0.6)
+                    .opacity(appearsAnimated ? 1.0 : 0.0)
                 Text("Streak")
                     .font(.caption)
                 Text("\(gamification.streak) days")
                     .font(.title)
                     .fontWeight(.medium)
+                    .contentTransition(.numericText())
             }
+            .transition(.scale.combined(with: .opacity))
+            
             VStack {
+                // Badges icon with animation
                 Image(systemName: "star.fill")
                     .font(.system(size: 40))
                     .foregroundColor(.yellow)
+                    .scaleEffect(appearsAnimated ? 1.0 : 0.6)
+                    .opacity(appearsAnimated ? 1.0 : 0.0)
                 Text("Badges")
                     .font(.caption)
                 Text("\(gamification.badges.count)")
                     .font(.title)
                     .fontWeight(.medium)
+                    .contentTransition(.numericText())
             }
+            .transition(.scale.combined(with: .opacity))
         }
     }
 
@@ -139,6 +151,7 @@ struct GamificationView: View {
 struct BadgeView: View {
     @EnvironmentObject var gamification: GamificationManager
     let badgeId: String
+    @State private var animateBadge = false
 
     var body: some View {
         let details = gamification.badgeDetails(for: badgeId)
@@ -149,6 +162,13 @@ struct BadgeView: View {
                 .frame(width: 50, height: 50)
                 .background(Color.purple.opacity(0.1))
                 .clipShape(Circle())
+                .scaleEffect(animateBadge ? 1.0 : 0.8)
+                .shadow(color: .purple.opacity(animateBadge ? 0.3 : 0), radius: animateBadge ? 5 : 0)
+                .onAppear {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                        animateBadge = true
+                    }
+                }
             Text(details.name)
                 .font(.caption)
                 .lineLimit(1)

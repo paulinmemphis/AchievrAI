@@ -19,7 +19,9 @@ extension GuidedMultiModalJournalView {
                 .font(viewModel.fontForMode(size: 18))
                 .multilineTextAlignment(.center)
                 .foregroundColor(themeManager.themeForChildMode(viewModel.journalMode).primaryTextColor)
-                .padding()
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, 20) // Increased horizontal padding
+                .padding(.bottom, 16)     // Increased bottom padding
             
             // Journal steps preview
             VStack(alignment: .leading, spacing: 12) {

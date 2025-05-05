@@ -135,7 +135,7 @@ struct ContentView: View {
                     NavigationView {
                         AnalyticsView(currentTabIndex: selectedTab) 
                             .environmentObject(journalStore)
-                            .navigationTitle("Progress")
+                            // Removed navigationTitle to eliminate the "Progress" heading
                     }
                     .tabItem { 
                         Label("Progress", systemImage: "chart.bar.fill")
@@ -143,19 +143,7 @@ struct ContentView: View {
                     .tag(0)
                     
                     // Journal tab - Second tab
-                    NavigationView {
-                        journalTab
-                            .navigationTitle("Journal")
-                            .toolbar {
-                                ToolbarItem(placement: .navigationBarTrailing) {
-                                    Button {
-                                        showingNewEntrySheet = true
-                                    } label: {
-                                        Image(systemName: "plus")
-                                    }
-                                }
-                            }
-                    }
+                    journalTab
                     .tabItem { 
                         Label("Journal", systemImage: "book.fill")
                     }
@@ -173,10 +161,7 @@ struct ContentView: View {
                     .tag(2)
                     
                     // More tab - Fourth tab
-                    NavigationView {
-                        moreTab
-                            .navigationTitle("More")
-                    }
+                    moreTab
                     .tabItem { 
                         Label("More", systemImage: "ellipsis.circle.fill")
                     }
@@ -208,6 +193,24 @@ struct ContentView: View {
                     .zIndex(100)
                     .padding(.top, 4) // Adjust padding as needed
             }
+        }
+        .sheet(isPresented: $showingNewEntrySheet) {
+            // Present the guided multi-modal journal entry view
+            GuidedMultiModalJournalView(
+                childId: UUID().uuidString, // Use a new UUID as the child ID
+                readingLevel: .grade3to4, // Default reading level for grades 3-4
+                journalMode: .middleChildhood, // Default journal mode for ages 9-12
+                onSave: { multiModalEntry in
+                    // Convert MultiModal entry to standard entry
+                    let standardEntry = multiModalEntry.adaptToStandardEntry()
+                    journalStore.saveEntry(standardEntry)
+                    showingNewEntrySheet = false
+                },
+                onCancel: {
+                    showingNewEntrySheet = false
+                }
+            )
+            .environmentObject(themeManager)
         }
     }
     

@@ -11,6 +11,7 @@ import Speech
 import Combine
 
 /// View for displaying a single journal entry with reflections and AI insights.
+@available(*, deprecated, message: "Use GuidedMultiModalJournalView instead")
 struct JournalEntryView: View {
     @EnvironmentObject var journalStore: JournalStore
     @EnvironmentObject private var themeManager: ThemeManager

@@ -33,20 +33,24 @@ struct GuidedMultiModalJournalView: View {
     // MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            // Progress indicator
+            // Progress indicator - only show in the main view
             StepProgressView(currentStep: viewModel.currentStep)
                 .padding(.top)
+                .padding(.bottom, 16) // Increased bottom padding
+                .background(Color(.systemBackground))
             
             // Main content area
             ScrollView {
-                VStack(spacing: 20) {
+                VStack(spacing: 24) { // Increased spacing
                     // Title field
                     titleSection
+                        .padding(.top, 8) // Added top padding
                     
                     // Current step content
                     currentStepContent
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.vertical, 12)
             }
             
             // Navigation buttons

@@ -2,6 +2,7 @@ import SwiftUI
 import Combine
 
 /// A view model for managing AIJournalEntryView state
+@available(*, deprecated, message: "Use GuidedMultiModalJournalViewModel instead")
 @MainActor
 class AIJournalEntryViewModel: ObservableObject {
     // MARK: - Dependencies

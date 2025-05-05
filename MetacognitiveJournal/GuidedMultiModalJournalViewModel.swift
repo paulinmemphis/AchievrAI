@@ -117,10 +117,15 @@ class GuidedMultiModalJournalViewModel: ObservableObject {
         let allSteps = JournalStep.allCases
         if let currentIndex = allSteps.firstIndex(of: currentStep),
            currentIndex < allSteps.count - 1 {
+            // Move to the next step
             currentStep = allSteps[currentIndex + 1]
             
             // If moving to insights step, generate insights
             if currentStep == .insights {
+                // Generate simple insights immediately to avoid blank state
+                aiInsights = generateSimpleInsights()
+                
+                // Then generate more detailed insights asynchronously
                 Task {
                     await generateInsights()
                 }

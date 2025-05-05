@@ -204,6 +204,38 @@ class JournalStore: ObservableObject {
         }
     }
     
+    /// Deletes multiple entries by their IDs with a single save operation.
+    ///
+    /// - Parameter entryIDs: Array of entry IDs to delete.
+    public func batchDeleteEntries(_ entryIDs: [UUID]) {
+        // Skip if no entries to delete
+        if entryIDs.isEmpty { return }
+        
+        syncStatus = .saving
+        
+        // Remove all entries with matching IDs
+        for entryID in entryIDs {
+            entries.removeAll { $0.id == entryID }
+        }
+        
+        // Perform a single save operation for all deletions
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            let success = self.persistEntries()
+            
+            DispatchQueue.main.async {
+                if success {
+                    self.syncToiCloud()
+                } else {
+                    self.syncStatus = .error
+                    self.lastError = "Failed to delete entries."
+                    let error = NSError(domain: "JournalStore", code: 2, userInfo: [NSLocalizedDescriptionKey: "Failed to delete entries."])
+                    ErrorHandler.shared.handle(error, type: { _ in JournalAppError.persistence })
+                }
+            }
+        }
+    }
+    
     /// Clears any error message.
     func clearError() {
         lastError = nil

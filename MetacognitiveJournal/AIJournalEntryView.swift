@@ -7,6 +7,7 @@ import SwiftUI
 import Combine
 
 /// A view for creating journal entries with AI-powered insights and story generation
+@available(*, deprecated, message: "Use GuidedMultiModalJournalView instead")
 struct AIJournalEntryView: View, JournalEntrySavable {
     // MARK: - Environment Objects
     @EnvironmentObject var themeManager: ThemeManager

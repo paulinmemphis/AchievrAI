@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import SwiftUI
 
+@available(*, deprecated, message: "Use GuidedMultiModalJournalViewModel instead")
 class JournalEntryViewModel: ObservableObject {
     // MARK: - Published Properties
     @Published var entryText: String = ""

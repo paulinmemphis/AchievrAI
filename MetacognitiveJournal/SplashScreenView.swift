@@ -31,7 +31,7 @@ struct SplashScreenView: View {
             
             VStack(spacing: 20) {
                 // App logo animation
-                Image("AppLogo") // Use the actual app logo image
+                Image("Image") // Using the image from the asset catalog
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120, height: 120)
