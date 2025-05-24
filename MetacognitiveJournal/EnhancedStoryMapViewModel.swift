@@ -8,7 +8,7 @@ class EnhancedStoryMapViewModel: ObservableObject {
     // Published properties for UI updates
     @Published var storyNodes: [StoryNode] = []
     @Published var storyArcs: [StoryArc] = []
-    @Published var chapters: [String: Chapter] = [:]
+    @Published var chapters: [String: StoryChapter] = [:]
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var selectedNodeId: String? = nil
@@ -21,24 +21,13 @@ class EnhancedStoryMapViewModel: ObservableObject {
     
     // Computed property to provide ViewModels for the view
     var nodeViewModels: [StoryNodeViewModel] {
-        storyNodes.map { node in
-            // Look up the chapter using node.chapterId
-            let chapter = chapters[node.chapterId]
-            let previewText = chapter?.text.prefix(150).appending("...") ?? "Chapter text not available."
-            let genre = chapter?.genre ?? "Unknown"
-
-            // Use the full initializer
-            return StoryNodeViewModel(
-                id: node.id,
-                chapterId: node.chapterId,
-                title: "Chapter \(node.chapterId.suffix(6))", // Keep existing title logic or refine
-                entryPreview: "Entry preview placeholder...", // Keep placeholder for now
-                chapterPreview: String(previewText),
-                sentiment: Double(node.metadata.sentiment) ?? 0.0,
-                themes: node.metadata.themes,
-                creationDate: node.creationDate,
-                genre: genre
-            )
+        storyNodes.compactMap { node in // Use compactMap to handle missing chapters
+            guard let chapter = chapters[node.chapterId] else {
+                // Optionally log or handle missing chapter
+                // print("Warning: Chapter not found for node \(node.id) in EnhancedStoryMapViewModel.")
+                return nil 
+            }
+            return StoryNodeViewModel(node: node, chapter: chapter)
         }
     }
 
@@ -61,7 +50,7 @@ class EnhancedStoryMapViewModel: ObservableObject {
     
     // Store common themes from all story nodes
     var allThemes: [String] {
-        let themeSet = Set(storyNodes.flatMap { $0.metadata.themes })
+        let themeSet = Set(storyNodes.flatMap { $0.metadataSnapshot?.themes ?? [] })
         return Array(themeSet).sorted()
     }
     
@@ -125,7 +114,7 @@ class EnhancedStoryMapViewModel: ObservableObject {
                 }
 
                 // Fetch chapters individually using getChapter(id:)
-                var loadedChapters: [String: Chapter] = [:]
+                var loadedChapters: [String: StoryChapter] = [:]
                 if let manager = self.persistenceManager {
                     for node in self.storyNodes {
                         if let chapter = manager.getChapter(id: node.chapterId) {
@@ -228,7 +217,7 @@ class EnhancedStoryMapViewModel: ObservableObject {
         
         // Generate connections based on parentId relationships
         for node in storyNodes where node.parentId != nil {
-            if let parentNode = storyNodes.first(where: { $0.entryId == node.parentId }) {
+            if let parentNode = storyNodes.first(where: { $0.id == node.parentId }) {
                 let connection = NodeConnection(
                     source: parentNode.id,
                     target: node.id,
@@ -246,8 +235,8 @@ class EnhancedStoryMapViewModel: ObservableObject {
                     let node2 = storyNodes[j]
                     
                     // Find shared themes
-                    let themes1 = Set(node1.metadata.themes)
-                    let themes2 = Set(node2.metadata.themes)
+                    let themes1 = Set(node1.metadataSnapshot?.themes ?? [])
+                    let themes2 = Set(node2.metadataSnapshot?.themes ?? [])
                     let sharedThemes = themes1.intersection(themes2)
                     
                     if !sharedThemes.isEmpty {
@@ -286,7 +275,7 @@ class EnhancedStoryMapViewModel: ObservableObject {
             result.append(currentLevel)
             
             // Find all nodes that have parents in the current level
-            let currentIds = Set(currentLevel.map { $0.entryId })
+            let currentIds = Set(currentLevel.map { $0.id })
             currentLevel = storyNodes.filter { node in
                 guard let parentId = node.parentId else { return false }
                 return currentIds.contains(parentId)
@@ -298,7 +287,7 @@ class EnhancedStoryMapViewModel: ObservableObject {
     
     // Timeline - arrange by chronological order
     private func arrangeNodesAsTimeline() -> [[StoryNode]] {
-        let sortedNodes = storyNodes.sorted { $0.timestamp < $1.timestamp }
+        let sortedNodes = storyNodes.sorted { $0.createdAt < $1.createdAt }
         return [sortedNodes] // Single row for timeline
     }
     
@@ -308,7 +297,7 @@ class EnhancedStoryMapViewModel: ObservableObject {
         
         // If a theme is highlighted, prioritize it
         if let theme = highlightedTheme {
-            let nodesWithTheme = storyNodes.filter { $0.metadata.themes.contains(theme) }
+            let nodesWithTheme = storyNodes.filter { $0.metadataSnapshot?.themes?.contains(theme) ?? false }
             if !nodesWithTheme.isEmpty {
                 result.append(nodesWithTheme)
             }
@@ -316,13 +305,13 @@ class EnhancedStoryMapViewModel: ObservableObject {
         
         // Add remaining nodes by dominant theme
         let remainingNodes = highlightedTheme != nil 
-            ? storyNodes.filter { !$0.metadata.themes.contains(highlightedTheme!) }
+            ? storyNodes.filter { !($0.metadataSnapshot?.themes?.contains(highlightedTheme!) ?? false) }
             : storyNodes
         
         // Group remaining nodes by their dominant theme
         let groupedByTheme = Dictionary(grouping: remainingNodes) { node -> String in
             // Use the first theme as the dominant one, or "unknown" if no themes
-            return node.metadata.themes.first ?? "unknown"
+            return node.metadataSnapshot?.themes?.first ?? "unknown"
         }
         
         // Add each theme group as a row

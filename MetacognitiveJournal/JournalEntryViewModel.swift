@@ -103,9 +103,6 @@ class JournalEntryViewModel: ObservableObject {
         self.chapter = nil
         
         // Use the adapted entry for the existing story generation flow
-        // Note: We might still need to save the adapted entry if persistence expects it
-        // Or adjust the flow to pass the adapted entry directly without saving it first
-        // For now, let's assume generateStoryFromEntry handles the rest
         generateStoryFromEntry(unwrappedAdaptedEntry)
     }
     
@@ -120,14 +117,33 @@ class JournalEntryViewModel: ObservableObject {
     }
     
     // MARK: - Private Methods
-    
+
+    /// Converts a sentiment string (e.g., "positive", "neutral", "negative", or a numeric string) to a Double?.
+    private func sentimentStringToScore(_ sentiment: String) -> Double? {
+        let lowercasedSentiment = sentiment.lowercased()
+        if let numericScore = Double(lowercasedSentiment) {
+            return numericScore
+        }
+        switch lowercasedSentiment {
+        case "positive", "very positive":
+            return 0.8
+        case "neutral":
+            return 0.0
+        case "negative", "very negative":
+            return -0.8
+        default:
+            // Attempt to parse if it's a numeric string, otherwise nil
+            return Double(sentiment)
+        }
+    }
+
     /// Generates a story chapter based on the journal entry content.
     /// - Parameter entry: The JournalEntry to process.
     private func generateStoryFromEntry(_ entry: MetacognitiveJournal.JournalEntry) {
         // Update progress
         self.generationProgress = 0.25
         self.generationStep = "Analyzing your entry..."
-        
+
         // Check if we're online
         if NetworkMonitor.shared.isConnected {
             // Extract metadata from the entry text - get text from reflectionPrompts
@@ -138,40 +154,42 @@ class JournalEntryViewModel: ObservableObject {
                     if case .failure(let error) = completion {
                         self?.handleError(error)
                     }
-                }, receiveValue: { [weak self] metadata in
-                    // Convert metadata to EntryMetadata for StoryNode
-                    let entryMetadata = EntryMetadata(
-                        sentiment: metadata.sentiment,
-                        themes: metadata.themes,
-                        entities: metadata.entities,
-                        keyPhrases: metadata.keyPhrases
-                    )
-                    self?.generateChapterFromMetadata(entryMetadata, entryId: entry.id.uuidString)
+                }, receiveValue: { [weak self] metadataResponse in
+                    // Pass the original entry and the metadataResponse
+                    self?.generateChapterFromMetadata(entry, metadata: metadataResponse)
                 })
                 .store(in: &cancellables)
         } else {
             // Queue for offline processing
-            self.queueOfflineRequest(entry)
+            queueOfflineRequest(entry) // Assuming queueOfflineRequest takes an entry
         }
     }
-    
+
     /// Generates a chapter using the extracted metadata
     /// - Parameters:
-    ///   - metadata: The extracted metadata
-    ///   - entryId: The ID of the journal entry
-    private func generateChapterFromMetadata(_ metadata: EntryMetadata, entryId: String) {
+    ///   - entry: The original JournalEntry.
+    ///   - metadata: The extracted metadata response.
+    private func generateChapterFromMetadata(_ entry: MetacognitiveJournal.JournalEntry, metadata: MetadataResponse) {
         // Update progress
         self.generationProgress = 0.5
         self.generationStep = "Crafting your story..."
-        
+
         // Get previous story arcs if available
         let previousArcs: [PreviousArc] = persistenceManager.getPreviousStoryArcs(limit: 3)
-        
+
+        // Convert MetadataResponse to EntryMetadata for the client
+        let entryMetadata = EntryMetadata(
+            sentiment: metadata.sentiment,
+            themes: metadata.themes,
+            entities: metadata.entities,
+            keyPhrases: metadata.keyPhrases
+        )
+
         // Generate the chapter
         narrativeClient.generateChapter(
-            metadata: metadata,
+            metadata: entryMetadata, // Use converted EntryMetadata
             userId: userId,
-            genre: selectedGenre,
+            genre: selectedGenre, // Use the user's selected genre for chapter generation
             previousArcs: previousArcs
         )
         .receive(on: DispatchQueue.main)
@@ -180,66 +198,73 @@ class JournalEntryViewModel: ObservableObject {
                 self?.handleError(error)
             }
         }, receiveValue: { [weak self] chapterResponse in
-            self?.handleGeneratedChapter(chapterResponse, entryId: entryId, metadata: metadata)
+            // Pass the original entry and the metadataResponse (original for StoryMetadata creation)
+            self?.handleGeneratedChapter(chapterResponse, entry: entry, metadata: metadata)
         })
         .store(in: &cancellables)
     }
-    
+
     /// Handles the generated chapter response
     /// - Parameters:
-    ///   - chapterResponse: The generated chapter
-    ///   - entryId: The ID of the journal entry
-    ///   - metadata: The entry metadata
-    private func handleGeneratedChapter(_ chapterResponse: ChapterResponse, entryId: String, metadata: EntryMetadata) {
+    ///   - chapterResponse: The generated chapter.
+    ///   - entry: The original JournalEntry.
+    ///   - metadata: The original metadata response from text analysis (MetadataResponse).
+    private func handleGeneratedChapter(_ chapterResponse: ChapterResponse, entry: MetacognitiveJournal.JournalEntry, metadata: MetadataResponse) {
         // Update progress
         self.generationProgress = 0.75
-        self.generationStep = "Adding finishing touches..."
-        
-        // Create a StoryNode to connect entry and chapter
+        self.generationStep = "Saving your new chapter..."
+
+        // 1. Create StoryMetadata (does not include genre)
+        let storyMetadata = StoryMetadata(
+            sentimentScore: sentimentStringToScore(metadata.sentiment),
+            themes: metadata.themes,
+            entities: metadata.entities,
+            keyPhrases: metadata.keyPhrases
+        )
+
+        // 2. Create StoryChapter
+        let storyChapter = StoryChapter(
+            id: chapterResponse.id, // chapterResponse.id is chapterId
+            text: chapterResponse.text,
+            cliffhanger: chapterResponse.cliffhanger,
+            originatingEntryId: entry.id.uuidString,
+            timestamp: Date() // Use current date for chapter creation
+        )
+
+        // 3. Create StoryNode
         let storyNode = StoryNode(
-            id: UUID().uuidString,
-            entryId: entryId,
-            chapterId: chapterResponse.chapterId,
-            parentId: findParentNodeId(for: entryId),
-            metadata: metadata,
-            creationDate: Date()
+            journalEntryId: entry.id.uuidString,
+            chapterId: storyChapter.id,
+            parentId: persistenceManager.storyArcs.sorted(by: { $0.timestamp > $1.timestamp }).first?.chapterId, // Link to most recent arc's chapterId
+            metadataSnapshot: storyMetadata,
+            createdAt: entry.date // Use entry's date for node creation
         )
-        
-        // Save the chapter and story node
-        persistenceManager.saveChapter(
-            Chapter(
-                id: chapterResponse.chapterId,
-                text: chapterResponse.text,
-                cliffhanger: chapterResponse.cliffhanger,
-                genre: selectedGenre,
-                creationDate: Date()
-            )
-        )
-        .flatMap { _ in
-            // After saving the chapter, save the story node
-            return self.persistenceManager.saveStoryNode(storyNode)
-        }
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] completion in
-            if case .failure(let error) = completion {
-                self?.handleError(error)
-            } else {
-                // Completed successfully
-                self?.generationProgress = 1.0
-                self?.generationStep = "Complete!"
-                
-                // Delay to show the 100% state briefly
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self?.isGeneratingStory = false
+
+        // 4. Save StoryChapter, then StoryNode
+        persistenceManager.saveChapter(storyChapter)
+            .flatMap { [weak self] () -> AnyPublisher<Void, Error> in
+                guard let self = self else {
+                    return Fail(error: AppError.unknown).eraseToAnyPublisher()
                 }
+                return self.persistenceManager.saveStoryNode(storyNode)
             }
-        } receiveValue: { [weak self] _ in
-            // Set the generated chapter for display
-            self?.chapter = chapterResponse
-        }
-        .store(in: &cancellables)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+                self.isGeneratingStory = false // Always reset this
+                if case .failure(let error) = completion {
+                    self.handleError(error)
+                } else {
+                    self.generationProgress = 1.0
+                    self.generationStep = "Story chapter saved!"
+                    self.chapter = chapterResponse // Update published chapter
+                    AnalyticsManager.shared.logEvent(.chapterGenerated, properties: ["genre": self.selectedGenre])
+                    // Optionally, trigger UI update or navigation
+                }
+            }, receiveValue: { /* No value expected from saveStoryNode */ })
+            .store(in: &cancellables)
     }
-    
+
     /// Finds the parent node ID for a new entry
     private func findParentNodeId(for entryId: String) -> String? {
         // Update progress

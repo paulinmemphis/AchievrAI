@@ -7,7 +7,7 @@ struct StoryChapterView: View {
     @Environment(\.presentationMode) private var presentationMode
     
     // MARK: - Properties
-    let chapter: StoryChapter
+    let chapter: MetacognitiveJournal.StoryChapter
     let childId: String
     let journalMode: ChildJournalMode
     let onContinueWriting: (() -> Void)?
@@ -66,7 +66,12 @@ struct StoryChapterView: View {
     
     /// Displays the chapter title with animation
     private var chapterTitleView: some View {
-        Text(chapter.title)
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        let titleText = "Chapter from \(formatter.string(from: chapter.timestamp))"
+        
+        return Text(titleText)
             .font(fontForMode(size: 28, weight: .bold))
             .foregroundColor(themeManager.themeForChildMode(journalMode).primaryTextColor)
             .multilineTextAlignment(.center)
@@ -108,7 +113,7 @@ struct StoryChapterView: View {
     /// Displays the cliffhanger if it exists, with animation
     @ViewBuilder
     private var cliffhangerView: some View {
-        if !chapter.cliffhanger.isEmpty {
+        if !(chapter.cliffhanger?.isEmpty ?? true) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Image(systemName: "sparkles")
@@ -118,7 +123,7 @@ struct StoryChapterView: View {
                         .foregroundColor(themeManager.themeForChildMode(journalMode).accentColor)
                 }
                 
-                Text(chapter.cliffhanger)
+                Text(chapter.cliffhanger!)
                     .font(fontForMode(size: 17, weight: .medium))
                     .italic()
                     .foregroundColor(themeManager.themeForChildMode(journalMode).primaryTextColor.opacity(0.8))
@@ -242,10 +247,10 @@ struct StoryChapterView_Previews: PreviewProvider {
         NavigationView {
             StoryChapterView(
                 chapter: StoryChapter(
-                    chapterId: UUID().uuidString,
-                    title: "The Courage Quest",
+                    id: UUID().uuidString, // Corrected: chapterId -> id
                     text: "In the magical land of Eldoria, Alex discovered a hidden power within.\n\nFear tried to take hold, but Alex stood firm. With a deep breath and determined heart, the impossible suddenly seemed possible. The ancient book had mentioned a test of courage, but Alex never imagined it would come in this form.\n\nThe forest grew darker as Alex ventured deeper. Each step forward was a victory against the whispers of doubt that tried to turn them back. Sometimes the greatest adventures begin with the smallest acts of bravery.",
-                    cliffhanger: "But as the ancient spell began to glow, everything was about to change..."
+                    cliffhanger: "But as the ancient spell began to glow, everything was about to change...",
+                    originatingEntryId: "preview-entry-id" // Added missing parameter
                 ),
                 childId: "child1",
                 journalMode: .middleChildhood,

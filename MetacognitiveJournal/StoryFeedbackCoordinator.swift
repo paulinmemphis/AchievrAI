@@ -68,7 +68,7 @@ class StoryFeedbackCoordinator: ObservableObject {
                         // Store the story node
                         let storyNode = MultiModal.StoryNode(
                             entryId: entry.id,
-                            chapterId: chapter.chapterId,
+                            chapterId: chapter.id,
                             parentId: self.storyNodes.last?.chapterId,
                             metadata: metadata
                         )
@@ -274,8 +274,7 @@ class StoryFeedbackCoordinator: ObservableObject {
             let cliffhanger = self.generateSimulatedCliffhanger(metadata: metadata, genre: genre)
             
             let chapter = StoryChapter(
-                chapterId: chapterId,
-                title: title,
+                id: chapterId,
                 text: text,
                 cliffhanger: cliffhanger
             )
@@ -541,14 +540,5 @@ enum CoordinatorError: Error, LocalizedError {
 
 // Removed redundant MediaEntryMetadata declaration - using MultiModal.EntryMetadata instead
 
-/// A chapter in the child's personalized story
-struct StoryChapter: Identifiable, Codable {
-    let chapterId: String
-    let title: String
-    let text: String
-    let cliffhanger: String
-    
-    var id: String { chapterId }
-}
-
 // Removed redundant MediaStoryNode declaration - using MultiModal.StoryNode instead
+// The StoryChapter struct is now solely defined in StoryChapter.swift

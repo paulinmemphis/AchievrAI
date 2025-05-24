@@ -13,7 +13,7 @@ class StoryExportManager: ObservableObject {
         storyText += "====================\n\n"
         
         // Sort nodes chronologically
-        let sortedNodes = nodes.sorted { $0.timestamp < $1.timestamp }
+        let sortedNodes = nodes.sorted { $0.createdAt < $1.createdAt }
         
         // Build text for each chapter
         for (index, node) in sortedNodes.enumerated() {
@@ -21,8 +21,8 @@ class StoryExportManager: ObservableObject {
             storyText += String(repeating: "-", count: 10) + "\n\n"
             
             // Add metadata context
-            storyText += "Themes: \(node.metadata.themes.joined(separator: ", "))\n"
-            storyText += "Mood: \(node.metadata.sentiment)\n\n"
+            storyText += "Themes: \(node.metadataSnapshot?.themes?.joined(separator: ", ") ?? "N/A")\n"
+            storyText += "Mood: \(getSentimentLabel(from: node.metadataSnapshot?.sentimentScore))\n\n"
             
             // Add chapter text
             if let chapter = StoryPersistenceManager.shared.getChapter(id: node.chapterId) {
@@ -66,7 +66,7 @@ class StoryExportManager: ObservableObject {
         // Render PDF
         let pdfData = renderer.pdfData { context in
             // Sort nodes by timestamp
-            let sortedNodes = nodes.sorted { $0.timestamp < $1.timestamp }
+            let sortedNodes = nodes.sorted { $0.createdAt < $1.createdAt }
             
             // Title page
             context.beginPage()
@@ -122,6 +122,13 @@ class StoryExportManager: ObservableObject {
         }
     }
     
+    private func getSentimentLabel(from score: Double?) -> String {
+        guard let s = score else { return "Neutral" } // Default if score is nil
+        if s > 0.25 { return "Positive" }
+        if s < -0.25 { return "Negative" }
+        return "Neutral"
+    }
+
     // MARK: - Helper Methods
     
     /// Create a temporary file for exporting
@@ -235,7 +242,7 @@ class StoryExportManager: ObservableObject {
         ]
         
         // Themes
-        let themesString = "Themes: \(node.metadata.themes.joined(separator: ", "))"
+        let themesString = "Themes: \(node.metadataSnapshot?.themes?.joined(separator: ", ") ?? "N/A")"
         let themesSize = themesString.size(withAttributes: metadataAttributes)
         let themesRect = CGRect(x: textRect.minX, y: currentY, width: textRect.width, height: themesSize.height)
         themesString.draw(in: themesRect, withAttributes: metadataAttributes)
@@ -243,7 +250,7 @@ class StoryExportManager: ObservableObject {
         currentY += themesSize.height + 10
         
         // Mood
-        let moodString = "Mood: \(node.metadata.sentiment)"
+        let moodString = "Mood: \(node.metadataSnapshot?.sentimentScore != nil ? String(describing: node.metadataSnapshot!.sentimentScore!) : "N/A")"
         let moodSize = moodString.size(withAttributes: metadataAttributes)
         let moodRect = CGRect(x: textRect.minX, y: currentY, width: textRect.width, height: moodSize.height)
         moodString.draw(in: moodRect, withAttributes: metadataAttributes)

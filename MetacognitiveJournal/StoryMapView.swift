@@ -211,7 +211,7 @@ struct StoryNodeView: View {
                     .font(.caption)
                     .fontWeight(.bold)
                 Spacer()
-                Text(nodeViewModel.creationDate, style: .date) // Use creationDate from ViewModel
+                Text(nodeViewModel.node.createdAt, style: .date) // Use creationDate from ViewModel
                     .font(.caption2)
                     .foregroundColor(.gray)
             }

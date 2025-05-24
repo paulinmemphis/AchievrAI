@@ -381,7 +381,7 @@ struct NodeDetailView: View {
                     Text("Journal Entry")
                         .font(.headline)
                     
-                    Text(node.entryPreview)
+                    Text(node.chapterPreview)
                         .font(.body)
                         .foregroundColor(.secondary)
                 }
@@ -397,14 +397,14 @@ struct NodeDetailView: View {
                     HStack {
                         Text("Created:")
                             .fontWeight(.medium)
-                        Text(node.creationDate, style: .date)
+                        Text(node.node.createdAt, style: .date)
                             .foregroundColor(.secondary)
                     }
                     
                     HStack {
                         Text("Genre:")
                             .fontWeight(.medium)
-                        Text(node.genre)
+                        Text(node.themes.first ?? "N/A")
                             .foregroundColor(.secondary)
                     }
                     

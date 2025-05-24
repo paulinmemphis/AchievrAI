@@ -317,16 +317,17 @@ class TestStoryMapViewModel: ObservableObject {
         // Create and return the story node
         return StoryNode(
             id: UUID().uuidString,
-            entryId: entryId.uuidString,
+            journalEntryId: entryId.uuidString, // Corrected name
             chapterId: chapterId,
             parentId: parentId?.uuidString,
-            metadata: EntryMetadata(
-                sentiment: metadata.sentiment,
+            metadataSnapshot: StoryMetadata(    // Corrected name and type
+                sentimentScore: Double(metadata.sentiment), // Convert String to Double?
                 themes: metadata.themes,
                 entities: metadata.entities,
                 keyPhrases: metadata.keyPhrases
+                // No genre, as StoryMetadata.swift doesn't define it
             ),
-            creationDate: Date()
+            createdAt: Date()                   // Corrected name
         )
     }
 }

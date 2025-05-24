@@ -16,6 +16,8 @@ struct ContentView: View {
     @EnvironmentObject var psychologicalEnhancementsCoordinator: PsychologicalEnhancementsCoordinator
     @EnvironmentObject var aiNudgeManager: AINudgeManager
     
+    @EnvironmentObject var storyManager: StoryManager
+    
     // MARK: - State
     @State private var selectedTab: Int = 0
     @State private var showingNewEntrySheet = false
@@ -150,11 +152,9 @@ struct ContentView: View {
                     .tag(1)
                     
                     // Story tab - Third tab
-                    NavigationView {
-                        StoryGenerationView()
-                            .environmentObject(journalStore)
-                            .navigationTitle("Story")
-                    }
+                    // Replaced StoryGenerationView with MyStoryView to display generated chapters
+                    MyStoryView()
+                        // MyStoryView uses storyManager and themeManager from the environment
                     .tabItem { 
                         Label("Story", systemImage: "book.pages.fill")
                     }
@@ -203,6 +203,15 @@ struct ContentView: View {
                 onSave: { multiModalEntry in
                     // Convert MultiModal entry to standard entry
                     let standardEntry = multiModalEntry.adaptToStandardEntry()
+                    // Ensure the standardEntry has an ID before saving and generating chapter
+                    // If adaptToStandardEntry() doesn't assign one, ensure it's assigned here or in JournalStore.saveEntry
+                    // For now, assuming standardEntry.id is valid after adaptation.
+                    
+                    // Generate and add story chapter
+                    // We need to ensure standardEntry.text is the correct field for main content.
+                    // If 'standardEntry.text' is not the primary content, adjust accordingly.
+                    // Example: let mainText = standardEntry.promptResponses.first?.response ?? standardEntry.title
+                    storyManager.generateAndAddChapter(forJournalEntryText: standardEntry.content, entryId: standardEntry.id.uuidString, genre: .sliceOfLife)
                     journalStore.saveEntry(standardEntry)
                     showingNewEntrySheet = false
                 },

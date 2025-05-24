@@ -65,7 +65,7 @@ struct ChapterResponse: Codable, Identifiable, Equatable {
 }
 
 /// Structure representing a chapter of the story
-struct Chapter: Codable, Identifiable {
+struct APIChapter: Codable, Identifiable {
     let id: String
     let text: String
     let cliffhanger: String
@@ -74,7 +74,7 @@ struct Chapter: Codable, Identifiable {
 }
 
 /// Structure connecting a journal entry to a story chapter
-struct StoryNode: Codable, Identifiable {
+struct APIStoryNode: Codable, Identifiable {
     let id: String
     let entryId: String
     let chapterId: String
@@ -94,7 +94,7 @@ struct IdentifiableUUID: Identifiable, Hashable {
 // MARK: - View Models
 
 /// View model representing a node for display in the StoryMapView and ChapterView
-struct StoryNodeViewModel: Identifiable, Hashable {
+struct APIStoryNodeViewModel: Identifiable, Hashable {
     let id: String                 // Unique ID (usually matches StoryNode.id)
     let chapterId: String          // ID of the associated chapter
     let title: String              // Display title (e.g., "Chapter X", "Node Y")
@@ -119,7 +119,7 @@ struct StoryNodeViewModel: Identifiable, Hashable {
     // Initializer to create from a StoryNode and potentially Chapter/Entry data
     // Note: Fetching Chapter/Entry data might be needed for full previews
     // For now, uses placeholders for chapter/entry details.
-    init(from node: StoryNode) {
+    init(from node: APIStoryNode) {
         self.id = node.id
         self.chapterId = node.chapterId
         self.title = "Chapter \(node.chapterId.suffix(6))" // Example title
@@ -147,8 +147,8 @@ struct StoryNodeViewModel: Identifiable, Hashable {
     }
 
     // Static sample for previews
-    static var sample: StoryNodeViewModel {
-        StoryNodeViewModel(
+    static var sample: APIStoryNodeViewModel {
+        APIStoryNodeViewModel(
             id: "sample-node-id",
             chapterId: "sample-chapter-id",
             title: "Sample Chapter",

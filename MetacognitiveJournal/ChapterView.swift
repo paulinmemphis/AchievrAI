@@ -247,17 +247,30 @@ struct ChapterView: View, JournalEntrySavable {
 
 // MARK: - Preview
 struct ChapterView_Previews: PreviewProvider {
-    static var sampleNodeVM = StoryNodeViewModel(
-        id: "node-1", 
-        chapterId: "ch-1",
-        title: "Sample Node 1", 
-        entryPreview: "Started the day feeling hopeful...", 
-        chapterPreview: "Elara felt a surge of excitement as she stepped into the Whispering Woods. The ancient trees seemed to hum with untold secrets.", 
-        sentiment: 0.6, 
+    static var sampleMetadata = StoryMetadata(
+        sentimentScore: 0.6, 
         themes: ["Exploration", "Mystery"], 
-        creationDate: Date(), 
-        genre: "Fantasy",
+        entities: ["Whispering Woods", "Elara"], 
+        keyPhrases: ["ancient trees", "untold secrets"]
     )
+
+    static var sampleNode = StoryNode(
+        id: "node-1", 
+        journalEntryId: "entry-1",
+        chapterId: "ch-1", 
+        metadataSnapshot: sampleMetadata, 
+        createdAt: Date()
+    )
+
+    static var sampleChapter = StoryChapter(
+        id: "ch-1", 
+        text: "Elara felt a surge of excitement as she stepped into the Whispering Woods. The ancient trees seemed to hum with untold secrets. What lay ahead?", 
+        cliffhanger: "What lay ahead?", 
+        originatingEntryId: "entry-1",
+        timestamp: Date()
+    )
+
+    static var sampleNodeVM = StoryNodeViewModel(node: sampleNode, chapter: sampleChapter)
 
     static var previews: some View {
         ChapterView(nodeViewModel: sampleNodeVM) // Use sample Node VM

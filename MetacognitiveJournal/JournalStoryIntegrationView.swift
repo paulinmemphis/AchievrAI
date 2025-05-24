@@ -330,7 +330,12 @@ struct JournalStoryIntegrationView: View {
     // MARK: - Story Chapter Preview View
     
     private func storyChapterPreviewView(_ chapter: StoryChapter) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        let titleText = "Chapter from \(formatter.string(from: chapter.timestamp))"
+
+        return VStack(alignment: .leading, spacing: 16) {
             // Header
             HStack {
                 Image(systemName: "book.fill")
@@ -357,7 +362,7 @@ struct JournalStoryIntegrationView: View {
             }
             
             // Chapter title
-            Text(chapter.title)
+            Text(titleText)
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(themeManager.themeForChildMode(journalMode).primaryTextColor)

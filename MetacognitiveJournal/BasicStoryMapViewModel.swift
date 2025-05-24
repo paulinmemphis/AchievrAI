@@ -124,61 +124,55 @@ class BasicStoryMapViewModel: ObservableObject {
         let filteredNodes = filterNodes(storyNodes)
         
         // Transform to view models
-        var nodeViewModels: [StoryNodeViewModel] = []
+        let newViewModels: [StoryNodeViewModel] = filteredNodes.compactMap { node in
+            guard let chapter = persistenceManager.getChapter(id: node.chapterId) else {
+                print("Warning: Could not find chapter with ID \(node.chapterId) for node \(node.id). Skipping view model creation.")
+                return nil // Skip this node if its chapter is missing
+            }
+            return StoryNodeViewModel(node: node, chapter: chapter)
+        }
+        
+        // Update the published properties on the main thread
+        DispatchQueue.main.async {
+            self.nodes = newViewModels
+            self.buildConnections()
+            self.layoutNodes()
+        }
+    }
+    
+    /// Builds connections between nodes
+    private func buildConnections() {
         var nodeConnections: [StoryConnection] = []
         
-        for node in filteredNodes {
-            // Create a view model for each node
-            let nodeViewModel = createNodeViewModel(from: node)
-            nodeViewModels.append(nodeViewModel)
-            
-            // Create connections if this node has a parent
-            if let parentId = node.parentId,
-               let parentIndex = filteredNodes.firstIndex(where: { $0.id == parentId }) {
-                // Create a connection between this node and its parent
+        for node in nodes {
+            if let parentId = node.node.parentId,
+               let parentNode = nodes.first(where: { $0.id == parentId }) {
                 let connection = StoryConnection(
                     id: UUID().uuidString,
                     sourceId: parentId,
                     targetId: node.id,
                     strength: calculateConnectionStrength(
-                        parentMetadata: filteredNodes[parentIndex].metadata,
-                        childMetadata: node.metadata
+                        parentMetadata: parentNode.node.metadataSnapshot,
+                        childMetadata: node.node.metadataSnapshot
                     )
                 )
                 nodeConnections.append(connection)
             }
         }
         
-        // Update published properties
-        self.nodes = nodeViewModels
         self.connections = nodeConnections
         
         // Layout nodes based on current visualization style
         layoutNodes()
     }
     
-    /// Creates a node view model from a story node
-    /// - Parameter node: The story node
+    /// Creates a node view model from a story node and its chapter
+    /// - Parameters:
+    ///   - node: The story node
+    ///   - chapter: The story chapter
     /// - Returns: A configured StoryNodeViewModel
-    private func createNodeViewModel(from node: StoryNode) -> StoryNodeViewModel {
-        // Fetch associated journal entry and chapter
-        let entry = persistenceManager.getJournalEntry(id: node.entryId)
-        let chapter = persistenceManager.getChapter(id: node.chapterId)
-        
-        // Extract text from reflection prompts if available
-        let entryText = entry?.reflectionPrompts.first(where: { $0.prompt == "Journal Entry" })?.response ?? ""
-        
-        return StoryNodeViewModel(
-            id: node.id,
-            chapterId: node.chapterId,
-            title: entry?.subject.rawValue ?? "Untitled",
-            entryPreview: entryText.isEmpty ? "" : entryText.prefix(100) + "..." ,
-            chapterPreview: chapter?.text.isEmpty ?? true ? "" : (chapter?.text.prefix(100) ?? "") + "...",
-            sentiment: convertSentimentToDouble(node.metadata.sentiment),
-            themes: node.metadata.themes,
-            creationDate: node.creationDate,
-            genre: chapter?.genre ?? ""
-        )
+    private func createNodeViewModel(from node: StoryNode, chapter: StoryChapter) -> StoryNodeViewModel {
+        return StoryNodeViewModel(node: node, chapter: chapter)
     }
     
     /// Filters nodes based on the current filter criteria
@@ -190,32 +184,34 @@ class BasicStoryMapViewModel: ObservableObject {
             
             // Filter by date range if set
             if let startDate = filterCriteria.startDate {
-                shouldInclude = shouldInclude && node.creationDate >= startDate
+                shouldInclude = shouldInclude && node.createdAt >= startDate
             }
             
             if let endDate = filterCriteria.endDate {
-                shouldInclude = shouldInclude && node.creationDate <= endDate
+                shouldInclude = shouldInclude && node.createdAt <= endDate
             }
             
             // Filter by sentiment range
             if filterCriteria.minSentiment != -1 || filterCriteria.maxSentiment != 1 {
                 // Convert string sentiment to numeric value for comparison
-                let sentimentValue = convertSentimentToDouble(node.metadata.sentiment)
-                shouldInclude = shouldInclude && 
-                    sentimentValue >= filterCriteria.minSentiment &&
-                    sentimentValue <= filterCriteria.maxSentiment
+                let sentimentValue = node.metadataSnapshot?.sentimentScore ?? 0.0
+                shouldInclude = shouldInclude && sentimentValue >= filterCriteria.minSentiment && sentimentValue <= filterCriteria.maxSentiment
             }
             
             // Filter by themes if any are selected
-            if !filterCriteria.selectedThemes.isEmpty {
-                shouldInclude = shouldInclude && node.metadata.themes.contains(where: { filterCriteria.selectedThemes.contains($0) })
+            if !filterCriteria.selectedThemes.isEmpty { // Corrected property name
+                let nodeThemes = node.metadataSnapshot?.themes ?? []
+                // Ensure all selected themes are present in the node's themes
+                shouldInclude = shouldInclude && filterCriteria.selectedThemes.allSatisfy { selectedTheme in
+                    nodeThemes.contains(selectedTheme)
+                }
             }
             
             // Filter by search term if provided
             if let term = filterCriteria.searchTerm, !term.isEmpty {
                 // Search in themes and entities
-                let themeMatch = node.metadata.themes.contains { $0.lowercased().contains(term.lowercased()) }
-                let entityMatch = node.metadata.entities.contains { $0.lowercased().contains(term.lowercased()) }
+                let themeMatch = (node.metadataSnapshot?.themes ?? []).contains { $0.lowercased().contains(term.lowercased()) }
+                let entityMatch = (node.metadataSnapshot?.entities ?? []).contains { $0.lowercased().contains(term.lowercased()) }
                 
                 shouldInclude = shouldInclude && (themeMatch || entityMatch)
             }
@@ -239,11 +235,11 @@ class BasicStoryMapViewModel: ObservableObject {
     /// Applies a timeline layout to the nodes
     private func applyTimelineLayout() {
         // Sort nodes by creation date
-        let sortedNodes = nodes.sorted { $0.creationDate < $1.creationDate }
+        let sortedNodes = nodes.sorted { $0.node.createdAt < $1.node.createdAt }
         
         // Calculate time range
-        guard let firstDate = sortedNodes.first?.creationDate,
-              let lastDate = sortedNodes.last?.creationDate else {
+        guard let firstDate = sortedNodes.first?.node.createdAt,
+              let lastDate = sortedNodes.last?.node.createdAt else {
             return
         }
         
@@ -256,7 +252,7 @@ class BasicStoryMapViewModel: ObservableObject {
         for (index, node) in sortedNodes.enumerated() {
             if nodes.firstIndex(where: { $0.id == node.id }) != nil {
                 // Calculate x position based on time
-                let _ = node.creationDate.timeIntervalSince(firstDate)
+                let _ = node.node.createdAt.timeIntervalSince(firstDate)
                 let _ = startX + CGFloat(index) * horizontalSpacing
                 
                 // Add some vertical variation based on sentiment
@@ -416,29 +412,36 @@ class BasicStoryMapViewModel: ObservableObject {
     
     /// Calculates the strength of connection between two nodes
     /// - Parameters:
-    ///   - parentMetadata: Metadata of the parent node
-    ///   - childMetadata: Metadata of the child node
+    ///   - parentMetadata: Metadata of the parent node (StoryMetadata)
+    ///   - childMetadata: Metadata of the child node (StoryMetadata)
     /// - Returns: A connection strength value between 0 and 1
     private func calculateConnectionStrength(
-        parentMetadata: EntryMetadata,
-        childMetadata: EntryMetadata
+        parentMetadata: StoryMetadata?,
+        childMetadata: StoryMetadata?
     ) -> Double {
-        // Calculate theme overlap
-        let parentThemes = Set(parentMetadata.themes)
-        let childThemes = Set(childMetadata.themes)
+        // Calculate theme similarity
+        let parentThemes = Set(parentMetadata?.themes ?? [])
+        let childThemes = Set(childMetadata?.themes ?? [])
         let themeOverlap = parentThemes.intersection(childThemes).count
         let themeUnion = parentThemes.union(childThemes).count
+        let themeSimilarity = themeUnion > 0 ? Double(themeOverlap) / Double(themeUnion) : 0.0
+
+        // Calculate sentiment similarity
+        // Assuming sentimentScore is normalized between -1.0 (very negative) and 1.0 (very positive)
+        // Default to 0.0 (neutral) if nil
+        let parentSentiment = parentMetadata?.sentimentScore ?? 0.0
+        let childSentiment = childMetadata?.sentimentScore ?? 0.0
         
-        let themeSimilarity = themeUnion > 0 ? Double(themeOverlap) / Double(themeUnion) : 0
-        
-        // Calculate sentiment similarity (inverse of difference)
-        let parentSentiment = convertSentimentToDouble(parentMetadata.sentiment)
-        let childSentiment = convertSentimentToDouble(childMetadata.sentiment)
+        // Difference ranges from 0 (identical) to 2.0 (opposite extremes)
         let sentimentDifference = abs(parentSentiment - childSentiment)
-        let sentimentSimilarity = 1.0 - min(sentimentDifference / 2.0, 1.0)
+        // Normalize difference to similarity (1.0 for identical, 0.0 for opposite extremes)
+        let sentimentSimilarity = 1.0 - (sentimentDifference / 2.0) 
+
+        // Weighted average, e.g., 70% theme, 30% sentiment
+        let weightedStrength = 0.7 * themeSimilarity + 0.3 * sentimentSimilarity
         
-        // Weighted average favoring theme similarity
-        return 0.7 * themeSimilarity + 0.3 * sentimentSimilarity
+        // Ensure the final value is clamped between 0.0 and 1.0
+        return max(0.0, min(1.0, weightedStrength))
     }
 }
 

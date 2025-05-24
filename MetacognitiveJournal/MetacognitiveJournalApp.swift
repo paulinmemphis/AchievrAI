@@ -14,6 +14,7 @@ struct MetacognitiveJournalApp: App {
     @StateObject private var psychologicalEnhancementsCoordinator = PsychologicalEnhancementsCoordinator()
     @StateObject private var aiNudgeManager = AINudgeManager() // Initialize AINudgeManager
     @StateObject private var multiModalJournalManager = MultiModal.JournalManager.shared // Initialize MultiModal.JournalManager
+    @StateObject private var storyManager = StoryManager()
     @StateObject private var growthMetricsManager: GrowthMetricsManager
     
     // Initialize the app and its dependencies
@@ -100,6 +101,7 @@ struct MetacognitiveJournalApp: App {
             .environmentObject(psychologicalEnhancementsCoordinator)
             .environmentObject(aiNudgeManager) // Inject AINudgeManager
             .environmentObject(multiModalJournalManager) // Inject MultiModal.JournalManager
+            .environmentObject(storyManager)
             .environmentObject(growthMetricsManager) // Inject GrowthMetricsManager
             .withPsychologicalEnhancements(psychologicalEnhancementsCoordinator)
             .overlay(

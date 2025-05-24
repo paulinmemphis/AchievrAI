@@ -359,17 +359,32 @@ struct StoryGenerationView: View {
                             entities: [],
                             keyPhrases: []
                         )
-                        
+
+                        // Convert EntryMetadata to StoryMetadata for the StoryNode
+                        let sentimentScoreFromSample: Double?
+                        switch sampleMetadata.sentiment.lowercased() {
+                            case "positive": sentimentScoreFromSample = 0.8
+                            case "neutral": sentimentScoreFromSample = 0.0
+                            case "negative": sentimentScoreFromSample = -0.8
+                            default: sentimentScoreFromSample = nil
+                        }
+                        let convertedSampleMetadata = StoryMetadata(
+                            sentimentScore: sentimentScoreFromSample,
+                            themes: sampleMetadata.themes,
+                            entities: sampleMetadata.entities,
+                            keyPhrases: sampleMetadata.keyPhrases
+                        )
+
                         // Get the first selected entry ID or generate a new one if none selected
                         let entryId = selectedEntries.first?.uuidString ?? UUID().uuidString
                         
                         let storyNode = StoryNode(
                             id: UUID().uuidString,
-                            entryId: entryId,
+                            journalEntryId: entryId,
                             chapterId: chapterResponse.chapterId,
                             parentId: nil,
-                            metadata: sampleMetadata,
-                            creationDate: Date()
+                            metadataSnapshot: convertedSampleMetadata,
+                            createdAt: Date()
                         )
                         
                         // Save the generated chapter

@@ -4,7 +4,7 @@ import Combine
 /// A premium reading experience for story chapters
 struct NarrativeChapterView: View, JournalEntrySavable {
     // MARK: - Properties
-    let chapter: Chapter
+    let chapter: StoryChapter
     let journalEntryId: String
     
     @State private var fontSize: CGFloat = 18
@@ -134,12 +134,7 @@ struct NarrativeChapterView: View, JournalEntrySavable {
     // MARK: - Chapter Header
     private var chapterHeader: some View {
         VStack(spacing: 12) {
-            Text(chapter.genre.uppercased())
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .kerning(2)
-                .foregroundColor(readingMode.textColor.opacity(0.6))
-            
+
             Text("Chapter")
                 .font(.title)
                 .fontWeight(.bold)
@@ -190,7 +185,7 @@ struct NarrativeChapterView: View, JournalEntrySavable {
                 .foregroundColor(readingMode.textColor.opacity(0.8))
                 .padding(.bottom, 10)
             
-            Text(chapter.cliffhanger)
+            Text(chapter.cliffhanger ?? "")
                 .font(.system(size: fontSize))
                 .italic()
                 .foregroundColor(readingMode.textColor)
@@ -455,7 +450,7 @@ struct NarrativeChapterView: View, JournalEntrySavable {
     private var formattedDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        return formatter.string(from: chapter.creationDate)
+        return formatter.string(from: chapter.timestamp)
     }
 
     /// Calculate estimated reading time in minutes
@@ -469,7 +464,7 @@ struct NarrativeChapterView: View, JournalEntrySavable {
     /// Saves the current chapter as a journal entry
     private func saveAsJournalEntry() {
         // Extract themes from the chapter if available
-        let themes = chapter.genre.components(separatedBy: ",")
+        let themes: [String] = [] // Chapter doesn't have genre, initialize as empty or pass in if needed.
         
         // Create metadata from the chapter content
         let metadata = EntryMetadata(
@@ -485,7 +480,7 @@ struct NarrativeChapterView: View, JournalEntrySavable {
             title: "Story Chapter: \(chapter.id)",
             subject: .english,
             emotionalState: .satisfied,
-            summary: chapter.cliffhanger,
+            summary: chapter.cliffhanger ?? "",
             metadata: metadata
         )
         
@@ -514,12 +509,12 @@ struct ScrollOffsetKey: PreferenceKey {
 struct NarrativeChapterView_Previews: PreviewProvider {
     static var previews: some View {
         NarrativeChapterView(
-            chapter: Chapter(
+            chapter: StoryChapter(
                 id: "1",
                 text: "Once upon a time in a world not unlike our own, there lived a person who dreamed of creating stories that moved hearts and minds...",
                 cliffhanger: "But what they didn't know was that the greatest adventure was just about to begin...",
-                genre: "fantasy",
-                creationDate: Date()
+                // genre: "fantasy", // StoryChapter does not have genre
+                timestamp: Date()
             ),
             journalEntryId: "entry-1"
         )

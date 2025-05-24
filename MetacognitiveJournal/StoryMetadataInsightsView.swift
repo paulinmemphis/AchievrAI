@@ -95,11 +95,18 @@ struct StoryMetadataInsightsView: View {
         .background(themeManager.selectedTheme.backgroundColor.ignoresSafeArea())
     }
     
+    private func getSentimentLabel(from score: Double?) -> String {
+        guard let s = score else { return "Neutral" } // Default if score is nil
+        if s > 0.25 { return "Positive" }
+        if s < -0.25 { return "Negative" }
+        return "Neutral"
+    }
+
     // MARK: - Chart Views
     
     private func emotionalJourneyChart() -> some View {
         // Sort nodes chronologically
-        let sortedNodes = storyNodes.sorted { $0.timestamp < $1.timestamp }
+        let sortedNodes = storyNodes.sorted { $0.createdAt < $1.createdAt }
         
         return VStack {
             // Chart header - labels
@@ -147,13 +154,13 @@ struct StoryMetadataInsightsView: View {
                         let pointSpacing = chartWidth / CGFloat(max(1, sortedNodes.count - 1))
                         
                         // Start point
-                        let firstY = calculateYPosition(for: sortedNodes[0].metadata.sentiment, height: chartHeight)
+                        let firstY = calculateYPosition(for: getSentimentLabel(from: sortedNodes[0].metadataSnapshot?.sentimentScore), height: chartHeight)
                         path.move(to: CGPoint(x: 10, y: firstY + 10))
                         
                         // Draw lines to each point
                         for i in 1..<sortedNodes.count {
                             let pointX = 10 + pointSpacing * CGFloat(i)
-                            let pointY = calculateYPosition(for: sortedNodes[i].metadata.sentiment, height: chartHeight) + 10
+                            let pointY = calculateYPosition(for: getSentimentLabel(from: sortedNodes[i].metadataSnapshot?.sentimentScore), height: chartHeight) + 10
                             path.addLine(to: CGPoint(x: pointX, y: pointY))
                         }
                     }
@@ -163,10 +170,10 @@ struct StoryMetadataInsightsView: View {
                     ForEach(sortedNodes.indices, id: \.self) { index in
                         let node = sortedNodes[index]
                         let pointX = 10 + (chartWidth / CGFloat(max(1, sortedNodes.count - 1))) * CGFloat(index)
-                        let pointY = calculateYPosition(for: node.metadata.sentiment, height: chartHeight) + 10
+                        let pointY = calculateYPosition(for: getSentimentLabel(from: node.metadataSnapshot?.sentimentScore), height: chartHeight) + 10
                         
                         Circle()
-                            .fill(sentimentColor(for: node.metadata.sentiment))
+                            .fill(sentimentColor(for: getSentimentLabel(from: node.metadataSnapshot?.sentimentScore)))
                             .frame(width: 12, height: 12)
                             .position(x: pointX, y: pointY)
                         
@@ -323,7 +330,7 @@ struct StoryMetadataInsightsView: View {
         var frequency: [String: Int] = [:]
         
         for node in storyNodes {
-            for theme in node.metadata.themes {
+            for theme in node.metadataSnapshot?.themes ?? [] {
                 frequency[theme, default: 0] += 1
             }
         }
@@ -336,7 +343,7 @@ struct StoryMetadataInsightsView: View {
         var frequency: [String: Int] = [:]
         
         for node in storyNodes {
-            for entity in node.metadata.entities {
+            for entity in node.metadataSnapshot?.entities ?? [] {
                 frequency[entity, default: 0] += 1
             }
         }
@@ -349,25 +356,25 @@ struct StoryMetadataInsightsView: View {
         // Since StoryNode doesn't have a direct chapter property, we'll use metadata
         // For a proper implementation, we'd need to fetch the actual chapters by chapterId
         // This is a simplified version using metadata
-        let allText = storyNodes.map { $0.metadata.keyPhrases.joined(separator: " ") }.joined(separator: " ")
+        let allText = storyNodes.map { $0.metadataSnapshot?.keyPhrases?.joined(separator: " ") ?? "" }.joined(separator: " ")
         let components = allText.components(separatedBy: CharacterSet.whitespacesAndNewlines)
         return components.filter { !$0.isEmpty }.count
     }
     
     /// Calculates the time span of the story
     private func calculateTimelineSpan() -> String {
-        guard let oldestNode = storyNodes.min(by: { $0.timestamp < $1.timestamp }),
-              let newestNode = storyNodes.max(by: { $0.timestamp < $1.timestamp }) else {
+        guard let oldestNode = storyNodes.min(by: { $0.createdAt < $1.createdAt }),
+              let newestNode = storyNodes.max(by: { $0.createdAt < $1.createdAt }) else {
             return "N/A"
         }
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d"
         
-        if Calendar.current.isDate(oldestNode.timestamp, equalTo: newestNode.timestamp, toGranularity: .month) {
-            return formatter.string(from: oldestNode.timestamp)
+        if Calendar.current.isDate(oldestNode.createdAt, equalTo: newestNode.createdAt, toGranularity: .month) {
+            return formatter.string(from: oldestNode.createdAt)
         } else {
-            return "\(formatter.string(from: oldestNode.timestamp)) - \(formatter.string(from: newestNode.timestamp))"
+            return "\(formatter.string(from: oldestNode.createdAt)) - \(formatter.string(from: newestNode.createdAt))"
         }
     }
 }
@@ -380,6 +387,16 @@ struct StoryMetadataInsightsView_Previews: PreviewProvider {
     }
     
     // Create mock story nodes for preview
+    static func convertSentimentToScore(_ sentiment: String) -> Double {
+        switch sentiment.lowercased() {
+        case "positive": return 0.7
+        case "tense": return -0.4
+        case "neutral": return 0.0
+        case "hopeful": return 0.5
+        default: return 0.0
+        }
+    }
+
     static func mockStoryNodes() -> [StoryNode] {
         let metadataEntries = [
             MetadataResponse(
@@ -445,16 +462,16 @@ struct StoryMetadataInsightsView_Previews: PreviewProvider {
         for i in 0..<4 {
             let node = StoryNode(
                 id: UUID().uuidString,
-                entryId: UUID().uuidString,
+                journalEntryId: UUID().uuidString, // Changed from entryId
                 chapterId: chapterEntries[i].chapterId,
-                parentId: i > 0 ? nodes[i-1].entryId : nil,
-                metadata: EntryMetadata(
-                    sentiment: metadataEntries[i].sentiment,
+                parentId: i > 0 ? nodes[i-1].id : nil, // Changed from nodes[i-1].entryId
+                metadataSnapshot: StoryMetadata( // Changed from metadata: EntryMetadata
+                    sentimentScore: convertSentimentToScore(metadataEntries[i].sentiment),
                     themes: metadataEntries[i].themes,
                     entities: metadataEntries[i].entities,
                     keyPhrases: metadataEntries[i].keyPhrases
                 ),
-                creationDate: Date()
+                createdAt: currentDate // Changed from creationDate and used staggered date
             )
             nodes.append(node)
             currentDate = currentDate.addingTimeInterval(7 * 24 * 60 * 60) // 7 days later

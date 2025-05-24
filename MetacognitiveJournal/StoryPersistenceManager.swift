@@ -87,13 +87,13 @@ class StoryPersistenceManager: ObservableObject {
     /// Get a chapter by its ID
     /// - Parameter id: The ID of the chapter to retrieve
     /// - Returns: The chapter if found, nil otherwise
-    func getChapter(id: String) -> Chapter? {
+    func getChapter(id: String) -> StoryChapter? {
         // Try to load from cache or persistent storage
         if let data = UserDefaults.standard.data(forKey: "chapter_\(id)") {
             do {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
-                return try decoder.decode(Chapter.self, from: data)
+                return try decoder.decode(StoryChapter.self, from: data)
             } catch {
                 print("[StoryPersistenceManager] Error decoding chapter: \(error)")
                 return nil
@@ -423,7 +423,7 @@ class StoryPersistenceManager: ObservableObject {
     
     /// Get the latest chapter
     func latestChapter() -> StoryNode? {
-        return storyNodes.sorted { $0.timestamp > $1.timestamp }.first
+        return storyNodes.sorted { $0.createdAt > $1.createdAt }.first
     }
 }
 
@@ -433,7 +433,7 @@ extension StoryPersistenceManager {
     /// Save a chapter
     /// - Parameter chapter: The chapter to save
     /// - Returns: Publisher that emits success or error
-    func saveChapter(_ chapter: Chapter) -> AnyPublisher<Void, Error> {
+    func saveChapter(_ chapter: StoryChapter) -> AnyPublisher<Void, Error> {
         return Future<Void, Error> { promise in
             do {
                 let encoder = JSONEncoder()
@@ -527,12 +527,19 @@ extension StoryPersistenceManager {
     }
 }
 
-// MARK: - Helpers for SwiftUI Integration
+    private func getSentimentLabel(from score: Double?) -> String {
+        guard let s = score else { return "Neutral" } // Default if score is nil
+        if s > 0.25 { return "Positive" }
+        if s < -0.25 { return "Negative" }
+        return "Neutral"
+    }
+
+    // MARK: - Helpers for SwiftUI Integration
 
 extension StoryPersistenceManager {
     /// Returns story nodes arranged in a chronological order
     func chronologicalNodes() -> [StoryNode] {
-        return storyNodes.sorted { $0.timestamp < $1.timestamp }
+        return storyNodes.sorted { $0.createdAt < $1.createdAt }
     }
     
     /// Returns story nodes arranged in a tree structure
@@ -544,7 +551,7 @@ extension StoryPersistenceManager {
             result.append(currentLevel)
             
             // Find all nodes that have parents in the current level
-            let currentIds = Set(currentLevel.map { $0.entryId })
+            let currentIds = Set(currentLevel.map { $0.journalEntryId })
             currentLevel = storyNodes.filter { node in
                 guard let parentId = node.parentId else { return false }
                 return currentIds.contains(parentId)
@@ -561,17 +568,19 @@ extension StoryPersistenceManager {
             
             // Apply sentiment filter if provided
             if let sentimentFilter = sentimentFilter {
-                matches = matches && node.metadata.sentiment.lowercased().contains(sentimentFilter.lowercased())
+                let sentimentLabel = getSentimentLabel(from: node.metadataSnapshot?.sentimentScore)
+                matches = matches && sentimentLabel.lowercased().contains(sentimentFilter.lowercased())
             }
             
             // Apply search filter if provided
             if !searchText.isEmpty {
                 let searchLower = searchText.lowercased()
-                let themeMatch = node.metadata.themes.contains { $0.lowercased().contains(searchLower) }
-                let entityMatch = node.metadata.entities.contains { $0.lowercased().contains(searchLower) }
-                let keyPhraseMatch = node.metadata.keyPhrases.contains { $0.lowercased().contains(searchLower) }
+                let themeMatch = (node.metadataSnapshot?.themes ?? []).contains { $0.lowercased().contains(searchLower) }
+                let entityMatch = (node.metadataSnapshot?.entities ?? []).contains { $0.lowercased().contains(searchLower) }
+                let keyPhraseMatch = (node.metadataSnapshot?.keyPhrases ?? []).contains { $0.lowercased().contains(searchLower) }
                 // StoryNode doesn't have a direct chapter property, so we'll just check other metadata
-                let sentimentMatch = node.metadata.sentiment.lowercased().contains(searchLower)
+                let sentimentLabel = getSentimentLabel(from: node.metadataSnapshot?.sentimentScore)
+                let sentimentMatch = sentimentLabel.lowercased().contains(searchLower)
                 
                 matches = matches && (themeMatch || entityMatch || keyPhraseMatch || sentimentMatch)
             }
