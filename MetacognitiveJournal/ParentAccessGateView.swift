@@ -5,6 +5,9 @@ struct ParentAccessGateView: View {
     @EnvironmentObject var parentalControlManager: ParentalControlManager
     @EnvironmentObject var journalStore: JournalStore // Needed for dashboard
     @EnvironmentObject var analyzer: MetacognitiveAnalyzer // Needed for dashboard
+    @EnvironmentObject var themeManager: ThemeManager // Needed for dashboard
+    @EnvironmentObject var aiNudgeManager: AINudgeManager // Needed for dashboard
+    @EnvironmentObject var userProfile: UserProfile // Needed for dashboard
 
     @State private var showingPINEntrySheet = false
     @State private var showingPINSetupSheet = false
@@ -19,6 +22,9 @@ struct ParentAccessGateView: View {
                         .environmentObject(journalStore) // Pass necessary environments
                         .environmentObject(analyzer)
                         .environmentObject(parentalControlManager)
+                        .environmentObject(themeManager)
+                        .environmentObject(aiNudgeManager)
+                        .environmentObject(userProfile)
                 } else {
                     // Placeholder view while deciding/waiting for sheets
                     VStack(spacing: 10) {

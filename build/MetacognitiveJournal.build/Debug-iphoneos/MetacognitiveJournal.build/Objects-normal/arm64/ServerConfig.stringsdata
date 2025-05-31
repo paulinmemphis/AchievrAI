@@ -1,0 +1,96 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ServerConfig.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Server Settings",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 93
+        }
+      },
+      {
+        "comment": "",
+        "key": "Server Configuration",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter the URL of your narrative engine server. Example: http://192.168.1.100:3000",
+        "location": {
+          "startingColumn": 72,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Connection Test",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 86
+        }
+      },
+      {
+        "comment": "",
+        "key": "Server URL",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "Test Connection",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 87
+        }
+      },
+      {
+        "comment": "",
+        "key": "Invalid URL",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 96
+        }
+      },
+      {
+        "comment": "",
+        "key": "Please enter a valid URL with http:// or https:// prefix",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 98
+        }
+      }
+    ]
+  },
+  "version": 1
+}

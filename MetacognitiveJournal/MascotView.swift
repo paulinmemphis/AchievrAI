@@ -16,19 +16,19 @@ struct MascotView: View {
                 // Background glow that responds to mood
                 Circle()
                     .fill(moodColor(for: mood).opacity(0.2))
-                    .frame(width: animateIcon ? 140 : 120, height: animateIcon ? 140 : 120)
+                    .frame(width: animateIcon ? 120 : 100, height: animateIcon ? 120 : 100)
                     .scaleEffect(pulseEffect ? 1.1 : 1.0)
-                    .animation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: pulseEffect)
+                    .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: pulseEffect)
                 
                 // Mascot image
                 Image(systemName: mascotImage(for: mood))
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 90, height: 90)
+                    .frame(width: 70, height: 70)
                     .foregroundStyle(moodColor(for: mood))
                     .shadow(color: moodColor(for: mood).opacity(0.5), radius: 8, x: 0, y: 5)
                     .rotationEffect(.degrees(animateIcon ? randomRotation : 0))
-                    .animation(Animation.spring(response: 0.6, dampingFraction: 0.6).repeatCount(1), value: animateIcon)
+                    .animation(.spring(response: 0.6, dampingFraction: 0.6).repeatCount(1), value: animateIcon)
             }
             .onAppear {
                 // Trigger animations
@@ -57,6 +57,7 @@ struct MascotView: View {
                 SpeechBubble(message: mascotMessage(for: mood), color: moodColor(for: mood))
                     .padding(.top, 8)
                     .transition(.scale(scale: 0.8).combined(with: .opacity))
+                    .frame(maxHeight: 80) // Limit height to prevent overflow
             }
         }
         .padding()
@@ -120,36 +121,41 @@ struct SpeechBubble: View {
     let color: Color
     
     @State private var animateText = false
+    @State private var textOffset: CGFloat = 20
+    @State private var textOpacity: Double = 0
     
     var body: some View {
-        ZStack(alignment: .top) {
-            // Speech bubble shape
-            BubbleShape()
-                .fill(Color(.systemBackground))
-                .shadow(color: color.opacity(0.2), radius: 4, x: 0, y: 2)
-                .overlay(
-                    BubbleShape()
-                        .stroke(color.opacity(0.6), lineWidth: 1.5)
-                )
-            
-            // Message text with typing animation
-            if animateText {
-                Text(message)
-                    .font(.system(.body, design: .rounded))
-                    .fontWeight(.medium)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.primary)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                    .transition(.opacity)
+        Text(message)
+            .font(.system(.body, design: .rounded))
+            .fontWeight(.medium)
+            .multilineTextAlignment(.center)
+            .foregroundColor(.primary)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .fixedSize(horizontal: false, vertical: true) // Ensures text wraps properly
+            .frame(maxWidth: 260, maxHeight: 70) // Control both width and height
+            .lineLimit(3) // Limit to 3 lines to prevent overflow
+            .minimumScaleFactor(0.8) // Allow text to scale down slightly if needed
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.systemBackground))
+                    .shadow(color: color.opacity(0.2), radius: 5, x: 0, y: 2)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(color.opacity(0.4), lineWidth: 1.5)
+            )
+            .offset(y: animateText ? 0 : textOffset)
+            .opacity(animateText ? 1 : textOpacity)
+            .onAppear {
+                // Use a more reliable animation approach
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                        textOpacity = 1
+                        animateText = true
+                    }
+                }
             }
-        }
-        .frame(maxWidth: 240)
-        .onAppear {
-            withAnimation(.easeIn(duration: 0.4)) {
-                animateText = true
-            }
-        }
     }
 }
 

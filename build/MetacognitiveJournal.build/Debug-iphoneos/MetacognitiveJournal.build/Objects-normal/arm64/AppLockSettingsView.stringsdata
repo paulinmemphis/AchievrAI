@@ -1,0 +1,32 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppLockSettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "App Lock Settings",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 19
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable App Lock (Face ID / Touch ID)",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 9
+        }
+      },
+      {
+        "comment": "",
+        "key": "Lock Now",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 14
+        }
+      }
+    ]
+  },
+  "version": 1
+}

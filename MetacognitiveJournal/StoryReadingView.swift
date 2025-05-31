@@ -64,15 +64,15 @@ struct StoryReadingView: View {
                 
                 Spacer()
                 
-                Text(node.timestamp, style: .date)
+                Text(node.createdAt, style: .date)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
             
             // Chapter themes
-            if !node.metadata.themes.isEmpty {
+            if !(node.metadataSnapshot?.themes?.isEmpty ?? true) {
                 HStack {
-                    ForEach(node.metadata.themes.prefix(3), id: \.self) { theme in
+                    ForEach((node.metadataSnapshot?.themes ?? []).prefix(3), id: \.self) { theme in
                         Text(theme)
                             .font(.caption)
                             .padding(.horizontal, 8)
@@ -88,7 +88,7 @@ struct StoryReadingView: View {
             // Divider with sentiment indicator
             HStack {
                 Circle()
-                    .fill(sentimentColor(for: node.metadata.sentiment))
+                    .fill(sentimentColor(for: node.metadataSnapshot?.sentimentScore ?? 0))
                     .frame(width: 8, height: 8)
                 
                 Line()
@@ -99,7 +99,10 @@ struct StoryReadingView: View {
             .padding(.vertical, 8)
             
             // Chapter text
-            Text(node.chapter.text)
+            // StoryNode doesn't directly have a chapter property
+            // We should retrieve the actual chapter using the chapterId
+            // For now, using a placeholder
+            Text("Chapter content for ID: \(node.chapterId)")
                 .font(.system(size: selectedFontSize))
                 .lineSpacing(selectedFontSize * 0.3)
                 .fixedSize(horizontal: false, vertical: true)
@@ -165,16 +168,12 @@ struct StoryReadingView: View {
     }
     
     // Helper to determine color based on sentiment
-    private func sentimentColor(for sentiment: String) -> Color {
-        switch sentiment.lowercased() {
-        case "positive", "happy", "hopeful":
+    private func sentimentColor(for sentimentScore: Double) -> Color {
+        switch sentimentScore {
+        case let x where x > 0.5:
             return .green
-        case "negative", "sad", "depressed":
-            return .blue
-        case "angry", "furious":
+        case let x where x < -0.5:
             return .red
-        case "tense", "anxious", "nervous":
-            return .orange
         default:
             return .purple // Default for neutral or unknown sentiment
         }
@@ -208,6 +207,19 @@ struct StoryReadingView_Previews: PreviewProvider {
     }
     
     // Create mock story nodes for preview
+    private static func sentimentStringToScorePreview(_ sentiment: String) -> Double? {
+        let lowercasedSentiment = sentiment.lowercased()
+        if let numericScore = Double(lowercasedSentiment) {
+            return numericScore
+        }
+        switch lowercasedSentiment {
+        case "positive", "very positive": return 0.8
+        case "neutral": return 0.0
+        case "negative", "very negative": return -0.8
+        default: return nil
+        }
+    }
+
     static func mockStoryNodes() -> [StoryNode] {
         let metadata1 = MetadataResponse(
             sentiment: "positive",
@@ -241,18 +253,30 @@ struct StoryReadingView_Previews: PreviewProvider {
         
         return [
             StoryNode(
-                entryId: UUID(),
+                id: UUID().uuidString,
+                journalEntryId: UUID().uuidString,
                 chapterId: chapter1.chapterId,
                 parentId: nil,
-                metadata: metadata1,
-                chapter: chapter1
+                metadataSnapshot: StoryMetadata(
+                    sentimentScore: sentimentStringToScorePreview(metadata1.sentiment),
+                    themes: metadata1.themes,
+                    entities: metadata1.entities,
+                    keyPhrases: metadata1.keyPhrases
+                ),
+                createdAt: Date()
             ),
             StoryNode(
-                entryId: UUID(),
+                id: UUID().uuidString,
+                journalEntryId: UUID().uuidString,
                 chapterId: chapter2.chapterId,
-                parentId: UUID(),
-                metadata: metadata2,
-                chapter: chapter2
+                parentId: UUID().uuidString,
+                metadataSnapshot: StoryMetadata(
+                    sentimentScore: sentimentStringToScorePreview(metadata2.sentiment),
+                    themes: metadata2.themes,
+                    entities: metadata2.entities,
+                    keyPhrases: metadata2.keyPhrases
+                ),
+                createdAt: Date()
             )
         ]
     }

@@ -1,0 +1,136 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedStoryMapView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Story Map",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Filter Nodes",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 112
+        }
+      },
+      {
+        "comment": "",
+        "key": "Change Genre",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 118
+        }
+      },
+      {
+        "comment": "",
+        "key": "Loading your story map...",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 138
+        }
+      },
+      {
+        "comment": "",
+        "key": "Something went wrong",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 151
+        }
+      },
+      {
+        "comment": "",
+        "key": "Try Again",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 164
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your story map is empty",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "Create journal entries to see your personal narrative unfold. Each entry will transform into a chapter in your unique story.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 191
+        }
+      },
+      {
+        "comment": "",
+        "key": "New Journal Entry",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 201
+        }
+      },
+      {
+        "comment": "",
+        "key": "Themes",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 478
+        }
+      },
+      {
+        "comment": "",
+        "key": "No themes identified yet.",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 484
+        }
+      },
+      {
+        "comment": "",
+        "key": "Emotional Tone",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 503
+        }
+      },
+      {
+        "comment": "",
+        "key": "Journal Entry Snippet",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 521
+        }
+      },
+      {
+        "comment": "",
+        "key": "Chapter Snippet",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 536
+        }
+      },
+      {
+        "comment": "",
+        "key": "Full Entry",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 556
+        }
+      },
+      {
+        "comment": "",
+        "key": "Full Chapter",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 567
+        }
+      }
+    ]
+  },
+  "version": 1
+}

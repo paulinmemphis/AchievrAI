@@ -1,0 +1,640 @@
+import SwiftUI
+import AVFoundation
+import Combine
+
+/// Extension for multi-modal audio recording components
+extension MultiModal {
+    /// A view that allows recording, playback, and saving of audio for journal entries
+    struct AudioRecordingView: View {
+    // MARK: - Environment
+    @EnvironmentObject private var themeManager: ThemeManager
+    
+    // MARK: - Properties
+    let journalMode: ChildJournalMode // Using correct Enum type
+    let onSave: (URL, String?) -> Void
+    let onCancel: () -> Void
+    let promptText: String?
+    
+    // MARK: - State
+    @State private var audioRecorder: AVAudioRecorder?
+    @State private var audioPlayer: AVAudioPlayer?
+    @State private var recordingURL: URL?
+    @State private var isRecording = false
+    @State private var isPlaying = false
+    @State private var recordingTime: TimeInterval = 0
+    @State private var playbackTime: TimeInterval = 0
+    @State private var recordingTimer: Timer?
+    @State private var playbackTimer: Timer?
+    
+    // Strong reference to the audio player delegate to prevent deallocation
+    private var audioPlayerDelegate: AudioPlayerDelegate?
+    @State private var transcription: String = ""
+    @State private var showingTranscription = false
+    @State private var recordingTitle: String = ""
+    @State private var recordingPermissionGranted = false
+    @State private var animateMicrophone = false
+    @State private var recordingLevel: CGFloat = 0
+    @State private var showingPromptGuide = false
+    
+    // MARK: - Body
+    var body: some View {
+        VStack(spacing: 0) {
+            // Header
+            recordingHeader
+            
+            // Main content
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Prompt if available
+                    if let promptText = promptText {
+                        promptView(promptText)
+                    }
+                    
+                    // Recording visualization
+                    recordingVisualization
+                    
+                    // Controls
+                    recordingControls
+                    
+                    // Recording info
+                    if recordingURL != nil {
+                        recordingInfoView
+                    }
+                }
+                .padding()
+            }
+            
+            // Footer with actions
+            recordingFooter
+        }
+        .background(themeManager.themeForChildMode(journalMode).backgroundColor)
+        .onAppear {
+            self.checkMicrophonePermission()
+        }
+        .onDisappear {
+            stopRecording()
+            stopPlayback()
+        }
+        .sheet(isPresented: $showingTranscription) {
+            transcriptionSheet
+        }
+        .sheet(isPresented: $showingPromptGuide) {
+            promptGuideSheet
+        }
+    }
+    
+    // MARK: - Recording Header
+    
+    private var recordingHeader: some View {
+        HStack {
+            // Title
+            Text("Voice Recording")
+                .font(fontForMode(size: 18, weight: .bold))
+                .foregroundColor(themeManager.themeForChildMode(journalMode).primaryTextColor)
+            
+            Spacer()
+            
+            // Help button
+            if promptText != nil {
+                Button(action: {
+                    showingPromptGuide = true
+                }) {
+                    Image(systemName: "questionmark.circle")
+                        .font(.system(size: 20))
+                        .foregroundColor(themeManager.themeForChildMode(journalMode).accentColor)
+                }
+            }
+        }
+        .padding()
+        .background(themeManager.themeForChildMode(journalMode).cardBackgroundColor)
+    }
+    
+    // MARK: - Prompt View
+    
+    private func promptView(_ prompt: String) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Talk about...")
+                .font(fontForMode(size: 16, weight: .medium))
+                .foregroundColor(themeManager.themeForChildMode(journalMode).secondaryTextColor)
+            
+            Text(prompt)
+                .font(fontForMode(size: 18))
+                .foregroundColor(themeManager.themeForChildMode(journalMode).primaryTextColor)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(themeManager.themeForChildMode(journalMode).backgroundColor)
+                )
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(themeManager.themeForChildMode(journalMode).cardBackgroundColor)
+                .shadow(radius: 2)
+        )
+    }
+    
+    // MARK: - Recording Visualization
+    
+    private var recordingVisualization: some View {
+        VStack(spacing: 20) {
+            // Microphone icon with animation
+            ZStack {
+                // Background circle
+                Circle()
+                    .fill(isRecording ? Color.red.opacity(0.2) : themeManager.themeForChildMode(journalMode).accentColor.opacity(0.2))
+                    .frame(width: 120, height: 120)
+                    .scaleEffect(animateMicrophone ? 1.2 : 1.0)
+                    .animation(
+                        isRecording ? 
+                            Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: true) : 
+                            .default,
+                        value: animateMicrophone
+                    )
+                
+                // Microphone icon
+                Image(systemName: isRecording ? "mic.fill" : "mic")
+                    .font(.system(size: 50))
+                    .foregroundColor(isRecording ? .red : themeManager.themeForChildMode(journalMode).accentColor)
+                    .scaleEffect(animateMicrophone ? 1.1 : 1.0)
+                    .animation(
+                        isRecording ? 
+                            Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true) : 
+                            .default,
+                        value: animateMicrophone
+                    )
+            }
+            .padding(.vertical, 20)
+            
+            // Audio waveform visualization
+            if isRecording || isPlaying {
+                audioWaveformView
+            }
+            
+            // Timer display
+            Text(timeString(from: isPlaying ? playbackTime : recordingTime))
+                .font(fontForMode(size: 24, weight: .medium))
+                .foregroundColor(isRecording ? .red : themeManager.themeForChildMode(journalMode).primaryTextColor)
+                .monospacedDigit()
+                .padding(.top, 10)
+        }
+    }
+    
+    // MARK: - Audio Waveform
+    
+    private var audioWaveformView: some View {
+        HStack(spacing: 4) {
+            ForEach(0..<20, id: \.self) { index in
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(waveformBarColor(for: index))
+                    .frame(width: 8, height: waveformBarHeight(for: index))
+                    .animation(.easeInOut(duration: 0.2), value: recordingLevel)
+            }
+        }
+        .frame(height: 60)
+    }
+    
+    private func waveformBarColor(for index: Int) -> Color {
+        if isRecording {
+            return .red.opacity(0.7 + Double(index % 3) * 0.1)
+        } else {
+            return themeManager.themeForChildMode(journalMode).accentColor.opacity(0.7 + Double(index % 3) * 0.1)
+        }
+    }
+    
+    private func waveformBarHeight(for index: Int) -> CGFloat {
+        if isRecording || isPlaying {
+            // Create a semi-random but consistent pattern based on index and recording level
+            let baseHeight = 10.0
+            let maxAdditionalHeight = 50.0
+            let indexFactor = sin(Double(index) * 0.5) * 0.5 + 0.5 // 0.0-1.0 based on index
+            let levelFactor = recordingLevel // 0.0-1.0 based on recording level
+            
+            // Combine factors for final height
+            return baseHeight + maxAdditionalHeight * indexFactor * levelFactor
+        } else {
+            return 10.0
+        }
+    }
+    
+    // MARK: - Recording Controls
+    
+    private var recordingControls: some View {
+        HStack(spacing: 40) {
+            // Record/Stop recording button
+            Button(action: {
+                if isRecording {
+                    self.stopRecording()
+                } else {
+                    self.startRecording()
+                }
+            }) {
+                ZStack {
+                    Circle()
+                        .fill(isRecording ? Color.red : themeManager.themeForChildMode(journalMode).accentColor)
+                        .frame(width: 70, height: 70)
+                        .shadow(radius: 3)
+                    
+                    Image(systemName: isRecording ? "stop.fill" : "mic.fill")
+                        .font(.system(size: 30))
+                        .foregroundColor(.white)
+                }
+            }
+            .disabled(!recordingPermissionGranted)
+            
+            // Play/Pause button (only enabled if there's a recording)
+            Button(action: {
+                if isPlaying {
+                    self.pausePlayback()
+                } else {
+                    self.startPlayback()
+                }
+            }) {
+                ZStack {
+                    Circle()
+                        .fill(themeManager.themeForChildMode(journalMode).accentColor)
+                        .frame(width: 70, height: 70)
+                        .shadow(radius: 3)
+                        .opacity(recordingURL != nil ? 1.0 : 0.5)
+                    
+                    Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+                        .font(.system(size: 30))
+                        .foregroundColor(.white)
+                }
+            }
+            .disabled(recordingURL == nil)
+        }
+        .padding(.vertical, 20)
+    }
+    
+    // MARK: - Recording Info View
+    
+    private var recordingInfoView: some View {
+        VStack(spacing: 16) {
+            // Title input
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Recording Title")
+                    .font(self.fontForMode(size: 14, weight: .medium))
+                    .foregroundColor(themeManager.themeForChildMode(journalMode).secondaryTextColor)
+                
+                TextField("Give your recording a name", text: $recordingTitle)
+                    .font(self.fontForMode(size: 16))
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(themeManager.themeForChildMode(journalMode).inputBackgroundColor)
+                    )
+            }
+            
+            // Transcription button
+            Button(action: {
+                self.transcribeAudio()
+            }) {
+                HStack {
+                    Image(systemName: "text.bubble")
+                    Text("See what you said")
+                }
+                .font(self.fontForMode(size: 16))
+                .foregroundColor(.white)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(themeManager.themeForChildMode(journalMode).accentColor)
+                )
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(themeManager.themeForChildMode(journalMode).cardBackgroundColor)
+                .shadow(radius: 2)
+        )
+    }
+    
+    // MARK: - Recording Footer
+    
+    private var recordingFooter: some View {
+        HStack {
+            // Cancel button
+            Button(action: onCancel) {
+                Text("Cancel")
+                    .font(self.fontForMode(size: 16))
+                    .foregroundColor(themeManager.themeForChildMode(journalMode).secondaryTextColor)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(
+                        Capsule()
+                            .stroke(themeManager.themeForChildMode(journalMode).secondaryTextColor, lineWidth: 1)
+                    )
+            }
+            
+            Spacer()
+            
+            // Save button
+            Button(action: {
+                if let url = recordingURL {
+                    onSave(url, recordingTitle.isEmpty ? nil : recordingTitle)
+                }
+            }) {
+                Text("Save Recording")
+                    .font(fontForMode(size: 16, weight: .medium))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(
+                        Capsule()
+                            .fill(recordingURL != nil ? themeManager.themeForChildMode(journalMode).accentColor : Color.gray)
+                    )
+            }
+            .disabled(recordingURL == nil)
+        }
+        .padding()
+        .background(themeManager.themeForChildMode(journalMode).cardBackgroundColor)
+    }
+    
+    // MARK: - Transcription Sheet
+    
+    private var transcriptionSheet: some View {
+        NavigationView {
+            VStack(spacing: 20) {
+                if transcription.isEmpty {
+                    ProgressView("Converting your voice to text...")
+                        .padding()
+                } else {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text("Here's what you said:")
+                                .font(fontForMode(size: 18, weight: .bold))
+                                .padding(.bottom, 8)
+                            
+                            Text(transcription)
+                                .font(self.fontForMode(size: 16))
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(themeManager.themeForChildMode(journalMode).backgroundColor)
+                                )
+                            
+                            Text("You can use this text in your journal if you want!")
+                                .font(self.fontForMode(size: 14))
+                                .foregroundColor(themeManager.themeForChildMode(journalMode).secondaryTextColor)
+                                .padding(.top, 8)
+                            
+                            Button(action: {
+                                UIPasteboard.general.string = transcription
+                            }) {
+                                HStack {
+                                    Image(systemName: "doc.on.doc")
+                                    Text("Copy Text")
+                                }
+                                .font(self.fontForMode(size: 16))
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(themeManager.themeForChildMode(journalMode).accentColor)
+                                )
+                            }
+                            .padding(.top, 16)
+                        }
+                        .padding()
+                    }
+                    .padding()
+                }
+            }
+        }
+        .navigationBarTitle("Your Words", displayMode: .inline)
+        .navigationBarItems(trailing: Button("Done") {
+            self.showingTranscription = false
+        })
+    }
+}
+
+// MARK: - Prompt Guide Sheet
+    
+private var promptGuideSheet: some View {
+    NavigationView {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Text("Here are some ideas to help you talk about your thoughts and feelings:")
+                    .font(self.fontForMode(size: 16))
+                
+                self.promptTipItem(
+                    title: "Start with 'I'",
+                    description: "Begin with 'I think...' or 'I feel...' to focus on your experience",
+                    examples: [
+                        "I think math is getting easier for me",
+                        "I feel proud when I finish my homework",
+                        "I noticed that I get frustrated when..."
+                    ]
+                )
+                
+                self.promptTipItem(
+                    title: "Tell a story",
+                    description: "Describe what happened, then how you felt, then what you thought",
+                    examples: [
+                        "First I tried to solve the problem, then I got stuck, and I felt...",
+                        "When my friend said that, I felt... and I thought..."
+                    ]
+                )
+                
+                self.promptTipItem(
+                    title: "Compare",
+                    description: "Compare how you felt before and after",
+                    examples: [
+                        "Before I was nervous, but after I felt confident",
+                        "At first I thought it was too hard, but then I realized..."
+                    ]
+                )
+                
+                self.promptTipItem(
+                    title: "Use metaphors",
+                    description: "Describe your thoughts or feelings like they're something else",
+                    examples: [
+                        "My brain felt like a computer with too many tabs open",
+                        "My confidence grew like a plant getting taller",
+                        "My worry felt like a heavy backpack"
+                    ]
+                )
+                
+                Text("Remember, there's no right or wrong way to talk about your thoughts and feelings. Just speak from your heart!")
+                    .font(self.fontForMode(size: 16))
+                    .padding(.top)
+            }
+            .padding()
+        }
+        .navigationBarTitle("Recording Guide", displayMode: .inline)
+        .navigationBarItems(trailing: Button("Done") {
+            self.showingPromptGuide = false
+        })
+    }
+}
+
+// MARK: - Audio Recording Methods
+
+private func startRecording() {
+    // Set up audio session
+    let audioSession = AVAudioSession.sharedInstance()
+    
+    do {
+        try audioSession.setCategory(.playAndRecord, mode: .default)
+        try audioSession.setActive(true)
+        
+        // Set up recording settings
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 44100,
+            AVNumberOfChannelsKey: 2,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+        
+        // Create a unique filename in the documents directory
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let audioFilename = documentsPath.appendingPathComponent("\(UUID().uuidString).m4a")
+        
+        // Create and configure the audio recorder
+        self.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+        self.audioRecorder?.isMeteringEnabled = true
+        self.audioRecorder?.prepareToRecord()
+        
+        // Start recording
+        self.audioRecorder?.record()
+        self.recordingURL = audioFilename
+        self.isRecording = true
+        self.animateMicrophone = true
+        
+        // Start the recording timer
+        self.recordingTime = 0
+        self.recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            self.recordingTime += 0.1
+            
+            // Update recording level for visualization
+            self.audioRecorder?.updateMeters()
+            if let power = self.audioRecorder?.averagePower(forChannel: 0) {
+                // Convert dB to a 0-1 scale (dB is negative, with 0 being loudest)
+                // Typical values range from -60 (quiet) to 0 (loud)
+                let normalizedPower = (power + 60) / 60
+                self.recordingLevel = CGFloat(max(0, min(1, normalizedPower)))
+            }
+        }
+    } catch {
+        print("Recording failed: \(error.localizedDescription)")
+    }
+}
+
+private func stopRecording() {
+    self.audioRecorder?.stop()
+    self.audioRecorder = nil
+    self.isRecording = false
+    self.animateMicrophone = false
+    self.recordingTimer?.invalidate()
+    self.recordingTimer = nil
+    
+    // Default title based on duration
+    if self.recordingTitle.isEmpty {
+        self.recordingTitle = "Recording \(Date().formatted(date: .abbreviated, time: .shortened))" + (self.recordingTime < 1 ? " (Test)" : "")
+    }
+}
+
+private func startPlayback() {
+    guard let url = self.recordingURL else { return }
+    
+    do {
+        self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+        
+        // Create and store a strong reference to the delegate
+        self.audioPlayerDelegate = AudioPlayerDelegate(onFinish: {
+            self.audioPlayer?.stop()
+            self.audioPlayer = nil
+            self.isPlaying = false
+            self.playbackTimer?.invalidate()
+            self.playbackTimer = nil
+        })
+        
+        // Assign the delegate
+        self.audioPlayer?.delegate = self.audioPlayerDelegate
+        
+        self.audioPlayer?.play()
+        self.isPlaying = true
+        
+        // Start the playback timer
+        self.playbackTime = 0
+        self.playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if let player = self.audioPlayer, player.isPlaying {
+                self.playbackTime = player.currentTime
+                
+                // Simulate recording level for visualization
+                // This is a simplified approach since AVAudioPlayer doesn't provide metering
+                let progress = player.currentTime / player.duration
+                let phase = sin(progress * 10) * 0.5 + 0.5 // Create a wave pattern
+                self.recordingLevel = CGFloat(phase)
+            }
+        }
+    }
+    
+    private func generateSimulatedTranscription(based prompt: String) -> String {
+        // This is a simplified simulation - in a real app, actual speech recognition would be used
+        let promptLower = prompt.lowercased()
+        
+        if promptLower.contains("feel") || promptLower.contains("emotion") {
+            return "I was feeling really excited about the science project today. When I started working on it, I felt a little nervous because I wasn't sure if my experiment would work. But then when I saw the plants starting to grow differently, I felt proud of myself for designing a good experiment. I think I'm getting better at being patient with my projects."
+        } else if promptLower.contains("learn") || promptLower.contains("school") {
+            return "Today in math class I learned about fractions. At first I thought it was going to be really hard, but then the teacher showed us how to think about fractions like pieces of pizza. That made it easier for me to understand. I noticed that when I draw pictures of the fractions, it helps me solve the problems better. I'm going to try using that strategy for my homework tonight."
+        } else if promptLower.contains("challenge") || promptLower.contains("difficult") {
+            return "The hardest part of my day was when I had to present my project to the class. My heart was beating really fast and my hands felt sweaty. I took some deep breaths like we practiced. I reminded myself that I knew my project really well. Even though I talked too fast at the beginning, I slowed down and finished strong. Next time I think I'll practice more in front of my family."
+        } else {
+            return "I was thinking about the prompt and how it relates to my day. I noticed that when I'm working on something interesting, time seems to go by faster. I'm learning that I work better when I take short breaks between activities. When I get stuck on a problem, it helps to walk away and come back to it later with fresh eyes."
+        }
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func timeString(from timeInterval: TimeInterval) -> String {
+        let minutes = Int(timeInterval) / 60
+        let seconds = Int(timeInterval) % 60
+        let tenths = Int((timeInterval - floor(timeInterval)) * 10)
+        return String(format: "%02d:%02d.%01d", minutes, seconds, tenths)
+    }
+    
+    private func fontForMode(size: CGFloat, weight: Font.Weight = .regular) -> Font {
+        switch journalMode {
+        case .earlyChildhood, .middleChildhood:
+            return .system(size: size, weight: weight, design: .rounded)
+        case .adolescent:
+            return .system(size: size, weight: weight)
+        }
+    }
+}
+
+// MARK: - Audio Player Delegate
+
+class AudioPlayerDelegate: NSObject, AVAudioPlayerDelegate {
+    private let onFinish: () -> Void
+    
+    init(onFinish: @escaping () -> Void) {
+        self.onFinish = onFinish
+        super.init()
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        onFinish()
+    }
+}
+
+// MARK: - Preview
+struct AudioRecordingView_Previews: PreviewProvider {
+    static var previews: some View {
+        MultiModal.AudioRecordingView(
+            journalMode: .middleChildhood,
+            onSave: { _, _ in },
+            onCancel: {},
+            promptText: "Tell me about something challenging you learned today and how you figured it out."
+        )
+        .environmentObject(ThemeManager())
+    }
+}

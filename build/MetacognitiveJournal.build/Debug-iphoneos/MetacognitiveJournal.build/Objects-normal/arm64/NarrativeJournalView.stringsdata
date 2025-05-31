@@ -1,0 +1,120 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeJournalView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "New Journal Entry",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "What's on your mind today?",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 173
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld words",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 192
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 212
+        }
+      },
+      {
+        "comment": "",
+        "key": "Transform",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 250
+        }
+      },
+      {
+        "comment": "",
+        "key": "Choose Your Story Genre",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 298
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 343
+        }
+      },
+      {
+        "comment": "",
+        "key": "Creating Your Story",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 376
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Personal Story",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 429
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cliffhanger",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 463
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 489
+        }
+      },
+      {
+        "comment": "",
+        "key": "Share",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 506
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Map",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 524
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 542
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,63 +1,15 @@
-// StoryPersistenceManager.swift
 import Foundation
 import Combine
 
-/// Structure to represent a story arc for narrative continuity
-struct StoryArc: Codable, Identifiable {
-    var id = UUID()
-    let summary: String
-    let chapterId: String
-    let timestamp: Date
-    let themes: [String]
-    
-    static func createFrom(chapter: ChapterResponse, themes: [String] = []) -> StoryArc {
-        // Create a brief summary from the chapter text (first 100 chars)
-        let summary = String(chapter.text.prefix(100)) + "..."
-        return StoryArc(
-            summary: summary,
-            chapterId: chapter.chapterId,
-            timestamp: Date(),
-            themes: themes
-        )
-    }
-}
-
 /// Manages persistence for story nodes and provides methods to save, load, and manage the story data
 class StoryPersistenceManager: ObservableObject {
-    // Use lazy initialization to prevent startup issues
-    static let shared: StoryPersistenceManager = {
-        do {
-            return try StoryPersistenceManager()
-        } catch {
-            print("[StoryPersistenceManager] Error creating shared instance: \(error). Using empty manager.")
-            // Use a non-throwing initializer as fallback
-            do {
-                return try StoryPersistenceManager(skipInitialLoad: true)
-            } catch {
-                fatalError("Failed to create even a basic StoryPersistenceManager: \(error)")
-            }
-        }
-    }()
+    // MARK: - Properties
     
     /// Published collection of story nodes
     @Published private(set) var storyNodes: [StoryNode] = []
     
     /// Published collection of story arcs for narrative continuity
     @Published private(set) var storyArcs: [StoryArc] = []
-    
-    /// Get the most recent story arcs
-    /// - Parameter count: The number of recent arcs to return
-    /// - Returns: An array of summaries from the most recent story arcs
-    func getRecentStoryArcs(count: Int = 3) -> [String] {
-        // Sort arcs by timestamp, newest first
-        let sortedArcs = storyArcs.sorted(by: { $0.timestamp > $1.timestamp })
-        
-        // Take only the requested number of arcs
-        let recentArcs = sortedArcs.prefix(count)
-        
-        // Return just the summaries
-        return recentArcs.map { $0.summary }
-    }
     
     /// Status of the last operation
     @Published private(set) var status: PersistenceStatus = .idle
@@ -80,6 +32,96 @@ class StoryPersistenceManager: ObservableObject {
     /// Notification name for when story data changes
     static let storyDataDidChangeNotification = Notification.Name("storyDataDidChangeNotification")
     
+    // MARK: - Singleton
+    
+    /// Use lazy initialization to prevent startup issues
+    static let shared = StoryPersistenceManager()
+    
+    /// Static instance specifically for SwiftUI previews
+    static var preview: StoryPersistenceManager = {
+        let manager = StoryPersistenceManager()
+        // Configure for preview (e.g., load mock data or use in-memory store)
+        // For now, just return an empty instance to avoid file I/O
+        manager.storyNodes = [] // Ensure it starts empty for previews
+        manager.storyArcs = []  // Ensure it starts empty for previews
+        return manager
+    }()
+    
+    // MARK: - Initialization
+    
+    init() {
+        loadStoryNodes { _ in }
+        loadStoryArcs { _ in }
+    }
+    
+    // MARK: - Public Methods
+    
+    /// Get the most recent story arcs
+    /// - Parameter count: The number of recent arcs to return
+    /// - Returns: An array of summaries from the most recent story arcs
+    func getRecentStoryArcs(count: Int = 3) -> [String] {
+        // Sort arcs by timestamp, newest first
+        let sortedArcs = storyArcs.sorted(by: { $0.timestamp > $1.timestamp })
+        
+        // Take only the requested number of arcs
+        let recentArcs = sortedArcs.prefix(count)
+        
+        // Return just the summaries
+        return recentArcs.map { $0.summary }
+    }
+    
+    /// Get the previous story arcs for narrative continuity
+    /// - Parameter limit: Maximum number of previous arcs to return
+    /// - Returns: Array of previous story arcs as [PreviousArc]
+    func getPreviousStoryArcs(limit: Int = 3) -> [PreviousArc] {
+        // Sort by timestamp, newest first
+        let sortedArcs = storyArcs.sorted(by: { $0.timestamp > $1.timestamp })
+        // Take only the requested number of arcs
+        let recentArcs = sortedArcs.prefix(limit)
+        // Map StoryArc to PreviousArc
+        return recentArcs.map { arc in
+            PreviousArc(summary: arc.summary, themes: arc.themes, chapterId: arc.chapterId)
+        }
+    }
+    
+    /// Get a chapter by its ID
+    /// - Parameter id: The ID of the chapter to retrieve
+    /// - Returns: The chapter if found, nil otherwise
+    func getChapter(id: String) -> StoryChapter? {
+        // Try to load from cache or persistent storage
+        if let data = UserDefaults.standard.data(forKey: "chapter_\(id)") {
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                return try decoder.decode(StoryChapter.self, from: data)
+            } catch {
+                print("[StoryPersistenceManager] Error decoding chapter: \(error)")
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    /// Get a journal entry by its ID
+    /// - Parameter id: The ID of the journal entry to retrieve
+    /// - Returns: The journal entry if found, nil otherwise
+    func getJournalEntry(id: String) -> JournalEntry? {
+        // Try to load from cache or persistent storage
+        if let data = UserDefaults.standard.data(forKey: "entry_\(id)") {
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                return try decoder.decode(JournalEntry.self, from: data)
+            } catch {
+                print("[StoryPersistenceManager] Error decoding journal entry: \(error)")
+                return nil
+            }
+        }
+        return nil
+    }
+    
+
+    
     /// Defines the persistence status
     enum PersistenceStatus: Equatable {
         case idle
@@ -99,12 +141,7 @@ class StoryPersistenceManager: ObservableObject {
         }
     }
 
-    private init(skipInitialLoad: Bool = false) throws {
-        if !skipInitialLoad {
-            loadStoryNodes { _ in }
-            loadStoryArcs { _ in }
-        }
-    }
+
     
     /// Save story nodes to persistent storage
     func saveNodes(_ nodes: [StoryNode]) {
@@ -131,14 +168,14 @@ class StoryPersistenceManager: ObservableObject {
     
     /// Delete a story node
     func deleteNode(with id: UUID) {
-        storyNodes.removeAll { $0.id == id }
+        storyNodes.removeAll { $0.id == id.uuidString }
         status = .saving
         saveSubject.send()
     }
     
     /// Get a story node by its ID
     func node(for id: UUID) -> StoryNode? {
-        return storyNodes.first { $0.id == id }
+        return storyNodes.first { $0.id == id.uuidString }
     }
     
     /// Get all story nodes for a specific user ID
@@ -146,6 +183,11 @@ class StoryPersistenceManager: ObservableObject {
         // In a multi-user setting, filter nodes by userId
         // For now, return all nodes since we're using a placeholder userId
         return storyNodes
+    }
+    
+    /// Get a story arc by its string UUID
+    func arc(forUUID id: String) -> StoryArc? {
+        return storyArcs.first { $0.id.uuidString == id }
     }
     
     /// Load story nodes from persistent storage
@@ -381,16 +423,123 @@ class StoryPersistenceManager: ObservableObject {
     
     /// Get the latest chapter
     func latestChapter() -> StoryNode? {
-        return storyNodes.sorted { $0.timestamp > $1.timestamp }.first
+        return storyNodes.sorted { $0.createdAt > $1.createdAt }.first
     }
 }
 
-// MARK: - Helpers for SwiftUI Integration
+// MARK: - Chapter and StoryNode Persistence
+
+extension StoryPersistenceManager {
+    /// Save a chapter
+    /// - Parameter chapter: The chapter to save
+    /// - Returns: Publisher that emits success or error
+    func saveChapter(_ chapter: StoryChapter) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { promise in
+            do {
+                let encoder = JSONEncoder()
+                encoder.dateEncodingStrategy = .iso8601
+                let data = try encoder.encode(chapter)
+                
+                // Save to UserDefaults for now (would use CoreData in production)
+                UserDefaults.standard.set(data, forKey: "chapter_\(chapter.id)")
+                promise(.success(()))
+            } catch {
+                print("[StoryPersistenceManager] Error saving chapter: \(error)")
+                promise(.failure(error))
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    /// Save a journal entry
+    /// - Parameter entry: The journal entry to save
+    /// - Returns: Publisher that emits the saved entry or error
+    func saveJournalEntry(_ entry: JournalEntry) -> AnyPublisher<JournalEntry, Error> {
+        return Future<JournalEntry, Error> { promise in
+            do {
+                let encoder = JSONEncoder()
+                encoder.dateEncodingStrategy = .iso8601
+                let data = try encoder.encode(entry)
+                
+                // Save to UserDefaults for now (would use CoreData in production)
+                UserDefaults.standard.set(data, forKey: "entry_\(entry.id)")
+                promise(.success(entry))
+            } catch {
+                print("[StoryPersistenceManager] Error saving journal entry: \(error)")
+                promise(.failure(error))
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    /// Save a story node
+    /// - Parameter node: The story node to save
+    /// - Returns: Publisher that emits success or error
+    func saveStoryNode(_ node: StoryNode) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { promise in
+            // Add node to the collection
+            self.storyNodes.append(node)
+            
+            // Save to persistent storage
+            do {
+                let encoder = JSONEncoder()
+                encoder.dateEncodingStrategy = .iso8601
+                let data = try encoder.encode(self.storyNodes)
+                try data.write(to: self.storyArchiveURL, options: .atomic)
+                
+                // Notify of changes
+                NotificationCenter.default.post(name: Self.storyDataDidChangeNotification, object: self)
+                promise(.success(()))
+            } catch {
+                print("[StoryPersistenceManager] Error saving story node: \(error)")
+                promise(.failure(error))
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    /// Gets all story nodes
+    /// - Returns: Publisher that emits all story nodes or error
+    func getAllStoryNodes() -> AnyPublisher<[StoryNode], Error> {
+        return Future<[StoryNode], Error> { promise in
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    if FileManager.default.fileExists(atPath: self.storyArchiveURL.path) {
+                        let data = try Data(contentsOf: self.storyArchiveURL)
+                        let decoder = JSONDecoder()
+                        decoder.dateDecodingStrategy = .iso8601
+                        
+                        let loadedNodes = try decoder.decode([StoryNode].self, from: data)
+                        DispatchQueue.main.async {
+                            self.storyNodes = loadedNodes
+                            promise(.success(loadedNodes))
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            promise(.success([]))
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        print("[StoryPersistenceManager] Error loading story nodes: \(error)")
+                        promise(.failure(error))
+                    }
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+}
+
+    private func getSentimentLabel(from score: Double?) -> String {
+        guard let s = score else { return "Neutral" } // Default if score is nil
+        if s > 0.25 { return "Positive" }
+        if s < -0.25 { return "Negative" }
+        return "Neutral"
+    }
+
+    // MARK: - Helpers for SwiftUI Integration
 
 extension StoryPersistenceManager {
     /// Returns story nodes arranged in a chronological order
     func chronologicalNodes() -> [StoryNode] {
-        return storyNodes.sorted { $0.timestamp < $1.timestamp }
+        return storyNodes.sorted { $0.createdAt < $1.createdAt }
     }
     
     /// Returns story nodes arranged in a tree structure
@@ -402,7 +551,7 @@ extension StoryPersistenceManager {
             result.append(currentLevel)
             
             // Find all nodes that have parents in the current level
-            let currentIds = Set(currentLevel.map { $0.entryId })
+            let currentIds = Set(currentLevel.map { $0.journalEntryId })
             currentLevel = storyNodes.filter { node in
                 guard let parentId = node.parentId else { return false }
                 return currentIds.contains(parentId)
@@ -419,18 +568,21 @@ extension StoryPersistenceManager {
             
             // Apply sentiment filter if provided
             if let sentimentFilter = sentimentFilter {
-                matches = matches && node.metadata.sentiment.lowercased().contains(sentimentFilter.lowercased())
+                let sentimentLabel = getSentimentLabel(from: node.metadataSnapshot?.sentimentScore)
+                matches = matches && sentimentLabel.lowercased().contains(sentimentFilter.lowercased())
             }
             
             // Apply search filter if provided
             if !searchText.isEmpty {
                 let searchLower = searchText.lowercased()
-                let themeMatch = node.metadata.themes.contains { $0.lowercased().contains(searchLower) }
-                let entityMatch = node.metadata.entities.contains { $0.lowercased().contains(searchLower) }
-                let keyPhraseMatch = node.metadata.keyPhrases.contains { $0.lowercased().contains(searchLower) }
-                let textMatch = node.chapter.text.lowercased().contains(searchLower)
+                let themeMatch = (node.metadataSnapshot?.themes ?? []).contains { $0.lowercased().contains(searchLower) }
+                let entityMatch = (node.metadataSnapshot?.entities ?? []).contains { $0.lowercased().contains(searchLower) }
+                let keyPhraseMatch = (node.metadataSnapshot?.keyPhrases ?? []).contains { $0.lowercased().contains(searchLower) }
+                // StoryNode doesn't have a direct chapter property, so we'll just check other metadata
+                let sentimentLabel = getSentimentLabel(from: node.metadataSnapshot?.sentimentScore)
+                let sentimentMatch = sentimentLabel.lowercased().contains(searchLower)
                 
-                matches = matches && (themeMatch || entityMatch || keyPhraseMatch || textMatch)
+                matches = matches && (themeMatch || entityMatch || keyPhraseMatch || sentimentMatch)
             }
             
             return matches

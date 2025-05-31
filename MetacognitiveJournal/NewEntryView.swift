@@ -25,11 +25,16 @@ struct NewEntryView: View {
     @EnvironmentObject private var gamificationManager: GamificationManager
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: NewEntryViewModel
+    
+    // Coordinator is now passed in
+    let coordinator: PsychologicalEnhancementsCoordinator
     let initialEntryData: EntryEditingData?
 
-    init(initialEntryData: EntryEditingData? = nil) {
+    init(coordinator: PsychologicalEnhancementsCoordinator, initialEntryData: EntryEditingData? = nil) {
+        self.coordinator = coordinator // Assign passed-in coordinator
         self.initialEntryData = initialEntryData
-        _viewModel = StateObject(wrappedValue: NewEntryViewModel(initialEntryData: initialEntryData))
+        // Correct argument order for ViewModel init
+        _viewModel = StateObject(wrappedValue: NewEntryViewModel(coordinator: coordinator, initialEntryData: initialEntryData))
     }
 
     // MARK: - Entry State
@@ -295,7 +300,6 @@ struct NewEntryView: View {
         case .neutral: return "😐"
         case .curious: return "🧐"
         case .overwhelmed: return "😩"
-        default: return "😐"
         }
     }
 
@@ -365,9 +369,23 @@ struct NewEntryView_Previews: PreviewProvider {
     static var previews: some View {
         // --- Preview for a New Entry --- 
         NavigationView {
-            NewEntryView()
-                .environmentObject(JournalStore.preview) // Use the static preview store
-                .environmentObject(MetacognitiveAnalyzer()) 
+            // Create instances needed for the preview
+            let journalStore = JournalStore.preview
+            let analyzer = MetacognitiveAnalyzer()
+            let coordinator = PsychologicalEnhancementsCoordinator.preview // Use static preview instance
+            let gamificationManager = GamificationManager()
+            let themeManager = ThemeManager()
+            let parentalControlManager = ParentalControlManager()
+            let userProfile = UserProfile()
+
+            NewEntryView(coordinator: coordinator)
+                .environmentObject(journalStore) // Use the static preview store
+                .environmentObject(analyzer)
+                .environmentObject(coordinator) // Inject the preview coordinator
+                .environmentObject(gamificationManager)
+                .environmentObject(themeManager)
+                .environmentObject(parentalControlManager)
+                .environmentObject(userProfile)
         }
     }
 }

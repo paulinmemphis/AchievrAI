@@ -1,0 +1,40 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingAccountSetup.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Set Up Your Account",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter your email to receive updates, recover your account, or connect with your class.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 15
+        }
+      },
+      {
+        "comment": "",
+        "key": "Email",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 18
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 25
+        }
+      }
+    ]
+  },
+  "version": 1
+}

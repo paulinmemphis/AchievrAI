@@ -1,0 +1,16 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SentimentMeterView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%@ sentiment level: %lld percent",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 35
+        }
+      }
+    ]
+  },
+  "version": 1
+}

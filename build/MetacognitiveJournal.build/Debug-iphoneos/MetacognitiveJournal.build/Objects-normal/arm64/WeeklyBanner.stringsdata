@@ -1,0 +1,24 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyBanner.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Weekly insights ready. Tap insights tab to view.",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Weekly insights ready!",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 16
+        }
+      }
+    ]
+  },
+  "version": 1
+}

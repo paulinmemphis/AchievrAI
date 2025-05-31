@@ -13,7 +13,7 @@ class StoryExportManager: ObservableObject {
         storyText += "====================\n\n"
         
         // Sort nodes chronologically
-        let sortedNodes = nodes.sorted { $0.timestamp < $1.timestamp }
+        let sortedNodes = nodes.sorted { $0.createdAt < $1.createdAt }
         
         // Build text for each chapter
         for (index, node) in sortedNodes.enumerated() {
@@ -21,11 +21,13 @@ class StoryExportManager: ObservableObject {
             storyText += String(repeating: "-", count: 10) + "\n\n"
             
             // Add metadata context
-            storyText += "Themes: \(node.metadata.themes.joined(separator: ", "))\n"
-            storyText += "Mood: \(node.metadata.sentiment)\n\n"
+            storyText += "Themes: \(node.metadataSnapshot?.themes?.joined(separator: ", ") ?? "N/A")\n"
+            storyText += "Mood: \(getSentimentLabel(from: node.metadataSnapshot?.sentimentScore))\n\n"
             
             // Add chapter text
-            storyText += node.chapter.text
+            if let chapter = StoryPersistenceManager.shared.getChapter(id: node.chapterId) {
+                storyText += chapter.text
+            }
             storyText += "\n\n"
             
             // Add separator between chapters except for the last one
@@ -64,7 +66,7 @@ class StoryExportManager: ObservableObject {
         // Render PDF
         let pdfData = renderer.pdfData { context in
             // Sort nodes by timestamp
-            let sortedNodes = nodes.sorted { $0.timestamp < $1.timestamp }
+            let sortedNodes = nodes.sorted { $0.createdAt < $1.createdAt }
             
             // Title page
             context.beginPage()
@@ -101,29 +103,32 @@ class StoryExportManager: ObservableObject {
             itemsToShare.append(pdfURL)
         }
         
-        let activityViewController = UIActivityViewController(
-            activityItems: itemsToShare,
-            applicationActivities: nil
-        )
+        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
         
-        // For iPad, set the popover presentation source
-        if let popoverController = activityViewController.popoverPresentationController {
-            popoverController.sourceView = sourceView
-            if let sourceRect = sourceRect {
-                popoverController.sourceRect = sourceRect
+        // Find the key window scene to present the controller
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+            // For iPad, set the popover presentation source
+            if let popoverController = activityViewController.popoverPresentationController {
+                popoverController.sourceView = rootViewController.view
+                popoverController.sourceRect = CGRect(x: rootViewController.view.bounds.midX, y: rootViewController.view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
             }
-        }
-        
-        // Present the activity view controller
-        DispatchQueue.main.async {
-            UIApplication.shared.windows.first?.rootViewController?.present(
-                activityViewController,
-                animated: true,
-                completion: nil
-            )
+            
+            // Present the activity view controller
+            DispatchQueue.main.async {
+                rootViewController.present(activityViewController, animated: true, completion: nil)
+            }
         }
     }
     
+    private func getSentimentLabel(from score: Double?) -> String {
+        guard let s = score else { return "Neutral" } // Default if score is nil
+        if s > 0.25 { return "Positive" }
+        if s < -0.25 { return "Negative" }
+        return "Neutral"
+    }
+
     // MARK: - Helper Methods
     
     /// Create a temporary file for exporting
@@ -237,7 +242,7 @@ class StoryExportManager: ObservableObject {
         ]
         
         // Themes
-        let themesString = "Themes: \(node.metadata.themes.joined(separator: ", "))"
+        let themesString = "Themes: \(node.metadataSnapshot?.themes?.joined(separator: ", ") ?? "N/A")"
         let themesSize = themesString.size(withAttributes: metadataAttributes)
         let themesRect = CGRect(x: textRect.minX, y: currentY, width: textRect.width, height: themesSize.height)
         themesString.draw(in: themesRect, withAttributes: metadataAttributes)
@@ -245,7 +250,7 @@ class StoryExportManager: ObservableObject {
         currentY += themesSize.height + 10
         
         // Mood
-        let moodString = "Mood: \(node.metadata.sentiment)"
+        let moodString = "Mood: \(node.metadataSnapshot?.sentimentScore != nil ? String(describing: node.metadataSnapshot!.sentimentScore!) : "N/A")"
         let moodSize = moodString.size(withAttributes: metadataAttributes)
         let moodRect = CGRect(x: textRect.minX, y: currentY, width: textRect.width, height: moodSize.height)
         moodString.draw(in: moodRect, withAttributes: metadataAttributes)
@@ -253,7 +258,13 @@ class StoryExportManager: ObservableObject {
         currentY += moodSize.height + 40
         
         // Draw the chapter text
-        let chapterText = node.chapter.text
+        let chapterText: String = {
+            if let chapter = StoryPersistenceManager.shared.getChapter(id: node.chapterId) {
+                return chapter.text
+            } else {
+                return "[Chapter not found]"
+            }
+        }()
         let textFont = UIFont.systemFont(ofSize: 14)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 8
@@ -268,8 +279,8 @@ class StoryExportManager: ObservableObject {
         
         let textHeight = attributedText.boundingRect(
             with: CGSize(width: textRect.width, height: .greatestFiniteMagnitude),
-            options: [.usesLineFragmentOrigin, .usesFontLeading],
-            context: nil
+            options: [NSStringDrawingOptions.usesLineFragmentOrigin, NSStringDrawingOptions.usesFontLeading],
+            context: nil as NSStringDrawingContext?
         ).height
         
         let textDrawRect = CGRect(x: textRect.minX, y: currentY, width: textRect.width, height: textHeight)

@@ -53,7 +53,7 @@ extension JournalStore {
             // Notify error on main thread
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .journalEntriesSaveError, object: error)
-                ErrorHandler.shared.handle(error, type: { _ in AppError.persistence })
+                ErrorHandler.shared.handle(error, type: { _ in JournalAppError.persistence })
             }
             return false
         }
@@ -104,7 +104,7 @@ extension JournalStore {
                 print("[Persistence] Error loading from iCloud: \(error)")
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .journalEntriesLoadError, object: error)
-                    ErrorHandler.shared.handle(error, type: { _ in AppError.persistence })
+                    ErrorHandler.shared.handle(error, type: { _ in JournalAppError.persistence })
                 }
                 return false
             }

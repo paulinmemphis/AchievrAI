@@ -1,0 +1,16 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryExportManager.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Export Story",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 317
+        }
+      }
+    ]
+  },
+  "version": 1
+}

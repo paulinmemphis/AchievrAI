@@ -1,0 +1,24 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmotionalStateButton.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%@ feeling",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Double tap to select this feeling",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 35
+        }
+      }
+    ]
+  },
+  "version": 1
+}

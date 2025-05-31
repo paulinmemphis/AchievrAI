@@ -1,0 +1,429 @@
+/// The main container view for the application, setting up the tab-based navigation.
+import SwiftUI
+
+// Helper functions for MultiModal entry conversion
+extension ContentView {
+    func convertEmotionToEmotionalState(_ emotion: MultiModal.Emotion?) -> EmotionalState {
+        guard let emotion = emotion else { return .neutral }
+        
+        let category = emotion.category.lowercased()
+        if category == "joy" || category == "happiness" || category == "excited" {
+            return .confident
+        } else if category == "sadness" || category == "disappointed" {
+            return .frustrated
+        } else if category == "anger" || category == "frustrated" {
+            return .frustrated
+        } else if category == "fear" || category == "anxious" || category == "nervous" {
+            return .overwhelmed
+        } else if category == "surprise" || category == "curious" {
+            return .curious
+        } else {
+            return .neutral
+        }
+    }
+    
+    func extractPromptResponses(from entry: MultiModal.JournalEntry) -> [PromptResponse] {
+        var responses: [PromptResponse] = []
+        
+        // Extract text content from media items as prompt responses
+        for mediaItem in entry.mediaItems ?? [] {
+            if let textContent = mediaItem.textContent, !textContent.isEmpty {
+                let promptResponse = PromptResponse(
+                    id: UUID(),
+                    prompt: "Journal Entry",
+                    response: textContent
+                )
+                responses.append(promptResponse)
+            }
+        }
+        
+        // If no text content was found, create a default prompt response
+        if responses.isEmpty {
+            let promptResponse = PromptResponse(
+                id: UUID(),
+                prompt: "Journal Entry",
+                response: entry.title
+            )
+            responses.append(promptResponse)
+        }
+        
+        return responses
+    }
+}
+
+struct ContentView: View {
+    @AppStorage("isOnboardingComplete") private var isOnboardingComplete: Bool = false
+    @AppStorage("hasSeenTutorialOverlay") private var hasSeenTutorialOverlay: Bool = false
+    @State private var showTutorialOverlay: Bool = false
+
+    @EnvironmentObject var journalStore: JournalStore
+    @ObservedObject private var errorHandler = ErrorHandler.shared
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var analyzer: MetacognitiveAnalyzer
+    @EnvironmentObject var parentalControlManager: ParentalControlManager
+    @EnvironmentObject var userProfile: UserProfile
+    @EnvironmentObject var appLockManager: AppLockManager
+    @EnvironmentObject var coordinator: PsychologicalEnhancementsCoordinator
+    @EnvironmentObject var aiNudgeManager: AINudgeManager
+    
+    /// Controls the presentation of the new entry sheet.
+    @State private var showingNewEntrySheet = false
+    
+    /// Controls the presentation of the voice sheet.
+    @State private var showingVoiceSheet = false
+    
+    /// Controls the presentation of the parental control settings sheet.
+    @State private var showingParentSettings = false
+    
+    /// Controls the presentation of the PIN entry sheet.
+    @State private var showingPINEntry = false
+    
+    /// Controls the presentation of the insights sheet.
+    @State private var shouldShowInsightsSheet = false
+    
+    /// Controls the edit mode for the journal list.
+    @State private var editMode: EditMode = .inactive
+    
+    /// Stores the selected journal entries for batch deletion.
+    @State private var selectedEntries = Set<UUID>()
+    
+    /// Controls the presentation of the delete confirmation dialog.
+    @State private var showingDeleteConfirmation = false
+    
+    /// Controls the presentation of the settings sheet.
+    @State private var showingSettingsSheet = false
+    
+    /// Controls the presentation of the confetti view.
+    @State private var showConfetti = false
+    
+    /// Controls the presentation of the story map view.
+    @State private var showingStoryMapView = false
+    
+    /// Controls the presentation of the journal insights view.
+    @State private var showingInsightsView = false
+    
+    /// The selected tab index.
+    @State private var selectedTab = 0
+    
+    // MARK: - Notification Observer
+    private let tabChangeNotification = NotificationCenter.default
+        .publisher(for: Notification.Name("ChangeAppTab"))
+    
+    // MARK: - Computed Properties
+    
+    /// The journal tab view.
+    private var journalTab: some View {
+        NavigationView {
+            Group {
+                if journalStore.entries.isEmpty {
+                    Text("No entries yet. Tap + to add one.")
+                        .foregroundColor(.secondary)
+                        .padding()
+                } else {
+                    ZStack(alignment: .bottom) {
+                        List(selection: $selectedEntries) {
+                            ForEach(journalStore.entries) { entry in
+                                if editMode == .inactive {
+                                    NavigationLink(
+                                        destination: JournalEntryDetailView(entry: entry)
+                                            .environmentObject(parentalControlManager)
+                                    ) {
+                                        JournalRowView(entry: entry)
+                                    }
+                                } else {
+                                    // In edit mode, just show the row without navigation
+                                    JournalRowView(entry: entry)
+                                }
+                            }
+                            .onDelete(perform: deleteItems)
+                        }
+                        .environment(\.editMode, $editMode)
+                        
+                        // Delete button for batch deletion
+                        if !selectedEntries.isEmpty {
+                            Button(action: {
+                                showingDeleteConfirmation = true
+                            }) {
+                                HStack {
+                                    Image(systemName: "trash")
+                                    Text("Delete Selected (\(selectedEntries.count))")
+                                }
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .padding()
+                            }
+                        }
+                    }
+                    .confirmationDialog(
+                        "Are you sure you want to delete \(selectedEntries.count) entries?",
+                        isPresented: $showingDeleteConfirmation,
+                        titleVisibility: .visible
+                    ) {
+                        Button("Delete", role: .destructive) {
+                            deleteSelectedEntries()
+                        }
+                        Button("Cancel", role: .cancel) {
+                            showingDeleteConfirmation = false
+                        }
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if !journalStore.entries.isEmpty {
+                        EditButton()
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $shouldShowInsightsSheet) {
+            JournalInsightsView()
+        }
+    }
+    
+    /// Deletes items from the journal manager based on the provided index set.
+    private func deleteItems(at offsets: IndexSet) {
+        // Get the IDs of the entries to delete based on the offsets
+        let idsToDelete = offsets.map { journalStore.entries[$0].id }
+        
+        // Call the journal store's delete function for each ID
+        for id in idsToDelete {
+            journalStore.deleteEntry(id)
+        }
+    }
+    
+    /// Deletes all selected entries and clears the selection.
+    private func deleteSelectedEntries() {
+        // Delete all selected entries
+        for id in selectedEntries {
+            journalStore.deleteEntry(id)
+        }
+        
+        // Clear the selection and exit edit mode if no entries remain
+        selectedEntries.removeAll()
+        if journalStore.entries.isEmpty {
+            editMode = .inactive
+        }
+    }
+    
+    /// The more tab view.
+    private var moreTab: some View {
+        NavigationView {
+            MoreView()
+                .environmentObject(appLockManager)
+                .environmentObject(parentalControlManager)
+                .environmentObject(userProfile)
+                .environmentObject(journalStore)
+                .environmentObject(analyzer)
+                .environmentObject(aiNudgeManager)
+                .environmentObject(themeManager)
+                .navigationTitle("More")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            showingSettingsSheet = true
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                        }
+                    }
+                }
+        }
+    }
+    
+    // MARK: - Body
+    var body: some View {
+        // Break up the complex expression into simpler parts
+        let isLockScreenActive = appLockManager.showLockScreen
+        let isLoginRequired = parentalControlManager.isLoginRequired()
+        let shouldShowLockScreen = isLockScreenActive && isLoginRequired
+        
+        // Show lock screen if required by parent settings, otherwise show main app
+        ZStack {
+            if shouldShowLockScreen {
+                AppLockView(appLock: appLockManager)
+            } else {
+                // Main TabView structure with explicit tabs (no swipe)
+                TabView(selection: $selectedTab) {
+                    // Progress tab (Analytics & Rewards) - First tab
+                    NavigationView {
+                        AnalyticsView(currentTabIndex: selectedTab) 
+                            .environmentObject(journalStore)
+                            .environmentObject(themeManager)
+                            .environmentObject(analyzer)
+                    }
+                    .tabItem { 
+                        Label("Rewards", systemImage: "chart.bar.xaxis")
+                    }.tag(0) // Tag 0 (first tab)
+                    
+                    // Journal tab (second tab)
+                    NavigationView {
+                        journalTab
+                            .navigationTitle("Journal")
+                            .toolbar {
+                                ToolbarItem(placement: .navigationBarTrailing) {
+                                    Button {
+                                        showingNewEntrySheet = true
+                                    } label: {
+                                        Image(systemName: "square.and.pencil")
+                                    }
+                                }
+                                
+                                ToolbarItem(placement: .navigationBarLeading) {
+                                    Button {
+                                        shouldShowInsightsSheet = true
+                                    } label: {
+                                        Image(systemName: "lightbulb.fill")
+                                    }
+                                }
+                            }
+                            .sheet(isPresented: $showingNewEntrySheet) {
+                                NavigationView { // Use standard NavigationView without generic parameter
+                                    // Break down complex expressions for GuidedMultiModalJournalView
+                                    let childId = userProfile.name // Use name as childId
+                                    let readingLevel = ReadingLevel.levelForAge(userProfile.age) // Determine reading level from age
+                                    let journalMode = ChildJournalMode.modeForAge(userProfile.age) // Determine journal mode from age
+                                    
+                                    GuidedMultiModalJournalView(
+                                        childId: childId,
+                                        readingLevel: readingLevel,
+                                        journalMode: journalMode,
+                                        onSave: { multiModalEntry in
+                                            // First, dismiss the sheet to avoid state changes during view updates
+                                            showingNewEntrySheet = false
+                                            
+                                            // Then process the entry after the view update cycle completes
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                // Create a standard journal entry directly from the multimodal entry
+                                                let standardEntry = MetacognitiveJournal.JournalEntry(
+                                                    id: UUID(),
+                                                    assignmentName: multiModalEntry.title,
+                                                    date: multiModalEntry.date,
+                                                    subject: .other, // Default subject
+                                                    emotionalState: convertEmotionToEmotionalState(multiModalEntry.mood),
+                                                    reflectionPrompts: extractPromptResponses(from: multiModalEntry),
+                                                    aiSummary: multiModalEntry.aiInsights ?? ""
+                                                )
+                                                
+                                                // Save the standard entry to the journal store
+                                                journalStore.saveEntry(standardEntry)
+                                                
+                                                // Show confetti for positive reinforcement after a short delay
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                    showConfetti = true
+                                                    
+                                                    // Hide confetti after a delay
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                        showConfetti = false
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        onCancel: {
+                                            showingNewEntrySheet = false
+                                        }
+                                    )
+                                    .environmentObject(themeManager)
+                                    // Pass other necessary environment objects if MultiModal.JournalEntryView requires them
+                                }
+                            }
+                            }
+                    }
+                    .tabItem { 
+                        Label("Journal", systemImage: "book.fill")
+                    }
+                    .tag(1)
+                    
+                    // Your Story tab (third tab)
+                    NavigationView {
+                        EnhancedStoryMapView()
+                            .environmentObject(themeManager)
+                            .environmentObject(journalStore)
+                            .environmentObject(coordinator)
+                    }
+                    .tabItem { 
+                        Label("Your Story", systemImage: "book.pages")
+                    }.tag(2)
+                    
+                    // Voice journal entry (fourth tab)
+                    VoiceJournalView()
+                        .tabItem { 
+                        Label("Voice", systemImage: "mic.fill")
+                    }.tag(3)
+                    
+                    // More tab for settings and help (last tab)
+                    moreTab.tabItem { 
+                        Label("More", systemImage: "ellipsis.circle.fill")
+                    }.tag(4)
+                }
+                // Use standard tab style instead of page style to disable swipe navigation
+                .tabViewStyle(DefaultTabViewStyle())
+                // Disable swipe gestures between tabs
+                .gesture(DragGesture().onChanged { _ in })
+            }
+        }
+        .onChange(of: selectedTab) { newValue in // Fixed syntax
+            // No need to handle parent tab navigation here anymore as it's now in the More tab
+            // We'll handle that in the MoreView instead
+        }
+        .onReceive(tabChangeNotification) { notification in
+            // Handle tab change notification from PageTabNavigation
+            if let tabIndex = notification.userInfo?["tabIndex"] as? Int {
+                selectedTab = tabIndex
+            }
+        }
+        .accentColor(themeManager.selectedTheme.accentColor)
+        .overlay(alignment: .top) { // Use overlay for error banner
+            // Error banner if needed
+            if let error = errorHandler.currentError {
+                createErrorBannerView(error.localizedDescription) { errorHandler.currentError = nil }
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .animation(.easeInOut, value: errorHandler.currentError)
+                    .zIndex(100)
+                    .padding(.top, 4) // Adjust padding as needed
+            }
+        }
+    }
+    
+    // MARK: - Helper Methods
+    
+    /// Creates an error banner view.
+    private func createErrorBannerView(_ message: String, onDismiss: @escaping () -> Void) -> some View {
+        HStack {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(.white)
+            
+            Text(message)
+                .font(.subheadline)
+                .foregroundColor(.white)
+            
+            Spacer()
+            
+            Button(action: onDismiss) {
+                Image(systemName: "xmark")
+                    .foregroundColor(.white)
+            }
+        }
+        .padding()
+        .background(Color.red)
+        .cornerRadius(8)
+        .padding(.horizontal)
+    }
+}
+
+// MARK: - Preview
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(JournalStore())
+            .environmentObject(ThemeManager())
+            .environmentObject(MetacognitiveAnalyzer())
+            .environmentObject(ParentalControlManager())
+            .environmentObject(UserProfile())
+            .environmentObject(AppLockManager())
+            .environmentObject(PsychologicalEnhancementsCoordinator())
+            .environmentObject(AINudgeManager())
+    }
+}

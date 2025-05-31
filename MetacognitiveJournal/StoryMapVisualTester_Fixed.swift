@@ -1,6 +1,9 @@
 import SwiftUI
 import Combine
 
+// Add import for EntryMetadata if not already included in this file's scope
+import Foundation
+
 /// A test harness for the enhanced story map visualization
 struct StoryMapVisualTester: View {
     @StateObject private var themeManager = ThemeManager()
@@ -130,7 +133,7 @@ class TestStoryMapViewModel: ObservableObject {
     private func clearAndAddNodes(nodes: [StoryNode], arcs: [StoryArc], to persistenceManager: StoryPersistenceManager) {
         // First clear existing nodes
         for node in persistenceManager.storyNodes {
-            persistenceManager.deleteNode(with: node.id)
+            persistenceManager.deleteNode(with: UUID(uuidString: node.id) ?? UUID())
         }
         
         // Then add each node individually
@@ -162,7 +165,7 @@ class TestStoryMapViewModel: ObservableObject {
         let child1 = createStoryNode(
             entryId: UUID(),
             chapterId: "chapter-forest",
-            parentId: rootNode.id,
+            parentId: UUID(uuidString: rootNode.id),
             themes: ["nature", "discovery"],
             sentiment: "positive",
             title: "The Enchanted Forest",
@@ -173,7 +176,7 @@ class TestStoryMapViewModel: ObservableObject {
         let child2 = createStoryNode(
             entryId: UUID(),
             chapterId: "chapter-cave",
-            parentId: rootNode.id,
+            parentId: UUID(uuidString: rootNode.id),
             themes: ["danger", "mystery"],
             sentiment: "negative",
             title: "The Dark Cavern",
@@ -185,7 +188,7 @@ class TestStoryMapViewModel: ObservableObject {
         let grandchild1 = createStoryNode(
             entryId: UUID(),
             chapterId: "chapter-artifact",
-            parentId: child1.id,
+            parentId: UUID(uuidString: child1.id),
             themes: ["discovery", "magic"],
             sentiment: "positive",
             title: "The Glowing Artifact",
@@ -196,7 +199,7 @@ class TestStoryMapViewModel: ObservableObject {
         let grandchild2 = createStoryNode(
             entryId: UUID(),
             chapterId: "chapter-guardian",
-            parentId: child2.id,
+            parentId: UUID(uuidString: child2.id),
             themes: ["conflict", "challenge"],
             sentiment: "negative",
             title: "The Cave Guardian",
@@ -208,7 +211,7 @@ class TestStoryMapViewModel: ObservableObject {
         let branch1 = createStoryNode(
             entryId: UUID(),
             chapterId: "chapter-village",
-            parentId: child1.id,
+            parentId: UUID(uuidString: child1.id),
             themes: ["community", "friendship"],
             sentiment: "positive",
             title: "The Hidden Village",
@@ -268,7 +271,8 @@ class TestStoryMapViewModel: ObservableObject {
         for i in 1..<count {
             // Decide on parent node - create a tree-like structure
             let parentIndex = i > 5 ? Int.random(in: 0..<i-1) : 0
-            let parentId = nodes[parentIndex].id
+            let parentIdString = nodes[parentIndex].id
+            let parentId = UUID(uuidString: parentIdString)
             
             // Pick random themes and sentiment
             let themeIndex = i % themes.count
@@ -310,22 +314,20 @@ class TestStoryMapViewModel: ObservableObject {
             keyPhrases: [title]
         )
         
-        // Create chapter response
-        let chapter = ChapterResponse(
-            chapterId: chapterId,
-            text: text,
-            cliffhanger: cliffhanger,
-            studentName: "Test User",
-            feedback: "Great job writing this chapter!"
-        )
-        
         // Create and return the story node
         return StoryNode(
-            entryId: entryId,
+            id: UUID().uuidString,
+            journalEntryId: entryId.uuidString, // Corrected name
             chapterId: chapterId,
-            parentId: parentId,
-            metadata: metadata,
-            chapter: chapter
+            parentId: parentId?.uuidString,
+            metadataSnapshot: StoryMetadata(    // Corrected name and type
+                sentimentScore: Double(metadata.sentiment), // Convert String to Double?
+                themes: metadata.themes,
+                entities: metadata.entities,
+                keyPhrases: metadata.keyPhrases
+                // No genre, as StoryMetadata.swift doesn't define it
+            ),
+            createdAt: Date()                   // Corrected name
         )
     }
 }

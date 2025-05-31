@@ -1,0 +1,184 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeJourneyView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Journal Entries",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 20
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your Journal",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 30
+        }
+      },
+      {
+        "comment": "",
+        "key": "Journal",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Map",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Map",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Insights",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "Insights",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 56
+        }
+      },
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 145
+        }
+      },
+      {
+        "comment": "",
+        "key": "Appearance",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 169
+        }
+      },
+      {
+        "comment": "",
+        "key": "Notifications",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 208
+        }
+      },
+      {
+        "comment": "",
+        "key": "Daily Writing Reminder",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 212
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Generation Updates",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 215
+        }
+      },
+      {
+        "comment": "",
+        "key": "AI Preferences",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 222
+        }
+      },
+      {
+        "comment": "",
+        "key": "Default Genre",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "Show AI Writing Prompts",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 235
+        }
+      },
+      {
+        "comment": "",
+        "key": "Data Management",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "Export Your Data",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 251
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset All Data",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 264
+        }
+      },
+      {
+        "comment": "",
+        "key": "About",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 274
+        }
+      },
+      {
+        "comment": "",
+        "key": "Version 1.0.0",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 302
+        }
+      },
+      {
+        "comment": "",
+        "key": "About AchievrAI",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 283
+        }
+      },
+      {
+        "comment": "",
+        "key": "Privacy Policy",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 295
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,136 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VariableRewardSystem.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Reward Earned!",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 494
+        }
+      },
+      {
+        "comment": "",
+        "key": "+%lld points",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 533
+        }
+      },
+      {
+        "comment": "",
+        "key": "Awesome!",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 547
+        }
+      },
+      {
+        "comment": "",
+        "key": "My Rewards",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 581
+        }
+      },
+      {
+        "comment": "",
+        "key": "Level %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 588
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 604
+        }
+      },
+      {
+        "comment": "",
+        "key": "Total Points",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 607
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 616
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rewards",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 619
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 628
+        }
+      },
+      {
+        "comment": "",
+        "key": "Day Streak",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 631
+        }
+      },
+      {
+        "comment": "",
+        "key": "Value: %lld points",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 729
+        }
+      },
+      {
+        "comment": "",
+        "key": "Expires: %@",
+        "location": {
+          "startingColumn": 52,
+          "startingLine": 736
+        }
+      },
+      {
+        "comment": "",
+        "key": "Expired",
+        "location": {
+          "startingColumn": 114,
+          "startingLine": 736
+        }
+      },
+      {
+        "comment": "",
+        "key": "No rewards yet!",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 760
+        }
+      },
+      {
+        "comment": "",
+        "key": "Keep using the app to earn rewards for your progress.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 764
+        }
+      }
+    ]
+  },
+  "version": 1
+}

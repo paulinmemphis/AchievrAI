@@ -2,7 +2,7 @@
 import SwiftUI
 
 // MARK: - Helper Row View
-struct PromptFeedbackRowView {
+struct PromptFeedbackRowView: View {
     let entry: JournalEntry
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,7 +23,7 @@ struct PromptFeedbackRowView {
 }
 
 // MARK: - Main Content View
-struct PromptFeedbackView {
+struct PromptFeedbackView: View {
     @EnvironmentObject var journalStore: JournalStore
     @EnvironmentObject var analyzer: MetacognitiveAnalyzer
     @EnvironmentObject var parentalControlManager: ParentalControlManager

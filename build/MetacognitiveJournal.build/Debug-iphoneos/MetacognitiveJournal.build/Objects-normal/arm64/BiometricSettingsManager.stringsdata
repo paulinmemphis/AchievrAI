@@ -1,0 +1,64 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricSettingsManager.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Security Settings",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Biometric Login",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set/Update Fallback PIN",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save PIN",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 77
+        }
+      },
+      {
+        "comment": "",
+        "key": "Saved",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your fallback PIN was updated.",
+        "location": {
+          "startingColumn": 55,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 119,
+          "startingLine": 84
+        }
+      }
+    ]
+  },
+  "version": 1
+}

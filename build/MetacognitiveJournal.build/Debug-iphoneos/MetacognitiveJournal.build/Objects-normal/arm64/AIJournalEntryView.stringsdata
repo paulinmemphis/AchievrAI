@@ -1,0 +1,168 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AIJournalEntryView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "New Journal Entry",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 57
+        }
+      },
+      {
+        "comment": "",
+        "key": "Next",
+        "location": {
+          "startingColumn": 59,
+          "startingLine": 66
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save & Create Story",
+        "location": {
+          "startingColumn": 68,
+          "startingLine": 66
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generating your next chapter...",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "Chapter Generation Failed",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "Dismiss",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "Error",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 165
+        }
+      },
+      {
+        "comment": "",
+        "key": "Could not load chapter data.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 167
+        }
+      },
+      {
+        "comment": "",
+        "key": "Dismiss",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 168
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue",
+        "location": {
+          "startingColumn": 58,
+          "startingLine": 181
+        }
+      },
+      {
+        "comment": "",
+        "key": "Assignment Details",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 195
+        }
+      },
+      {
+        "comment": "",
+        "key": "Assignment Name",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 196
+        }
+      },
+      {
+        "comment": "",
+        "key": "Course Name",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "Subject",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 198
+        }
+      },
+      {
+        "comment": "",
+        "key": "How did you feel about this assignment?",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 209
+        }
+      },
+      {
+        "comment": "",
+        "key": "What learning strategies did you use?",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 232
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tone: %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 260
+        }
+      },
+      {
+        "comment": "",
+        "key": "Insights:\n%@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 261
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generating insights...",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 256
+        }
+      }
+    ]
+  },
+  "version": 1
+}

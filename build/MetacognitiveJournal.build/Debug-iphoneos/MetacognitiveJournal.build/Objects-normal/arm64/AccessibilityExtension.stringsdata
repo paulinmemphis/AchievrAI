@@ -1,0 +1,16 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AccessibilityExtension.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Say '%@' to interact with this element",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 121
+        }
+      }
+    ]
+  },
+  "version": 1
+}

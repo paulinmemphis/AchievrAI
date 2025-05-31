@@ -3,9 +3,9 @@ import AVFoundation
 import Speech
 import SwiftUI // Added for ObservableObject
 
-// MARK: - Audio Recorder Class
-// TODO: Consider making this a singleton or EnvironmentObject if shared state is needed across the app.
-class AudioRecorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
+// MARK: - Audio Service Class
+// Provides audio recording and transcription services for the app
+class AudioService: NSObject, ObservableObject, AVAudioRecorderDelegate {
     private var audioRecorder: AVAudioRecorder?
     private var audioURL: URL?
     private let speechRecognizer = SFSpeechRecognizer()
@@ -75,25 +75,27 @@ class AudioRecorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
         let request = SFSpeechURLRecognitionRequest(url: url)
 
         recognizer.recognitionTask(with: request) { (result, error) in
-            // Always cleanup the audio file after recognition attempt
-            defer { self.cleanupAudioFile(clearRecorder: false) } // Don't clear recorder here, might be needed elsewhere
-
+            // Don't clean up the audio file until we have the final result
+            // This ensures the recognition continues until completion
+            
             if let error = error {
+                self.cleanupAudioFile(clearRecorder: false) // Clean up on error
                 completion(.failure(error))
                 return
             }
             
             guard let result = result else {
+                self.cleanupAudioFile(clearRecorder: false) // Clean up on nil result
                 completion(.failure(NSError(domain: "AudioRecorderError", code: 4, userInfo: [NSLocalizedDescriptionKey: "Recognition result was nil."])))
                 return
             }
 
-            // Best practice: Report final result
+            // Only report the final result and clean up when done
             if result.isFinal {
-                 completion(.success(result.bestTranscription.formattedString))
-            } 
-            // If you need partial results, handle them here. 
-            // Be careful not to call completion multiple times for a single transcription.
+                self.cleanupAudioFile(clearRecorder: false) // Clean up after getting final result
+                completion(.success(result.bestTranscription.formattedString))
+            }
+            // Don't call completion for partial results - let recognition continue
         }
     }
     

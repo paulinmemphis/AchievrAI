@@ -1,0 +1,32 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeTutorialView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Previous",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Next",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Got it",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 89
+        }
+      }
+    ]
+  },
+  "version": 1
+}

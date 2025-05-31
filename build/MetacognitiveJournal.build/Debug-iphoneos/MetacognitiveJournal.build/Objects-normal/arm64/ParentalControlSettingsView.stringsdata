@@ -1,0 +1,40 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentalControlSettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Parental Settings",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Parental Controls",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 13
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Parent Mode",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter or Reset PIN",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 17
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -8,19 +8,22 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
     private var recognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     
-    var onResult: (String) -> Void
+    // Store the binding to update the text directly - now optional
+    private var textBinding: Binding<String>?
     
-    init(onResult: @escaping (String) -> Void) {
+    // Default initializer
+    override init() {
         self.speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
-        self.onResult = onResult
-        
         super.init()
-        
         speechRecognizer?.delegate = self
-        
-        SFSpeechRecognizer.requestAuthorization { status in
-            // Handle authorization status
-        }
+        // Request authorization when the object is created
+        SFSpeechRecognizer.requestAuthorization { _ in /* Handle status appropriately */ }
+    }
+    
+    // Method to configure the binding after initialization
+    func configure(textBinding: Binding<String>) {
+        // Ensure this is called before recognition starts
+        self.textBinding = textBinding
     }
     
     func startRecording() {
@@ -57,7 +60,10 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
             var isFinal = false
             
             if let result = result {
-                self?.onResult(result.bestTranscription.formattedString)
+                // Update the binding's wrapped value on the main thread
+                DispatchQueue.main.async {
+                    self?.textBinding?.wrappedValue = result.bestTranscription.formattedString
+                }
                 isFinal = result.isFinal
             }
             

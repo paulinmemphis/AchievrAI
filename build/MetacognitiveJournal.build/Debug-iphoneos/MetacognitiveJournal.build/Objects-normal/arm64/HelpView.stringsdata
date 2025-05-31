@@ -1,0 +1,64 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/HelpView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Help & Onboarding",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 56
+        }
+      },
+      {
+        "comment": "",
+        "key": "Getting Started",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 9
+        }
+      },
+      {
+        "comment": "",
+        "key": "Story Features",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "FAQs",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Welcome to Metacognitive Journal",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "Transform your journal entries into a personalized story",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 231
+        }
+      },
+      {
+        "comment": "",
+        "key": "Select a topic from the menu to learn more",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 250
+        }
+      }
+    ]
+  },
+  "version": 1
+}

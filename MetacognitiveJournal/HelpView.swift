@@ -1,54 +1,53 @@
 import SwiftUI
 
 struct HelpView: View {
-    @State private var selectedTopic: HelpTopic? = nil
     @EnvironmentObject private var themeManager: ThemeManager
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 Section(header: Text("Getting Started")) {
-                    NavigationLink(destination: HelpDetailView(topic: .newEntry), tag: HelpTopic.newEntry, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.newEntry) {
                         HelpRow(icon: "pencil.circle.fill", title: "Creating Journal Entries")
                     }
                     
-                    NavigationLink(destination: HelpDetailView(topic: .storyGeneration), tag: HelpTopic.storyGeneration, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.storyGeneration) {
                         HelpRow(icon: "book.fill", title: "Generating Story Chapters")
                     }
                     
-                    NavigationLink(destination: HelpDetailView(topic: .storyMap), tag: HelpTopic.storyMap, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.storyMap) {
                         HelpRow(icon: "map.fill", title: "Exploring Your Story Map")
                     }
                     
-                    NavigationLink(destination: HelpDetailView(topic: .reminders), tag: HelpTopic.reminders, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.reminders) {
                         HelpRow(icon: "bell.fill", title: "Setting Journal Reminders")
                     }
                 }
                 
                 Section(header: Text("Story Features")) {
-                    NavigationLink(destination: HelpDetailView(topic: .genres), tag: HelpTopic.genres, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.genres) {
                         HelpRow(icon: "theatermasks.fill", title: "Understanding Story Genres")
                     }
                     
-                    NavigationLink(destination: HelpDetailView(topic: .arcs), tag: HelpTopic.arcs, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.arcs) {
                         HelpRow(icon: "chart.line.uptrend.xyaxis", title: "Narrative Arcs and Themes")
                     }
                     
-                    NavigationLink(destination: HelpDetailView(topic: .export), tag: HelpTopic.export, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.export) {
                         HelpRow(icon: "square.and.arrow.up", title: "Exporting Your Story")
                     }
                 }
                 
                 Section(header: Text("FAQs")) {
-                    NavigationLink(destination: HelpDetailView(topic: .privacy), tag: HelpTopic.privacy, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.privacy) {
                         HelpRow(icon: "lock.shield.fill", title: "Privacy and Data Storage")
                     }
                     
-                    NavigationLink(destination: HelpDetailView(topic: .ai), tag: HelpTopic.ai, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.ai) {
                         HelpRow(icon: "cpu", title: "How the AI Works")
                     }
                     
-                    NavigationLink(destination: HelpDetailView(topic: .troubleshooting), tag: HelpTopic.troubleshooting, selection: $selectedTopic) {
+                    NavigationLink(value: HelpTopic.troubleshooting) {
                         HelpRow(icon: "wrench.fill", title: "Troubleshooting")
                     }
                 }
@@ -56,9 +55,9 @@ struct HelpView: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Help & Onboarding")
             .background(themeManager.selectedTheme.backgroundColor.edgesIgnoringSafeArea(.all))
-            
-            // Default view when no topic is selected
-            WelcomeHelpView()
+            .navigationDestination(for: HelpTopic.self) { topic in
+                HelpDetailView(topic: topic)
+            }
         }
     }
 }

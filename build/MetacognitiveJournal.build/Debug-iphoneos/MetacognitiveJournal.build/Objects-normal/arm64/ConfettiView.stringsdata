@@ -1,0 +1,64 @@
+{
+  "source": "/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ConfettiView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "🎉",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "🎉",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "⭐️",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "🎈",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "✨",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "🎊",
+        "location": {
+          "startingColumn": 56,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "🎉",
+        "location": {
+          "startingColumn": 83,
+          "startingLine": 120
+        }
+      }
+    ]
+  },
+  "version": 1
+}

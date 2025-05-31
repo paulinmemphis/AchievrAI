@@ -15,6 +15,14 @@ struct MoreView: View {
     @EnvironmentObject var appLockManager: AppLockManager
     // Access ThemeManager for UI styling
     @EnvironmentObject var themeManager: ThemeManager
+    // Access JournalStore for ParentAccessGateView
+    @EnvironmentObject var journalStore: JournalStore
+    // Access MetacognitiveAnalyzer for ParentAccessGateView
+    @EnvironmentObject var analyzer: MetacognitiveAnalyzer
+    // Access AINudgeManager for ParentAccessGateView
+    @EnvironmentObject var aiNudgeManager: AINudgeManager
+    // Access UserProfile for ParentAccessGateView
+    @EnvironmentObject var userProfile: UserProfile
     
     // State for presenting settings
     @State private var showingSettings = false
@@ -37,6 +45,21 @@ struct MoreView: View {
                             .navigationTitle("About")
                     } label: {
                         Label("About", systemImage: "info.circle")
+                    }
+                }
+                
+                Section("Parents") {
+                    // Link to Parent Dashboard
+                    NavigationLink {
+                        ParentAccessGateView()
+                            .environmentObject(journalStore)
+                            .environmentObject(analyzer)
+                            .environmentObject(themeManager)
+                            .environmentObject(aiNudgeManager)
+                            .environmentObject(userProfile)
+                            .environmentObject(parentalControlManager)
+                    } label: {
+                        Label("Parent Dashboard", systemImage: "person.2.fill")
                     }
                 }
                 

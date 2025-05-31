@@ -15,13 +15,16 @@ import SwiftUI
 /// to SwiftUI views.
 class JournalStore: ObservableObject {
     /// The array of journal entries managed by the store. Published to update SwiftUI views upon changes.
-    @Published private(set) var entries: [JournalEntry] = []
+    @Published private(set) var entries: [MetacognitiveJournal.JournalEntry] = []
     
     /// The status of the sync operation. Published to update SwiftUI views upon changes.
     @Published var syncStatus: SyncStatus = .idle
     
     /// The last error that occurred during a sync operation. Published to update SwiftUI views upon changes.
     @Published var lastError: String? = nil
+    
+    /// Reference to the gamification manager for recording journal entry achievements
+    private var gamificationManager: GamificationManager?
     
     /// Enum representing the different sync statuses.
     enum SyncStatus: String {
@@ -33,11 +36,41 @@ class JournalStore: ObservableObject {
     }
 
     /// Initializes the JournalStore and loads existing entries from storage.
-    init(entries: [JournalEntry] = []) {
+    init(entries: [MetacognitiveJournal.JournalEntry] = []) {
         self.entries = entries
         setupNotificationObservers()
         _ = loadEntries()
         startObservingiCloudSync()
+        
+        // Delay connecting to the gamification manager until after the app is fully initialized
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.connectToGamificationManager()
+        }
+    }
+    
+    /// Connects to the GamificationManager through the environment
+    private func connectToGamificationManager() {
+        // Find the GamificationManager from the shared environment
+        if let appDelegate = UIApplication.shared.delegate as? UIApplicationDelegate,
+           let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? UIWindowSceneDelegate,
+           let rootController = sceneDelegate.window??.rootViewController {
+            
+            // Try to find GamificationManager in the environment
+            let mirror = Mirror(reflecting: rootController)
+            for child in mirror.children {
+                if let environmentObjects = child.value as? [String: Any] {
+                    for (_, value) in environmentObjects {
+                        if let gamificationManager = value as? GamificationManager {
+                            self.gamificationManager = gamificationManager
+                            print("[JournalStore] Successfully connected to GamificationManager")
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        
+        print("[JournalStore] Warning: Could not connect to GamificationManager")
     }
     
     /// Sets up notification observers for journal entry save and load events.
@@ -66,8 +99,11 @@ class JournalStore: ObservableObject {
     /// Adds or updates an entry. New entries are inserted at the front.
     ///
     /// - Parameter entry: The `JournalEntry` to add or update.
-    func saveEntry(_ entry: JournalEntry) {
+    func saveEntry(_ entry: MetacognitiveJournal.JournalEntry) {
         syncStatus = .saving
+        // Check if this is a new entry or an update
+        let isNewEntry = !entries.contains(where: { $0.id == entry.id })
+        
         // Remove existing entry with same ID if present
         entries.removeAll { $0.id == entry.id }
         // Insert updated/new entry at the top
@@ -81,6 +117,11 @@ class JournalStore: ObservableObject {
             if success {
                 DispatchQueue.main.async {
                     self.syncToiCloud()
+                    
+                    // Record the journal entry in the gamification system if it's a new entry
+                    if isNewEntry {
+                        self.recordJournalEntryForGamification()
+                    }
                 }
             }
         }
@@ -92,17 +133,31 @@ class JournalStore: ObservableObject {
     ///   - entry: The `JournalEntry` to update.
     ///   - audioURL: The URL of the audio file.
     ///   - transcription: The transcription of the audio.
-    func saveEntry(_ entry: JournalEntry, audioURL: URL?, transcription: String) {
+    func saveEntry(_ entry: MetacognitiveJournal.JournalEntry, audioURL: URL?, transcription: String) {
         var updated = entry
         updated.audioURL = audioURL
         updated.transcription = transcription
         saveEntry(updated)
     }
+    
+    /// Records a journal entry completion in the gamification system
+    private func recordJournalEntryForGamification() {
+        // Get the gamification manager from the environment if not already connected
+        if gamificationManager == nil {
+            connectToGamificationManager()
+        }
+        
+        // Record the journal entry in the gamification system
+        DispatchQueue.main.async { [weak self] in
+            self?.gamificationManager?.recordJournalEntry()
+            print("[JournalStore] Recorded journal entry in gamification system")
+        }
+    }
 
     /// Updates an existing entry in place.
     ///
     /// - Parameter entry: The `JournalEntry` containing the updated data and the ID of the entry to update.
-    func updateEntry(_ entry: JournalEntry) {
+    func updateEntry(_ entry: MetacognitiveJournal.JournalEntry) {
         if let idx = entries.firstIndex(where: { $0.id == entry.id }) {
             syncStatus = .saving
             entries[idx] = entry
@@ -118,7 +173,7 @@ class JournalStore: ObservableObject {
                         self.syncStatus = .error
                         self.lastError = "Failed to update entry."
                         let error = NSError(domain: "JournalStore", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to update entry."])
-                        ErrorHandler.shared.handle(error, type: { _ in AppError.persistence })
+                        ErrorHandler.shared.handle(error, type: { _ in JournalAppError.persistence })
                     }
                 }
             }
@@ -143,7 +198,39 @@ class JournalStore: ObservableObject {
                     self.syncStatus = .error
                     self.lastError = "Failed to delete entry."
                     let error = NSError(domain: "JournalStore", code: 2, userInfo: [NSLocalizedDescriptionKey: "Failed to delete entry."])
-                    ErrorHandler.shared.handle(error, type: { _ in AppError.persistence })
+                    ErrorHandler.shared.handle(error, type: { _ in JournalAppError.persistence })
+                }
+            }
+        }
+    }
+    
+    /// Deletes multiple entries by their IDs with a single save operation.
+    ///
+    /// - Parameter entryIDs: Array of entry IDs to delete.
+    public func batchDeleteEntries(_ entryIDs: [UUID]) {
+        // Skip if no entries to delete
+        if entryIDs.isEmpty { return }
+        
+        syncStatus = .saving
+        
+        // Remove all entries with matching IDs
+        for entryID in entryIDs {
+            entries.removeAll { $0.id == entryID }
+        }
+        
+        // Perform a single save operation for all deletions
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            let success = self.persistEntries()
+            
+            DispatchQueue.main.async {
+                if success {
+                    self.syncToiCloud()
+                } else {
+                    self.syncStatus = .error
+                    self.lastError = "Failed to delete entries."
+                    let error = NSError(domain: "JournalStore", code: 2, userInfo: [NSLocalizedDescriptionKey: "Failed to delete entries."])
+                    ErrorHandler.shared.handle(error, type: { _ in JournalAppError.persistence })
                 }
             }
         }
@@ -157,7 +244,7 @@ class JournalStore: ObservableObject {
     /// Updates entries with a new array (used for sync operations).
     ///
     /// - Parameter newEntries: The new array of `JournalEntry` objects.
-    func updateEntries(_ newEntries: [JournalEntry]) {
+    func updateEntries(_ newEntries: [MetacognitiveJournal.JournalEntry]) {
         self.entries = newEntries
     }
 
@@ -165,9 +252,9 @@ class JournalStore: ObservableObject {
 
     /// Static preview instance for SwiftUI previews and testing.
     static let preview: JournalStore = {
-        let store = JournalStore()
+        // Define sample entries first
         let sampleEntries = [
-            JournalEntry(
+            MetacognitiveJournal.JournalEntry(
                 id: UUID(),
                 assignmentName: "Math Homework",
                 date: Date(),
@@ -179,7 +266,7 @@ class JournalStore: ObservableObject {
                 transcription: nil as String?,
                 audioURL: nil as URL?
             ),
-            JournalEntry(
+            MetacognitiveJournal.JournalEntry(
                 id: UUID(),
                 assignmentName: "Science Project",
                 date: Date().addingTimeInterval(-86400), // Yesterday
@@ -192,7 +279,11 @@ class JournalStore: ObservableObject {
                 audioURL: nil as URL?
             )
         ]
-        store.updateEntries(sampleEntries)
+        // Initialize the store directly with the sample entries
+        // This hopefully bypasses loadEntries/startObservingiCloudSync in init
+        let store = JournalStore(entries: sampleEntries)
+        // Remove the redundant updateEntries call
+        // store.updateEntries(sampleEntries)
         return store
     }()
 }

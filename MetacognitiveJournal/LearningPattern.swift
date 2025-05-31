@@ -1,6 +1,12 @@
 import Foundation
 
-enum LearningPattern: String, Codable, CaseIterable, Hashable {
+// This file is kept for backward compatibility
+// All models are now defined in MCJModels.swift
+
+// Note: This is a different type than the LearningPattern in MCJModels.swift
+// To avoid ambiguity, this type has been renamed to LearningStylePattern
+
+enum LearningStylePattern: String, Codable, CaseIterable, Hashable {
     case visualLearner
     case auditoryLearner
     case handsonLearner

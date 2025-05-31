@@ -1,6 +1,9 @@
 // StoryVisualizationComponents.swift
 import SwiftUI
 
+// Use the shared StoryNode type directly
+import Foundation
+
 /// Defines the different visualization modes for story content
 enum StoryViewMode: String, CaseIterable, Identifiable {
     case map = "Map"
@@ -109,12 +112,12 @@ struct StoryFilterBar: View {
 /// A timeline visualization for story nodes
 struct StoryTimelineView: View {
     let storyNodes: [StoryNode]
-    let onSelectNode: (UUID) -> Void
+    let onSelectNode: (String) -> Void
     @EnvironmentObject private var themeManager: ThemeManager
     
     // Order story nodes chronologically
     var sortedNodes: [StoryNode] {
-        storyNodes.sorted { $0.timestamp < $1.timestamp }
+        storyNodes.sorted { $0.createdAt < $1.createdAt }
     }
     
     var body: some View {
@@ -129,13 +132,20 @@ struct StoryTimelineView: View {
         }
     }
     
+    private func getSentimentLabel(from score: Double?) -> String {
+        guard let s = score else { return "neutral" } // Default if score is nil
+        if s > 0.25 { return "positive" }
+        if s < -0.25 { return "negative" }
+        return "neutral"
+    }
+
     // Timeline entry for a single node
     private func timelineItem(for node: StoryNode, index: Int, isLast: Bool) -> some View {
         HStack(alignment: .top, spacing: 0) {
             // Timeline connector
             VStack {
                 Circle()
-                    .fill(sentimentColor(for: node.metadata.sentiment))
+                    .fill(sentimentColor(for: getSentimentLabel(from: node.metadataSnapshot?.sentimentScore)))
                     .frame(width: 16, height: 16)
                 
                 if !isLast {
@@ -150,7 +160,7 @@ struct StoryTimelineView: View {
             VStack(alignment: .leading, spacing: 8) {
                 // Date and title
                 HStack {
-                    Text(node.timestamp, style: .date)
+                    Text(node.createdAt, style: .date)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
@@ -161,16 +171,16 @@ struct StoryTimelineView: View {
                         .fontWeight(.bold)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
-                        .background(sentimentColor(for: node.metadata.sentiment).opacity(0.2))
+                        .background(sentimentColor(for: getSentimentLabel(from: node.metadataSnapshot?.sentimentScore)).opacity(0.2))
                         .cornerRadius(8)
                 }
                 
                 // Content card
                 VStack(alignment: .leading, spacing: 10) {
                     // Themes
-                    if !node.metadata.themes.isEmpty {
+                    if let themes = node.metadataSnapshot?.themes, !themes.isEmpty {
                         HStack {
-                            ForEach(node.metadata.themes.prefix(2), id: \.self) { theme in
+                            ForEach(themes.prefix(2), id: \.self) { theme in
                                 Text(theme)
                                     .font(.caption2)
                                     .padding(.horizontal, 6)
@@ -182,11 +192,13 @@ struct StoryTimelineView: View {
                     }
                     
                     // Preview of text
-                    Text(node.chapter.cliffhanger)
-                        .font(.body)
-                        .italic()
-                        .lineLimit(2)
-                        .foregroundColor(.primary)
+                    if let chapter = StoryPersistenceManager.shared.getChapter(id: node.chapterId) {
+                        Text(chapter.cliffhanger ?? "")
+                            .font(.body)
+                            .italic()
+                            .lineLimit(2)
+                            .foregroundColor(.primary)
+                    }
                     
                     Button(action: {
                         onSelectNode(node.id)
@@ -226,12 +238,12 @@ struct StoryTimelineView: View {
 /// A list visualization for story nodes
 struct StoryListView: View {
     let storyNodes: [StoryNode]
-    let onSelectNode: (UUID) -> Void
+    let onSelectNode: (String) -> Void
     @EnvironmentObject private var themeManager: ThemeManager
     
     // Order story nodes chronologically
     var sortedNodes: [StoryNode] {
-        storyNodes.sorted { $0.timestamp < $1.timestamp }
+        storyNodes.sorted { $0.createdAt < $1.createdAt }
     }
     
     var body: some View {
@@ -249,6 +261,13 @@ struct StoryListView: View {
         .listStyle(PlainListStyle())
     }
     
+    private func getSentimentLabel(from score: Double?) -> String {
+        guard let s = score else { return "neutral" } // Default if score is nil
+        if s > 0.25 { return "positive" }
+        if s < -0.25 { return "negative" }
+        return "neutral"
+    }
+
     // List item for a single node
     private func listItem(for node: StoryNode, index: Int) -> some View {
         HStack(spacing: 12) {
@@ -258,27 +277,29 @@ struct StoryListView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(width: 36, height: 36)
-                    .background(sentimentColor(for: node.metadata.sentiment))
+                    .background(sentimentColor(for: getSentimentLabel(from: node.metadataSnapshot?.sentimentScore)))
                     .clipShape(Circle())
             }
             
             // Content
             VStack(alignment: .leading, spacing: 4) {
                 // Date
-                Text(node.timestamp, style: .date)
+                Text(node.createdAt, style: .date)
                     .font(.caption)
                     .foregroundColor(.secondary)
                 
                 // Cliffhanger preview
-                Text(node.chapter.cliffhanger)
-                    .font(.subheadline)
-                    .foregroundColor(.primary)
-                    .lineLimit(2)
+                if let chapter = StoryPersistenceManager.shared.getChapter(id: node.chapterId) {
+                    Text(chapter.cliffhanger ?? "")
+                        .font(.subheadline)
+                        .foregroundColor(.primary)
+                        .lineLimit(2)
+                }
                 
                 // Themes
-                if !node.metadata.themes.isEmpty {
+                if let themes = node.metadataSnapshot?.themes, !themes.isEmpty {
                     HStack {
-                        ForEach(node.metadata.themes.prefix(3), id: \.self) { theme in
+                        ForEach(themes.prefix(3), id: \.self) { theme in
                             Text(theme)
                                 .font(.caption2)
                                 .padding(.horizontal, 6)

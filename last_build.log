@@ -1,0 +1,670 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -scheme MetacognitiveJournal -destination "platform=iOS Simulator,id=095EB937-2021-4B27-BED7-C62E487F2FC3" build
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'MetacognitiveJournal' in project 'MetacognitiveJournal' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.4.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 8e06a2fb7f87b4c5a134ba88bf223048
+Build description path: /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/XCBuildData/8e06a2fb7f87b4c5a134ba88bf223048.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.4.sdk /Users/paul/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.4-22E235-71825a6d136aa4733edcbe86ece5525b.sdkstatcache
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.4.sdk -o /Users/paul/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.4-22E235-71825a6d136aa4733edcbe86ece5525b.sdkstatcache
+
+WriteAuxiliaryFile /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.LinkFileList (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    write-file /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.LinkFileList
+
+WriteAuxiliaryFile /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.SwiftConstValuesFileList (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    write-file /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.SwiftFileList (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    write-file /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.SwiftFileList
+
+ProcessInfoPlistFile /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator/MetacognitiveJournal.app/Info.plist /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Info.plist (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    builtin-infoPlistUtility /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator/MetacognitiveJournal.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/assetcatalog_generated_info.plist -o /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator/MetacognitiveJournal.app/Info.plist
+
+SwiftDriver MetacognitiveJournal normal arm64 com.apple.xcode.tools.swift.compiler (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name MetacognitiveJournal -Onone -enforce-exclusivity\=checked @/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.4.sdk -target arm64-apple-ios18.4-simulator -g -module-cache-path /Users/paul/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Index.noindex/DataStore -swift-version 5 -I /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator -F /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64 -c -j12 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/paul/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.4-22E235-71825a6d136aa4733edcbe86ece5525b.sdkstatcache -output-file-map /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/paul/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal_const_extract_protocols.json -Xcc -iquote -Xcc /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/MetacognitiveJournal-generated-files.hmap -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/MetacognitiveJournal-own-target-headers.hmap -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/MetacognitiveJournal-all-target-headers.hmap -Xcc -iquote -Xcc /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/MetacognitiveJournal-project-headers.hmap -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources-normal/arm64 -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources/arm64 -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal-Swift.h -working-directory /Users/paul/Documents/AchievrAI/MetacognitiveJournal -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ AIJournalEntryView.swift,\ AINudgeManager.swift,\ EncryptionManager.swift,\ StoryVisualizationComponents.swift,\ PasswordSetupView.swift,\ ThemeSettingsView.swift,\ PromptPersonalizationManager.swift,\ NarrativeDataModels.swift,\ VoiceJournalViewModel+Save.swift,\ SecureAPIClient.swift,\ JournalStore.swift,\ SentimentScore.swift,\ MascotView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AIJournalEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AINudgeManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EncryptionManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryVisualizationComponents.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PasswordSetupView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ThemeSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptPersonalizationManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeDataModels.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalViewModel+Save.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureAPIClient.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SentimentScore.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MascotView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AIJournalEntryView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AINudgeManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EncryptionManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryVisualizationComponents.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PasswordSetupView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ThemeSettingsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptPersonalizationManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeDataModels.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalViewModel+Save.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureAPIClient.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SentimentScore.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MascotView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ PromptResponse.swift,\ HelpView.swift,\ HowDidYouFeelSectionView.swift,\ IdentifiableUUID.swift,\ InputValidator.swift,\ NarrativeTutorialView.swift,\ WeeklyFeedback.swift,\ SecureLogger.swift,\ ErrorHandler.swift,\ JournalStore+Persistence.swift,\ AppLockSettingsView.swift,\ SettingsView.swift,\ AITipView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptResponse.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/HelpView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/HowDidYouFeelSectionView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/IdentifiableUUID.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/InputValidator.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeTutorialView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyFeedback.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureLogger.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Utils/ErrorHandler.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore+Persistence.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppLockSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AITipView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptResponse.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/HelpView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/HowDidYouFeelSectionView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/IdentifiableUUID.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/InputValidator.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeTutorialView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyFeedback.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureLogger.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Utils/ErrorHandler.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore+Persistence.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppLockSettingsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SettingsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AITipView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ AppError.swift,\ AppIntegrityValidator.swift,\ AppLockManager.swift,\ JournalStore+iCloudSync.swift,\ ServerConfig.swift,\ OnboardingAccountSetup.swift,\ MetacognitiveAnalyzer.swift,\ StoryMapView.swift,\ ParentDashboardView.swift,\ StudentOnboardingView.swift,\ EnhancedStoryMapViewModel.swift,\ PermissionRationaleView.swift,\ UserProfile.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppError.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppIntegrityValidator.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppLockManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore+iCloudSync.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ServerConfig.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingAccountSetup.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MetacognitiveAnalyzer.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMapView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentDashboardView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StudentOnboardingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedStoryMapViewModel.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PermissionRationaleView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/UserProfile.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppError.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppIntegrityValidator.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppLockManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore+iCloudSync.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ServerConfig.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingAccountSetup.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MetacognitiveAnalyzer.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMapView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentDashboardView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StudentOnboardingView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedStoryMapViewModel.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PermissionRationaleView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/UserProfile.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ PasswordEntryView.swift,\ ThemeManager.swift,\ PromptMetaData.swift,\ NarrativeAPIService.swift,\ VoiceJournalViewModel.swift,\ SecretManager.swift,\ JournalRowView.swift,\ SentimentMeterView.swift,\ LogLevel.swift,\ StatsView.swift,\ APISecurityManager.swift,\ ParentalControlManager.swift,\ GenreSelectionView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PasswordEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ThemeManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptMetaData.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeAPIService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalViewModel.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecretManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalRowView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SentimentMeterView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LogLevel.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/APISecurityManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentalControlManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GenreSelectionView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PasswordEntryView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ThemeManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptMetaData.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeAPIService.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalViewModel.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecretManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalRowView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SentimentMeterView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LogLevel.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/APISecurityManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentalControlManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GenreSelectionView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ Documentation.swift,\ ParentOnboardingView.swift,\ SwiftUI+Extensions.swift,\ ErrorBanner.swift,\ PrivacyPolicyView.swift,\ VoiceJournalEntryView.swift,\ ReflectionSectionView.swift,\ NewEntryView.swift,\ JournalEntry.swift,\ WeeklyInsightsView.swift,\ AICoach.swift,\ KeychainManager.swift,\ SpeechRecognizer.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Documentation.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentOnboardingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SwiftUI+Extensions.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ErrorBanner.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PrivacyPolicyView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ReflectionSectionView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NewEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntry.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyInsightsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AICoach.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/KeychainManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SpeechRecognizer.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Documentation.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentOnboardingView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SwiftUI+Extensions.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ErrorBanner.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PrivacyPolicyView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalEntryView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ReflectionSectionView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NewEntryView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntry.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyInsightsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AICoach.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/KeychainManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SpeechRecognizer.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ OnboardingView.swift,\ GamificationManager.swift,\ StoryPreferencesManager.swift,\ EmotionalStateButton.swift,\ ParentPINSetupView.swift,\ TeacherOnboardingView.swift,\ MetacognitiveJournalApp.swift,\ PromptFeedbackView.swift,\ MoreView.swift,\ VoiceJournalView.swift,\ SecurityService.swift,\ SyncService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GamificationManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryPreferencesManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmotionalStateButton.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentPINSetupView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TeacherOnboardingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MetacognitiveJournalApp.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptFeedbackView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MoreView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/SecurityService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/SyncService.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GamificationManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryPreferencesManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmotionalStateButton.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentPINSetupView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TeacherOnboardingView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MetacognitiveJournalApp.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptFeedbackView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MoreView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/SecurityService.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/SyncService.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ OnboardingIllustrations.swift,\ SceneDelegate.swift,\ ChapterView.swift,\ ConfettiView.swift,\ ContentView.swift,\ DateFormatterCache.swift,\ StoryMapVisualTester_Fixed.swift,\ ParentInsightsView.swift,\ SubjectsView.swift,\ EntryDetailsSectionView.swift,\ PermissionUtils.swift,\ VoiceJournalAudioManager.swift,\ PromptView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingIllustrations.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SceneDelegate.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ChapterView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ConfettiView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/DateFormatterCache.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMapVisualTester_Fixed.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentInsightsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SubjectsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EntryDetailsSectionView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PermissionUtils.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalAudioManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingIllustrations.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SceneDelegate.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ChapterView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ConfettiView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/DateFormatterCache.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMapVisualTester_Fixed.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentInsightsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SubjectsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EntryDetailsSectionView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PermissionUtils.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalAudioManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ MetacognitiveJournal (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -emit-module -experimental-skip-non-inlinable-function-bodies-without-types /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PasswordEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ThemeManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptMetaData.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeAPIService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalViewModel.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecretManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalRowView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SentimentMeterView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LogLevel.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/APISecurityManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentalControlManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GenreSelectionView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AIJournalEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AINudgeManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EncryptionManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryVisualizationComponents.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PasswordSetupView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ThemeSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptPersonalizationManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeDataModels.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalViewModel+Save.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureAPIClient.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SentimentScore.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MascotView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryExportManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentalControlSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NLPOperations.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StudentFeedbackGenerator.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedStoryMapView_Fixed.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PerformanceMonitor.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TutorialOverlay.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptPersonalizationView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeReminderManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyBanner.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureJournalStore.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppConstants.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppDelegate.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppError.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppIntegrityValidator.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppLockManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore+iCloudSync.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ServerConfig.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingAccountSetup.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MetacognitiveAnalyzer.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMapView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentDashboardView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StudentOnboardingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedStoryMapViewModel.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PermissionRationaleView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/UserProfile.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptResponse.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/HelpView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/HowDidYouFeelSectionView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/IdentifiableUUID.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/InputValidator.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeTutorialView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyFeedback.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureLogger.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Utils/ErrorHandler.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalStore+Persistence.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppLockSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AITipView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingIllustrations.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SceneDelegate.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ChapterView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ConfettiView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/DateFormatterCache.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMapVisualTester_Fixed.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentInsightsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SubjectsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EntryDetailsSectionView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PermissionUtils.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalAudioManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NetworkErrorManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/InsightsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyInsightsBannerModifier.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureNetworkManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AccessibilityExtension.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AccessibilityIdentifiers.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/K12Subject.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppSecurityMonitor.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ShareSheet.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingPagerView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SearchView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMetadataInsightsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Documentation.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentOnboardingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SwiftUI+Extensions.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ErrorBanner.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PrivacyPolicyView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ReflectionSectionView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NewEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntry.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyInsightsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AICoach.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/KeychainManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SpeechRecognizer.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsTypes.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingSupportLinks.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ExportManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ExportWarningView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/FlowLayout.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryPersistenceManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmotionalState.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentPINEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TamperResistantViewController.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ErrorView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ProfileSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MoodTrendBarChart.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/RemindersManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NewEntryViewModel.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntryDetailView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WordCloudView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecurityPrivacySummaryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/CacheService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LearningPattern.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AudioService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatCard.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricLoginView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricSettingsManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GamificationManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryPreferencesManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmotionalStateButton.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentPINSetupView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TeacherOnboardingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MetacognitiveJournalApp.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptFeedbackView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MoreView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/SecurityService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/SyncService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/RemindersSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecurityUtils.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LoadingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricAuthManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatCardView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/APIRateLimiter.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentAccessGateView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GamificationView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryReadingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmptyInsightsView.swift /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources/GeneratedAssetSymbols.swift -target arm64-apple-ios18.4-simulator -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.4.sdk -I /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator -F /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator -no-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -module-cache-path /Users/paul/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -profile-generate -profile-coverage-mapping -swift-version 5 -enforce-exclusivity\=checked -Onone -D DEBUG -serialize-debugging-options -const-gather-protocols-file /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal_const_extract_protocols.json -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/paul/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/paul/Documents/AchievrAI/MetacognitiveJournal -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift -enable-anonymous-context-mangled-names -file-compilation-dir /Users/paul/Documents/AchievrAI/MetacognitiveJournal -Xcc -ivfsstatcache -Xcc /Users/paul/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.4-22E235-71825a6d136aa4733edcbe86ece5525b.sdkstatcache -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/swift-overrides.hmap -Xcc -iquote -Xcc /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/MetacognitiveJournal-generated-files.hmap -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/MetacognitiveJournal-own-target-headers.hmap -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/MetacognitiveJournal-all-target-headers.hmap -Xcc -iquote -Xcc /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/MetacognitiveJournal-project-headers.hmap -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources-normal/arm64 -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources/arm64 -Xcc -I/Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources -Xcc -DDEBUG\=1 -module-name MetacognitiveJournal -frontend-parseable-output -disable-clang-spi -target-sdk-version 18.4 -target-sdk-name iphonesimulator18.4 -external-plugin-path /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server -external-plugin-path /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/local/lib/swift/host/plugins\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/local/lib/swift/host/plugins -emit-module-doc-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.swiftdoc -emit-module-source-info-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.swiftsourceinfo -emit-objc-header-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal-Swift.h -serialize-diagnostics-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal-master-emit-module.dia -emit-dependencies-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal-master-emit-module.d -o /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.swiftmodule -emit-abi-descriptor-path /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/Objects-normal/arm64/MetacognitiveJournal.abi.json
+
+EmitSwiftModule normal arm64 (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift:5:5: error: expected declaration
+    @AppStorage("isOnboardingComplete") private var isOnboardingComplete: Bool = false
+    ^
+/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift:4:8: note: in declaration of 'ContentView'
+struct ContentView: View {
+       ^
+/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift:5:5: error: expected '}' in struct
+    @AppStorage("isOnboardingComplete") private var isOnboardingComplete: Bool = false
+    ^
+/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift:4:26: note: to match this opening '{'
+struct ContentView: View {
+                         ^
+/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift:4:8: error: type 'ContentView' does not conform to protocol 'View'
+struct ContentView: View {
+       ^
+/Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ContentView.swift:4:8: note: add stubs for conformance
+struct ContentView: View {
+       ^
+SwiftUICore.View.Body:2:16: note: protocol requires nested type 'Body'
+associatedtype Body : View}
+               ^
+
+SwiftCompile normal arm64 Compiling\ RemindersSettingsView.swift,\ JournalEntryView.swift,\ SecurityUtils.swift,\ LoadingView.swift,\ BiometricAuthManager.swift,\ StatCardView.swift,\ APIRateLimiter.swift,\ ParentAccessGateView.swift,\ GamificationView.swift,\ StoryReadingView.swift,\ EmptyInsightsView.swift,\ GeneratedAssetSymbols.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/RemindersSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecurityUtils.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LoadingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricAuthManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatCardView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/APIRateLimiter.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentAccessGateView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GamificationView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryReadingView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmptyInsightsView.swift /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/RemindersSettingsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntryView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecurityUtils.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LoadingView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricAuthManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatCardView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/APIRateLimiter.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentAccessGateView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/GamificationView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryReadingView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmptyInsightsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Library/Developer/Xcode/DerivedData/MetacognitiveJournal-aqvrhdqubiebcjgegyfmpzqhskgf/Build/Intermediates.noindex/MetacognitiveJournal.build/Debug-iphonesimulator/MetacognitiveJournal.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ RemindersManager.swift,\ NewEntryViewModel.swift,\ JournalEntryDetailView.swift,\ WordCloudView.swift,\ SecurityPrivacySummaryView.swift,\ CacheService.swift,\ LearningPattern.swift,\ AudioService.swift,\ StatCard.swift,\ AnalyticsView.swift,\ BiometricLoginView.swift,\ BiometricSettingsManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/RemindersManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NewEntryViewModel.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntryDetailView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WordCloudView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecurityPrivacySummaryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/CacheService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LearningPattern.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AudioService.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatCard.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricLoginView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricSettingsManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/RemindersManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NewEntryViewModel.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/JournalEntryDetailView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WordCloudView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecurityPrivacySummaryView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/Services/CacheService.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/LearningPattern.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AudioService.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StatCard.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricLoginView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/BiometricSettingsManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ StoryExportManager.swift,\ ParentalControlSettingsView.swift,\ NLPOperations.swift,\ StudentFeedbackGenerator.swift,\ EnhancedStoryMapView_Fixed.swift,\ PerformanceMonitor.swift,\ TutorialOverlay.swift,\ PromptPersonalizationView.swift,\ NarrativeReminderManager.swift,\ WeeklyBanner.swift,\ SecureJournalStore.swift,\ AppConstants.swift,\ AppDelegate.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryExportManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentalControlSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NLPOperations.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StudentFeedbackGenerator.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedStoryMapView_Fixed.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PerformanceMonitor.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TutorialOverlay.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptPersonalizationView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeReminderManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyBanner.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureJournalStore.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppConstants.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppDelegate.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryExportManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentalControlSettingsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NLPOperations.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StudentFeedbackGenerator.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EnhancedStoryMapView_Fixed.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PerformanceMonitor.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TutorialOverlay.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/PromptPersonalizationView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NarrativeReminderManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyBanner.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureJournalStore.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppConstants.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppDelegate.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ NetworkErrorManager.swift,\ InsightsView.swift,\ WeeklyInsightsBannerModifier.swift,\ SecureNetworkManager.swift,\ AccessibilityExtension.swift,\ AccessibilityIdentifiers.swift,\ K12Subject.swift,\ AppSecurityMonitor.swift,\ ShareSheet.swift,\ AnalyticsManager.swift,\ OnboardingPagerView.swift,\ SearchView.swift,\ StoryMetadataInsightsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NetworkErrorManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/InsightsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyInsightsBannerModifier.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureNetworkManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AccessibilityExtension.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AccessibilityIdentifiers.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/K12Subject.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppSecurityMonitor.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ShareSheet.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingPagerView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SearchView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMetadataInsightsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/NetworkErrorManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/InsightsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/WeeklyInsightsBannerModifier.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SecureNetworkManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AccessibilityExtension.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AccessibilityIdentifiers.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/K12Subject.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AppSecurityMonitor.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ShareSheet.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingPagerView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/SearchView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryMetadataInsightsView.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+    cd /Users/paul/Documents/AchievrAI/MetacognitiveJournal
+    
+
+SwiftCompile normal arm64 Compiling\ AnalyticsTypes.swift,\ OnboardingSupportLinks.swift,\ ExportManager.swift,\ ExportWarningView.swift,\ FlowLayout.swift,\ StoryPersistenceManager.swift,\ EmotionalState.swift,\ ParentPINEntryView.swift,\ TamperResistantViewController.swift,\ ErrorView.swift,\ ProfileSettingsView.swift,\ MoodTrendBarChart.swift,\ VoiceJournalManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/AnalyticsTypes.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/OnboardingSupportLinks.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ExportManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ExportWarningView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/FlowLayout.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/StoryPersistenceManager.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/EmotionalState.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ParentPINEntryView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/TamperResistantViewController.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ErrorView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/ProfileSettingsView.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/MoodTrendBarChart.swift /Users/paul/Documents/AchievrAI/MetacognitiveJournal/MetacognitiveJournal/VoiceJournalManager.swift (in target 'MetacognitiveJournal' from project 'MetacognitiveJournal')
+Command SwiftCompile failed with a nonzero exit code
+
